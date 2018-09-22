@@ -16,10 +16,14 @@ Turbolinks.start()
 import WebpackerReact from 'webpacker-react'
 import Home from '../pages/Home'
 import Events from '../pages/Events'
+import Event from '../pages/Event'
 import EventsNew from '../pages/EventsNew'
+import EventsEdit from '../pages/EventsEdit'
 
 WebpackerReact.setup({
   Home,
   Events,
-  EventsNew
+  Event,
+  EventsNew,
+  EventsEdit
 })
