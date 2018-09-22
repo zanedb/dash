@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import styled from 'styled-components'
@@ -17,7 +17,7 @@ const Input = styled.input`
 `
 
 export default () => (
-  <Fragment>
+  <div>
     <a href="/">Home</a> › <a href="/events">Events</a> ›{' '}
     <a href="#">Add Event</a>
     <h1>Add an Event</h1>
@@ -83,5 +83,5 @@ export default () => (
         </Form>
       )}
     />
-  </Fragment>
+  </div>
 )
