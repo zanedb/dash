@@ -4,6 +4,6 @@ class EventsController < ApplicationController
   end
 
   def new
-    render react_component 'pages/EventsNew' # WHYYY DOES THIS RETURN A `NoMethodError` AAAAAAAAA
+    render react_component: 'EventsNew'
   end
 end
