@@ -1,9 +1,9 @@
 import React from 'react'
 
-class Home extends React.Component {
-  render() {
-    return <center>Hi</center>
-  }
-}
-
-export default Home
+export default () => (
+  <div>
+    <h1>H&M</h1>
+    <h3>✨ A next-gen hackathon management system</h3>
+    <a href="/events/new">Create an event</a>
+  </div>
+)
