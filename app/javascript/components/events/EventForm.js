@@ -52,7 +52,7 @@ export default ({ values, url, method }) => {
           .then(res => {
             setSubmitting(false)
             console.log(res)
-            window.location.href = res.request.responseURL
+            window.location.href = res.request.responseURL // TODO: FIX THIS FOR EDITING
           })
           .catch(err => {
             console.log(err)
