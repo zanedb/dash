@@ -4,6 +4,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
 import qs from 'qs'
+import { getAuthenticityToken } from '../../utils'
 
 const ErrorMessage = styled.div`
   color: red;
@@ -19,11 +20,7 @@ const Input = styled.input`
 `
 
 export default ({ values, url, method }) => {
-  // get authenticity token, Rails security measure
-  // see: https://stackoverflow.com/a/1571900
-  const csrfToken = document
-    .querySelector("head meta[name='csrf-token']")
-    .content.toString()
+  const csrfToken = getAuthenticityToken()
   return (
     <Formik
       initialValues={

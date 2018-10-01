@@ -1,14 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 import qs from 'qs'
+import { getAuthenticityToken } from '../utils'
 
 export default ({ event }) => {
   const deleteEvent = () => {
-    // get authenticity token, Rails security measure
-    // see: https://stackoverflow.com/a/1571900
-    const csrfToken = document
-      .querySelector("head meta[name='csrf-token']")
-      .content.toString()
+    const csrfToken = getAuthenticityToken()
     const deleteConfirm = confirm('Are you sure you want to delete this event?')
     if (deleteConfirm) {
       axios({
