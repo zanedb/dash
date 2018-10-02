@@ -7,6 +7,6 @@ export default ({ event }) => (
     <a href={`/events/${event.id}`}>{event.name}</a> ›{' '}
     <a href="#">Edit Event</a>
     <h1>{event.name}</h1>
-    <EventForm url={`/events/${event.id}`} method="put" values={event} />
+    <EventForm url={`/events/${event.id}`} method="PUT" values={event} />
   </div>
 )

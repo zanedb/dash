@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import axios from 'axios'
+import 'unfetch/polyfill'
 import qs from 'qs'
 import { getAuthenticityToken } from '../../utils'
 
@@ -33,11 +33,23 @@ export default ({ values, url, method }) => {
         location: yup.string().required()
       })}
       onSubmit={(values, setSubmitting) => {
-        axios({
-          method,
-          url,
-          data: qs.stringify({
+        // fake HTTP requests, Rails thing idk
+        let browserHTTPMethod = 'POST'
+        let fakedHTTPMethod = null
+        if (method.toLowerCase() === 'get') {
+          browserHTTPMethod = 'GET'
+          console.log('yeet GEt', browserHTTPMethod, fakedHTTPMethod)
+        } else if (method.toLowerCase() !== 'post') {
+          fakedHTTPMethod = method
+          console.log('yeet faked', browserHTTPMethod, fakedHTTPMethod)
+        }
+
+        fetch(url, {
+          method: browserHTTPMethod,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: qs.stringify({
             authenticity_token: csrfToken,
+            _method: fakedHTTPMethod,
             event: {
               name: values.name,
               startDate: values.startDate,
@@ -47,11 +59,10 @@ export default ({ values, url, method }) => {
           })
         })
           .then(res => {
-            setSubmitting(false)
-            console.log(res)
-            window.location.href = res.request.responseURL // TODO: FIX THIS FOR EDITING
+            window.location.href = res.url
           })
           .catch(err => {
+            console.log('eeeee')
             console.log(err)
           })
       }}

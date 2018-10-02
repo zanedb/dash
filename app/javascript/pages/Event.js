@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import 'unfetch/polyfill'
 import qs from 'qs'
 import { getAuthenticityToken } from '../utils'
 
@@ -8,15 +8,15 @@ export default ({ event }) => {
     const csrfToken = getAuthenticityToken()
     const deleteConfirm = confirm('Are you sure you want to delete this event?')
     if (deleteConfirm) {
-      axios({
-        url: `/events/${event.id}`,
-        method: 'post',
-        data: qs.stringify({
+      fetch(`/events/${event.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: qs.stringify({
           authenticity_token: csrfToken,
           _method: 'delete'
         })
       }).then(res => {
-        window.location.href = res.request.responseURL
+        window.location.href = res.url
       })
     }
   }
