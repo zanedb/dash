@@ -21,6 +21,7 @@ import EventsNew from '../pages/event/New'
 import EventsEdit from '../pages/event/Edit'
 // /event
 import Attendees from '../pages/event/Attendees'
+import Attendee from '../pages/event/attendee/Attendee'
 import AttendeesNew from '../pages/event/attendee/New'
 
 WebpackerReact.setup({
@@ -30,5 +31,6 @@ WebpackerReact.setup({
   EventsNew,
   EventsEdit,
   Attendees,
+  Attendee,
   AttendeesNew
 })

@@ -1,11 +1,18 @@
 class AttendeesController < ApplicationController
   before_action :set_event
   before_action :set_attendee, only: %i[show edit update destroy]
-  
+
   def index
     @attendees = @event.attendees
     render react_component: 'Attendees', props: {
       attendees: @attendees.as_json,
+      event: @event.as_json
+    }
+  end
+
+  def show
+    render react_component: 'Attendee', props: {
+      attendee: @attendee.as_json,
       event: @event.as_json
     }
   end
