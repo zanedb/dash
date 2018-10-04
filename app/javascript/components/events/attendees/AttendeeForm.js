@@ -36,7 +36,7 @@ export default ({ values, url, method }) => {
           body: qs.stringify({
             authenticity_token: csrfToken,
             _method: fakedHTTPMethod,
-            event: {
+            attendee: {
               fname: values.fname,
               lname: values.lname,
               email: values.email,
