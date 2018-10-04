@@ -1,5 +1,6 @@
 class AttendeesController < ApplicationController
   before_action :set_event
+  before_action :set_attendee, only: %i[show edit update destroy]
   
   def index
     @attendees = @event.attendees
@@ -33,13 +34,17 @@ class AttendeesController < ApplicationController
 
   def destroy
     @attendee.destroy
-    redirect_to attendees_url, notice: 'Attendee was successfully destroyed.'
+    redirect_to event_path(@event), notice: 'Attendee was successfully destroyed.'
   end
 
   private
 
   def set_event
     @event = Event.find(params[:event_id])
+  end
+
+  def set_attendee
+    @attendee = @event.attendees.find(params[:id])
   end
 
   def attendee_params
