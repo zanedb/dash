@@ -38,10 +38,8 @@ export default ({ values, url, method }) => {
         let fakedHTTPMethod = null
         if (method.toLowerCase() === 'get') {
           browserHTTPMethod = 'GET'
-          console.log('yeet GEt', browserHTTPMethod, fakedHTTPMethod)
         } else if (method.toLowerCase() !== 'post') {
           fakedHTTPMethod = method
-          console.log('yeet faked', browserHTTPMethod, fakedHTTPMethod)
         }
 
         fetch(url, {
@@ -62,8 +60,7 @@ export default ({ values, url, method }) => {
             window.location.href = res.url
           })
           .catch(err => {
-            console.log('eeeee')
-            console.log(err)
+            console.error(err)
           })
       }}
       render={props => (
