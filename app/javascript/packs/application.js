@@ -19,11 +19,14 @@ import Events from '../pages/Events'
 import Event from '../pages/event/Event'
 import EventsNew from '../pages/event/New'
 import EventsEdit from '../pages/event/Edit'
+// /event
+import Attendees from '../pages/event/Attendees'
 
 WebpackerReact.setup({
   Home,
   Events,
   Event,
   EventsNew,
-  EventsEdit
+  EventsEdit,
+  Attendees,
 })
