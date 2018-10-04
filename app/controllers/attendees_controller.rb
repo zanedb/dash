@@ -9,6 +9,10 @@ class AttendeesController < ApplicationController
     }
   end
 
+  def new
+    render react_component: 'AttendeesNew', props: { event: @event.as_json }
+  end
+
   private
 
   def set_event
