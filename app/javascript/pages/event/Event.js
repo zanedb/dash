@@ -1,7 +1,6 @@
 import React from 'react'
 import 'unfetch/polyfill'
 import qs from 'qs'
-import AttendeeForm from '../../components/events/attendees/AttendeeForm'
 import { getAuthenticityToken } from '../../utils'
 
 export default ({ event }) => {
