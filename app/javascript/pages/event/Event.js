@@ -1,9 +1,10 @@
 import React from 'react'
 import 'unfetch/polyfill'
 import qs from 'qs'
-import { getAuthenticityToken } from '../utils'
+import AttendeeForm from '../../components/events/attendees/AttendeeForm'
+import { getAuthenticityToken } from '../../utils'
 
-export default ({ event }) => {
+export default ({ event, attendees }) => {
   const deleteEvent = () => {
     const csrfToken = getAuthenticityToken()
     const deleteConfirm = confirm('Are you sure you want to delete this event?')
@@ -42,6 +43,24 @@ export default ({ event }) => {
       </h4>
       <a href={`/events/${event.id}/edit`}>Edit event</a>
       <button onClick={deleteEvent}>Delete event</button>
+      <div>
+        <h2>Add an attendee</h2>
+        <AttendeeForm />
+      </div>
+      <div>
+        <h2>Attendees</h2>
+        {attendees && attendees.length !== 0 ? (
+          attendees.map(attendee => (
+            <div key={attendee.id}>
+              <a href={`/attendees/${attendee.id}`}>
+                <h1>{attendee.fname}</h1>
+              </a>
+            </div>
+          ))
+        ) : (
+          <h2>There are no attendees yet.</h2>
+        )}
+      </div>
     </div>
   )
 }
