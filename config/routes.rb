@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     resources :attendees
   end
 
+  get '*unmatched_route', to: 'pages#not_found'
+
   root 'pages#index'
 end
