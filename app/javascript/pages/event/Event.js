@@ -1,7 +1,7 @@
 import React from 'react'
 import 'unfetch/polyfill'
 import qs from 'qs'
-import { getAuthenticityToken } from '../../utils'
+import { getAuthenticityToken, getTimeString } from '../../utils'
 
 export default ({ event }) => {
   const deleteEvent = () => {
@@ -21,21 +21,16 @@ export default ({ event }) => {
     }
   }
 
-  const startDate = new Date(event.startDate)
-  const endDate = new Date(event.endDate)
+  const startDate = getTimeString(event.startDate)
+  const endDate = getTimeString(event.endDate)
 
   return (
     <div>
       <a href="/">Home</a> › <a href="/events">Events</a> ›{' '}
       <a href="#">{event.name}</a>
       <h1>{event.name}</h1>
-      <h3>
-        Starts at: {startDate.toDateString()}, {startDate.toTimeString()}
-      </h3>
-      <h3>
-        Ends at: {endDate.toDateString()}, {endDate.toTimeString()}
-      </h3>
-      <h4>
+      <h3>Starts at: {startDate}</h3>
+      <h3>Ends at: {endDate}</h3>
         Takes place at:
         <br />
         {event.location}
