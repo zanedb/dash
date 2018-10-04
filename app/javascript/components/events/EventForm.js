@@ -1,23 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import 'unfetch/polyfill'
 import qs from 'qs'
+import { ErrorMessage, Form, Input } from '../helpers/Form'
 import { getAuthenticityToken } from '../../utils'
-
-const ErrorMessage = styled.div`
-  color: red;
-`
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`
-
-const Input = styled.input`
-  max-width: 20rem;
-`
 
 export default ({ values, url, method }) => {
   const csrfToken = getAuthenticityToken()
