@@ -15,14 +15,16 @@ Turbolinks.start()
 
 import WebpackerReact from 'webpacker-react'
 import Home from '../pages/Home'
+// events
 import Events from '../pages/Events'
 import Event from '../pages/event/Event'
 import EventsNew from '../pages/event/New'
 import EventsEdit from '../pages/event/Edit'
-// /event
+// attendees
 import Attendees from '../pages/event/Attendees'
 import Attendee from '../pages/event/attendee/Attendee'
 import AttendeesNew from '../pages/event/attendee/New'
+import AttendeesEdit from '../pages/event/attendee/Edit'
 
 WebpackerReact.setup({
   Home,
@@ -32,5 +34,6 @@ WebpackerReact.setup({
   EventsEdit,
   Attendees,
   Attendee,
-  AttendeesNew
+  AttendeesNew,
+  AttendeesEdit
 })
