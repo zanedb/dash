@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def please_sign_in
     if nobody_signed_in?
       flash[:alert] = 'Please sign in first.'
-      redirect_to root_url
+      redirect_to new_user_session_path
     end
   end
 
