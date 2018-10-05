@@ -14,7 +14,6 @@ import Turbolinks from 'turbolinks'
 Turbolinks.start()
 
 import WebpackerReact from 'webpacker-react'
-import Home from '../pages/Home'
 import NotFound from '../pages/NotFound'
 // events
 import Events from '../pages/Events'
@@ -28,7 +27,6 @@ import AttendeesNew from '../pages/event/attendee/New'
 import AttendeesEdit from '../pages/event/attendee/Edit'
 
 WebpackerReact.setup({
-  Home,
   NotFound,
   Events,
   Event,
