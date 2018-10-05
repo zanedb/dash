@@ -6,7 +6,7 @@ export default ({ events }) => (
     <h1>Events</h1>
     {events && events.length !== 0 ? (
       events.map(event => (
-        <div key={event.id}>
+        <div key={event.slug}>
           <a href={`/events/${event.slug}`}>
             <h1>{event.name}</h1>
           </a>

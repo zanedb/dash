@@ -8,7 +8,7 @@ export default ({ event }) => {
     const csrfToken = getAuthenticityToken()
     const deleteConfirm = confirm('Are you sure you want to delete this event?')
     if (deleteConfirm) {
-      fetch(`/events/${event.id}`, {
+      fetch(`/events/${event.slug}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: qs.stringify({
@@ -44,10 +44,10 @@ export default ({ event }) => {
           {event.location}
         </a>
       </h4>
-      <a href={`/events/${event.id}/edit`}>Edit event</a>
+      <a href={`/events/${event.slug}/edit`}>Edit event</a>
       <button onClick={deleteEvent}>Delete event</button>
       <br />
-      <a href={`/events/${event.id}/attendees`}>View attendees</a>
+      <a href={`/events/${event.slug}/attendees`}>View attendees</a>
     </div>
   )
 }
