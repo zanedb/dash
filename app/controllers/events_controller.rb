@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
+  before_action :please_sign_in
   before_action :set_event, only: %i[show edit update destroy]
+  before_action -> { hey_thats_my @event }, only: %i[show edit update destroy]
 
   # GET /events
   def index
@@ -24,7 +26,7 @@ class EventsController < ApplicationController
 
   # POST /events
   def create
-    @event = Event.new(event_params)
+    @event = Event.new(event_params.merge(user_id: current_user_id))
 
     if @event.save
       redirect_to @event, notice: 'Event was successfully created.'
