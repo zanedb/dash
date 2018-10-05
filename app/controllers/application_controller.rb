@@ -42,8 +42,7 @@ class ApplicationController < ActionController::Base
   def hey_thats_my(object)
     please_sign_in
     if isnt_my? object
-      alert = "That's not yours."
-      redirect_to root_url
+      render react_component: 'NotFound' # TODO: raise 404 PROPERLY
     end
   end
 
