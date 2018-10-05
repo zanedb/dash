@@ -70,3 +70,6 @@ gem 'devise'
 
 # URL Slugs
 gem 'friendly_id'
+
+# Friendly time
+gem 'local_time'
