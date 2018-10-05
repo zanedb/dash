@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   # Redirect visitor if they're not signed in
   def please_sign_in
     if nobody_signed_in?
-      @alert = 'Please sign in first.'
+      flash[:alert] = 'Please sign in first.'
       redirect_to root_url
     end
   end
