@@ -16,7 +16,8 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    render react_component: 'EventsNew'
+    @event = Event.new
+    #render react_component: 'EventsNew'
   end
 
   # GET /events/1/edit
