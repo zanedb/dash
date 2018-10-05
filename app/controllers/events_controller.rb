@@ -54,7 +54,8 @@ class EventsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = Event.find(params[:id])
+    # don't allow fetching by numeric IDs, only by slug
+    @event = Event.friendly.find(params[:id]) unless params[:id] =~ /^[0-9]+$/
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
