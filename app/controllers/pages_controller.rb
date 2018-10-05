@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def index
-    render react_component: 'Home'
+    #render react_component: 'Home'
   end
 
   def not_found
