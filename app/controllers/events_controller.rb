@@ -11,7 +11,7 @@ class EventsController < ApplicationController
 
   # GET /events/1
   def show
-    render react_component: 'Event', props: { event: @event.as_json }
+    #render react_component: 'Event', props: { event: @event.as_json }
   end
 
   # GET /events/new
