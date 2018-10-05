@@ -29,7 +29,8 @@ class EventsController < ApplicationController
     @event = Event.new(event_params.merge(user_id: current_user_id))
 
     if @event.save
-      redirect_to @event, flash[:notice] = 'Event was successfully created.'
+      redirect_to @event
+      flash[:notice] = 'Event was successfully created.'
     else
       render :new
     end
@@ -38,7 +39,8 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   def update
     if @event.update(event_params)
-      redirect_to @event, flash[:notice] = 'Event was successfully updated.'
+      redirect_to @event
+      flash[:notice] = 'Event was successfully updated.'
     else
       render :edit
     end
@@ -47,7 +49,8 @@ class EventsController < ApplicationController
   # DELETE /events/1
   def destroy
     @event.destroy
-    redirect_to events_url, flash[:notice] = 'Event was successfully destroyed.'
+    redirect_to events_url
+    flash[:notice] = 'Event was successfully destroyed.'
   end
 
   private
