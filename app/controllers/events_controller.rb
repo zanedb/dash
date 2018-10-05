@@ -22,7 +22,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    render react_component: 'EventsEdit', props: { event: @event.as_json }
+    #render react_component: 'EventsEdit', props: { event: @event.as_json }
   end
 
   # POST /events
