@@ -60,6 +60,7 @@ class EventsController < ApplicationController
   def set_event
     # don't allow fetching by numeric IDs, only by slug
     @event = Event.friendly.find(params[:id]) unless params[:id] =~ /^[0-9]+$/
+    raise ActiveRecord::RecordNotFound unless @event
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
