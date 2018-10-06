@@ -4,6 +4,7 @@
 <% if @attendees.empty? %>
   <h2>There are no attendees.</h2>
 <% else %>
+  <h2><%= link_to 'Export attendees as CSV', "#{event_attendees_path}.csv" %>
   <ul>
     <% @attendees.each do |attendee| %>
       <li><%= link_to "#{attendee.fname} #{attendee.lname}", event_attendee_path(@event, attendee) %></li>

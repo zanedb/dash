@@ -6,6 +6,11 @@ class AttendeesController < ApplicationController
 
   def index
     @attendees = @event.attendees
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @attendees.as_csv }
+    end
   end
 
   def show
