@@ -1,0 +1,10 @@
+<%= link_to 'Home', root_url %> › <%= link_to 'Events', '#' %>
+
+<h1>Events</h1>
+<% @events.each do |event| %>
+  <h1><%= link_to event.name, event %></h1>
+<% end %>
+
+<br>
+
+<h2><%= link_to 'New Event', new_event_path %></h2>

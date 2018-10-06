@@ -12,8 +12,7 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render 'shared/flash' if flash.any? %>
     <%= yield %>
   </body>
 </html>

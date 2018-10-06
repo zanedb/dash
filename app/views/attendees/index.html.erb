@@ -1,0 +1,14 @@
+<%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', '#' %>
+
+<h1>Attendees: <b><%= @event.name %></b></h1>
+<% if @attendees.empty? %>
+  <h2>There are no attendees.</h2>
+<% else %>
+  <ul>
+    <% @attendees.each do |attendee| %>
+      <li><%= link_to "#{attendee.fname} #{attendee.lname}", event_attendee_path(@event, attendee) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2><%= link_to 'Add an attendee', new_event_attendee_path %></h2>
