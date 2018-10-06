@@ -35,7 +35,7 @@ class AttendeesController < ApplicationController
     @attendee = @event.attendees.new(attendee_params)
 
     if @attendee.save
-      redirect_to @attendee
+      redirect_to event_attendee_path(@event, @attendee)
       flash[:notice] = 'Attendee was successfully created.'
     else
       render :new
@@ -44,7 +44,7 @@ class AttendeesController < ApplicationController
 
   def update
     if @attendee.update(attendee_params)
-      redirect_to @attendee
+      redirect_to event_attendee_path(@event, @attendee)
       flash[:notice] = 'Attendee was successfully updated.'
     else
       render :edit
@@ -53,7 +53,7 @@ class AttendeesController < ApplicationController
 
   def destroy
     @attendee.destroy
-    redirect_to event_path(@event)
+    redirect_to event_attendees_path(@event)
     flash[:notice] = 'Attendee was successfully destroyed.'
   end
 

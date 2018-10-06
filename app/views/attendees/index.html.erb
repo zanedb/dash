@@ -6,7 +6,7 @@
 <% else %>
   <ul>
     <% @attendees.each do |attendee| %>
-      <li><%= link_to attendee.name, event %></li>
+      <li><%= link_to "#{attendee.fname} #{attendee.lname}", event_attendee_path(@event, attendee) %></li>
     <% end %>
   </ul>
 <% end %>
