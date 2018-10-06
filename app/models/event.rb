@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   extend FriendlyId
   belongs_to :user, touch: true
-  has_many :attendees
+  has_many :attendees, dependent: :destroy
   validates :name, :startDate, :endDate, :location, :user_id, presence: true
 
   friendly_id :slug_candidates, use: :slugged
