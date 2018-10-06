@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   def hey_thats_my(object)
     please_sign_in
     if isnt_my? object
-      render react_component: 'NotFound' # TODO: raise 404 PROPERLY
+      record_not_found
     end
   end
 
