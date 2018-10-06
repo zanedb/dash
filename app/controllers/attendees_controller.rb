@@ -6,29 +6,16 @@ class AttendeesController < ApplicationController
 
   def index
     @attendees = @event.attendees
-    #render react_component: 'Attendees', props: {
-    #  attendees: @attendees.as_json,
-    #  event: @event.as_json
-    #}
   end
 
   def show
-    #render react_component: 'Attendee', props: {
-    #  attendee: @attendee.as_json,
-    #  event: @event.as_json
-    #}
   end
 
   def new
     @attendee = @event.attendees.new
-    #render react_component: 'AttendeesNew', props: { event: @event.as_json }
   end
 
   def edit
-    #render react_component: 'AttendeesEdit', props: {
-    #  attendee: @attendee.as_json,
-    #  event: @event.as_json
-    #}
   end
 
   def create

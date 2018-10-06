@@ -15,16 +15,7 @@ Turbolinks.start()
 
 import WebpackerReact from 'webpacker-react'
 import NotFound from '../pages/NotFound'
-// attendees
-import Attendees from '../pages/event/Attendees'
-import Attendee from '../pages/event/attendee/Attendee'
-import AttendeesNew from '../pages/event/attendee/New'
-import AttendeesEdit from '../pages/event/attendee/Edit'
 
 WebpackerReact.setup({
-  NotFound,
-  Attendees,
-  Attendee,
-  AttendeesNew,
-  AttendeesEdit
+  NotFound
 })
