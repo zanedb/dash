@@ -25,10 +25,10 @@ class AttendeesController < ApplicationController
   end
 
   def edit
-    render react_component: 'AttendeesEdit', props: {
-      attendee: @attendee.as_json,
-      event: @event.as_json
-    }
+    #render react_component: 'AttendeesEdit', props: {
+    #  attendee: @attendee.as_json,
+    #  event: @event.as_json
+    #}
   end
 
   def create
