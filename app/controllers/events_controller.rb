@@ -6,23 +6,19 @@ class EventsController < ApplicationController
   # GET /events
   def index
     @events = current_user.events
-    #render react_component: 'Events', props: { events: @events.as_json }
   end
 
   # GET /events/1
   def show
-    #render react_component: 'Event', props: { event: @event.as_json }
   end
 
   # GET /events/new
   def new
     @event = Event.new
-    #render react_component: 'EventsNew'
   end
 
   # GET /events/1/edit
   def edit
-    #render react_component: 'EventsEdit', props: { event: @event.as_json }
   end
 
   # POST /events
