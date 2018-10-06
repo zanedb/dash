@@ -13,10 +13,10 @@ class AttendeesController < ApplicationController
   end
 
   def show
-    render react_component: 'Attendee', props: {
-      attendee: @attendee.as_json,
-      event: @event.as_json
-    }
+    #render react_component: 'Attendee', props: {
+    #  attendee: @attendee.as_json,
+    #  event: @event.as_json
+    #}
   end
 
   def new

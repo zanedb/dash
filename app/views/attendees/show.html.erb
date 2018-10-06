@@ -1,0 +1,12 @@
+<%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %> › <%= link_to "#{@attendee.fname} #{@attendee.lname}", '#'%>
+
+<h1><%= "#{@attendee.fname} #{@attendee.lname}" %></h1>
+<h2>Email: <%= link_to @attendee.email, "mailto:#{@attendee.email}" %></h2>
+<h2>
+  Notes:<br/>
+  <%= @attendee.note %>
+</h2>
+<h3>Event: <%= link_to @event.name, @event %></h3>
+
+<%= link_to 'Edit', edit_event_attendee_path(@event, @attendee) %>
+<%= link_to 'Delete attendee', event_attendee_path(@event, @attendee), method: :delete, data: { confirm: 'Are you sure?' } %>
