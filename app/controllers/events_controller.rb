@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   before_action :please_sign_in
   before_action :set_event, only: %i[show edit update destroy]
@@ -5,12 +7,15 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = current_user.events
+    @events = if current_user.admin?
+                Event.all
+              else
+                current_user.events
+              end
   end
 
   # GET /events/1
-  def show
-  end
+  def show; end
 
   # GET /events/new
   def new
@@ -18,8 +23,7 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /events
   def create
