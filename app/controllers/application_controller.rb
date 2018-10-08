@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   def hey_thats_my(object)
     please_sign_in
     if isnt_my? object
-      record_not_found
+      record_not_found unless current_user.admin?
     end
   end
 
