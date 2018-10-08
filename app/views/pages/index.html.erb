@@ -3,13 +3,18 @@
   <h1>H&M</h1>
   <h3>✨ A next-gen hackathon management system</h3>
   <% if user_signed_in? %>
-    <h4>👋 Welcome, <%= current_user.name %>. You’re doing great.</h4>
-    <a href="/events">View events</a>
+    <h4>
+      👋 Welcome, <%= current_user.name %>. You’re doing great.
+      <% if current_user.admin? %>
+        You’re also an <span style="color: red;">admin</span>, hellooooo. Check out the <%= link_to 'admin dashboard', '/admin' %>.
+      <% end %>
+    </h4>
+    <%= link_to 'View events', events_path %>
     <br />
-    <a href="/users/edit">My account</a>
+    <%= link_to 'My account', edit_user_registration_path %>
     <br />
-    <%= link_to 'Log out', '/users/sign_out', :method => :delete %>
+    <%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
   <% else %>
-    <h2><a href="/users/sign_in">Login</a></h2>
+    <h2><%= link_to 'Login', new_user_session_path %></h2>
   <% end %>
 </div>
