@@ -6,7 +6,7 @@
     <h4>
       👋 Welcome, <%= current_user.name %>. You’re doing great.
       <% if current_user.admin? %>
-        You’re also an <span style="color: red;">admin</span>, hellooooo.
+        You’re also an <span style="color: red;">admin</span>, hellooooo. Check out the <%= link_to 'admin dashboard', '/admin' %>.
       <% end %>
     </h4>
     <%= link_to 'View events', events_path %>
