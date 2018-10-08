@@ -1,6 +1,9 @@
 <%= link_to 'Home', root_url %> › <%= link_to 'Events', '#' %>
 
 <h1>Events</h1>
+<% if current_user.admin? %>
+  <h2>You’re an admin, showing all events:</h1>
+<% end %>
 <% if @events.empty? %>
   <h2>No events... yet</h2>
 <% else %>
