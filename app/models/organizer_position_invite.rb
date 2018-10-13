@@ -56,9 +56,7 @@ class OrganizerPositionInvite < ApplicationRecord
       user: user
     )
 
-    self.accepted_at = Time.current
-
-    save
+    update(accepted_at: Time.current)
   end
 
   def reject
@@ -72,9 +70,7 @@ class OrganizerPositionInvite < ApplicationRecord
       return false
     end
 
-    self.rejected_at = Time.current
-
-    save
+    update(rejected_at: Time.current)
   end
 
   def rejected?
