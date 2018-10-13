@@ -73,3 +73,6 @@ gem 'friendly_id'
 
 # Friendly time
 gem 'local_time'
+
+# Email validation
+gem 'validates_email_format_of'
