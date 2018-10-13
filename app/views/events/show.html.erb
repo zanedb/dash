@@ -8,6 +8,16 @@
   <%= link_to @event.location, "https://www.google.com/maps?q=#{@event.location}", target: '_blank', rel: 'noopen noreferrer' %>
 </h4>
 
+<h3>Teammate Invites</h3>
+<%= link_to 'Invite team member', new_event_organizer_position_invite_path(@event) %>
+<% if @invites %>
+  <ul>
+    <% @invites.each do |invite| %>
+      <li><%= invite.user.email %>, by <%= invite.sender.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= link_to 'Edit', edit_event_path(@event) %>
 <%= link_to 'Delete event', @event, method: :delete, data: { confirm: 'Are you sure?' } %>
 <%= link_to 'Attendees', event_attendees_path(@event) %>
