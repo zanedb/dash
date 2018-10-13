@@ -5,8 +5,13 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :attendees
+
+    resources :organizer_position_invites, path: 'invites' do
+      post 'accept'
+      post 'reject'
+    end
   end
-  
+
   scope '/admin' do
     get '/', to: 'admin#index'
     get '/all_users', to: 'admin#all_users'
