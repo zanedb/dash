@@ -4,13 +4,29 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to H&M, <%= @invite.email %></h1>
+    <h1>
+      <% if @invite.invite_url %>
+        Welcome to H&M!
+      <% else %>
+        You’ve been invited to manage an event on H&M
+      <% end %>
+    </h1>
+    <% if @invite.invite_url %>
+      <p>
+        Nice to meet you! H&M is the hackathon management system <i>of your dreams</i>. We think you’ll love it.
+      </p>
+    <% end %>
     <p>
-      Welcome, blah blah
+      You’ve been invited to manage <b><%= @invite.event.name %></b> by <b><%= @invite.sender.name %></b>!
     </p>
     <p>
-      To login to the site, just follow this link: TODO
+      To <% if @invite.invite_url %>login to the site & <% end %>view your invitation, <%= link_to 'click here', @invite.invite_url || event_organizer_position_invite_url(@invite.event, @invite) %>.
     </p>
-    <p>Thanks and have a great day!</p>
+    <p>
+      <i>
+        Have a hack-tastic day,
+        H&M Team
+      </i>
+    </p>
   </body>
 </html>
