@@ -1,12 +1,22 @@
-<%= link_to 'Home', root_url %> › <%= link_to 'Events', '#' %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', '#' %>
+</div>
 
 <h1>Events</h1>
+<% if @invites.any? %>
+  <h2>You have <%= pluralize @invites.count, 'pending invitation' %>.</h2>
+  <ul>
+    <% @invites.each do |invite| %>
+      <li><%= link_to invite.event.name, event_organizer_position_invite_path(invite.event, invite) %></li>
+    <% end %>
+  </ul>
+<% end %>
 <% if current_user.admin? %>
   <h2>You’re an admin, showing all events:</h1>
 <% end %>
-<% if @events.empty? %>
+<% if @events.empty? && @invites.empty? %>
   <h2>No events.. yet.</h2>
-<% else %>
+<% elsif @events %>
   <% @events.each do |event| %>
     <h1><%= link_to event.name, event %></h1>
   <% end %>
@@ -14,4 +24,6 @@
 
 <br>
 
-<h2><%= link_to 'New Event', new_event_path %></h2>
+<% if current_user.admin? %>
+  <h2><%= link_to 'New Event', new_event_path %></h2>
+<% end %>

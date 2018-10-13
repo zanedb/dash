@@ -3,30 +3,36 @@
 class EventsController < ApplicationController
   before_action :please_sign_in
   before_action :set_event, only: %i[show edit update destroy]
-  before_action -> { hey_thats_my @event }, only: %i[show edit update destroy]
 
   # GET /events
   def index
+    authorize Event
     @events = if current_user.admin?
                 Event.all
               else
                 current_user.events
               end
+    @invites = current_user.organizer_position_invites.pending
   end
 
   # GET /events/1
-  def show; end
+  def show
+    @invites = @event.organizer_position_invites
+  end
 
   # GET /events/new
   def new
+    authorize Event
     @event = Event.new
   end
 
   # GET /events/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /events
   def create
+    authorize Event
     @event = Event.new(event_params.merge(user_id: current_user_id))
 
     if @event.save
@@ -61,6 +67,7 @@ class EventsController < ApplicationController
     # don't allow fetching by numeric IDs, only by slug
     @event = Event.friendly.find(params[:id]) unless params[:id] =~ /^[0-9]+$/
     raise ActiveRecord::RecordNotFound unless @event
+    authorize @event
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

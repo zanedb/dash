@@ -1,0 +1,29 @@
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Invite Others', '#' %>
+</div>
+<h1>Invite Another Member</h1>
+
+<p>This person will have full access to your event.</p>
+
+<%= form_with(model: @invite, local: true, url: event_organizer_position_invites_path) do |form| %>
+  <% if @invite.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invite.errors.count, "error") %> prohibited this invite from being saved:</h2>
+
+      <ul>
+      <% @invite.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Send Invitation' %>
+  </div>
+<% end %>

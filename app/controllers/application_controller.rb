@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  http_basic_authenticate_with name: 'user', password: 'mcKekj7jBzz7spaV36aQNZS3'
-  protect_from_forgery with: :exception
+  http_basic_authenticate_with name: 'user',
+                               password: 'mcKekj7jBzz7spaV36aQNZS3',
+                               unless: -> { Rails.env.development? }
+  include Pundit
+  protect_from_forgery
   before_action :configure_permitted_parameters, if: :devise_controller?
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::RecordNotFound, Pundit::NotAuthorizedError,
+              with: :record_not_found unless Rails.env.development?
   helper_method :nobody_signed_in?, :current_user_id, :is_my?, :isnt_my?
 
   # Keep the current user id in memory
@@ -29,24 +33,6 @@ class ApplicationController < ActionController::Base
     if nobody_signed_in?
       flash[:alert] = 'Please sign in first.'
       redirect_to new_user_session_path
-    end
-  end
-
-  # Is this thing mine?
-  def is_my?(object)
-    someone_signed_in? && object.user_id == current_user_id
-  end
-
-  # Is this thing _not_ mine?
-  def isnt_my?(object)
-    !is_my? object
-  end
-
-  # Redirect user if the current object isn't theirs
-  def hey_thats_my(object)
-    please_sign_in
-    if isnt_my? object
-      record_not_found unless current_user.admin?
     end
   end
 
