@@ -36,24 +36,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Is this thing mine?
-  def is_my?(object)
-    someone_signed_in? && object.user_id == current_user_id
-  end
-
-  # Is this thing _not_ mine?
-  def isnt_my?(object)
-    !is_my? object
-  end
-
-  # Redirect user if the current object isn't theirs
-  def hey_thats_my(object)
-    please_sign_in
-    if isnt_my? object
-      record_not_found unless current_user.admin?
-    end
-  end
-
   protected
 
   def configure_permitted_parameters
