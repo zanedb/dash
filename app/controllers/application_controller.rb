@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  http_basic_authenticate_with name: 'user', password: 'mcKekj7jBzz7spaV36aQNZS3'
+  http_basic_authenticate_with name: 'user',
+                               password: 'mcKekj7jBzz7spaV36aQNZS3',
+                               unless: -> { request.host == 'localhost' }
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
