@@ -13,13 +13,19 @@ class OrganizerPositionInvitesController < ApplicationController
     @invite.event = @event
     @invite.sender = current_user
 
-    # if user doesn't exist, invite them & set value
-    unless User.find_by(email: invite_params[:email])
-      User.invite!(email: invite_params[:email], name: invite_params[:email])
-    end
-    @invite.user = User.find_by(email: invite_params[:email])
-
     authorize @invite
+
+    # if user doesn't exist, invite them & set URL to account invitation
+    located_user = User.find_by(email: invite_params[:email])
+    if located_user
+      @invite.user = located_user
+    else
+      user = User.invite!(email: invite_params[:email], name: invite_params[:email]) do |u|
+        u.skip_invitation = true
+      end
+      @invite.user = user
+      @invite.invite_url = accept_user_invitation_url(invitation_token: user.raw_invitation_token)
+    end
 
     if @invite.save
       flash[:success] = 'Invite successfully sent'
