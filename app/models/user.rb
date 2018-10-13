@@ -10,6 +10,16 @@ class User < ApplicationRecord
   has_many :organizer_positions
   has_many :events, through: :organizer_positions
 
+  after_create :check_for_invitations
+
+  def check_for_invitations
+    invite = OrganizerPositionInvite.find_by email: email, user: nil
+    if invite
+      invite.user = self
+      invite.save
+    end
+  end
+
   def make_admin!
     self.admin_at = Time.current
   end
