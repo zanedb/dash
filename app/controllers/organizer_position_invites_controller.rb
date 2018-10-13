@@ -1,10 +1,11 @@
 class OrganizerPositionInvitesController < ApplicationController
+  before_action :please_sign_in
   before_action :set_event
 
   def new
     @invite = OrganizerPositionInvite.new
     @invite.event = @event
-    # authorize @invite
+    authorize @invite
   end
 
   def create
@@ -15,7 +16,7 @@ class OrganizerPositionInvitesController < ApplicationController
     # will be set to nil if not found, which is OK. see invite class for docs.
     @invite.user = User.find_by(email: invite_params[:email])
 
-    # authorize @invite
+    authorize @invite
 
     if @invite.save
       flash[:success] = 'Invite successfully sent'
@@ -27,32 +28,32 @@ class OrganizerPositionInvitesController < ApplicationController
 
   def show
     @invite = OrganizerPositionInvite.find(params[:id])
-    # authorize @invite
+    authorize @invite
   end
 
   def accept
     @invite = OrganizerPositionInvite.find(params[:organizer_position_invite_id])
-    # authorize @invite
+    authorize @invite
 
     if @invite.accept
       flash[:success] = 'You’ve accepted your invitation!'
       redirect_to @invite.event
     else
-      flash[:error] = 'Failed to accept'
-      redirect_to @invite
+      flash[:error] = 'Failed to accept the invitation.'
+      redirect_to event_organizer_position_invite_path(@event, @invite)
     end
   end
 
   def reject
     @invite = OrganizerPositionInvite.find(params[:organizer_position_invite_id])
-    # authorize @invite
+    authorize @invite
 
     if @invite.reject
       flash[:success] = 'You’ve rejected your invitation.'
       redirect_to root_path
     else
       flash[:error] = 'Failed to reject the invitation.'
-      redirect_to @invite
+      redirect_to event_organizer_position_invite_path(@event, @invite)
     end
   end
 
