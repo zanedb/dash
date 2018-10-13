@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Others available are:
   # :confirmable, :lockable, :timeoutable, and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
   validates :name, presence: true
