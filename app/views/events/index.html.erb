@@ -3,7 +3,7 @@
 </div>
 
 <h1>Events</h1>
-<% if @invites %>
+<% if @invites.any? %>
   <h2>You have <%= pluralize @invites.count, 'pending invitation' %>.</h2>
   <ul>
     <% @invites.each do |invite| %>
@@ -24,4 +24,6 @@
 
 <br>
 
-<h2><%= link_to 'New Event', new_event_path %></h2>
+<% if current_user.admin? %>
+  <h2><%= link_to 'New Event', new_event_path %></h2>
+<% end %>
