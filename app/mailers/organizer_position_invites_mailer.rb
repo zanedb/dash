@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OrganizerPositionInvitesMailer < ApplicationMailer
-  default from: 'invitations@h-m.zane.sh'
+  default from: 'H&M Invitations <invitations@h-m.zane.sh>'
 
   def notify
     @invite = params[:invite]
