@@ -3,9 +3,12 @@
 class ApplicationController < ActionController::Base
   http_basic_authenticate_with name: 'user',
                                password: 'mcKekj7jBzz7spaV36aQNZS3',
+                               unless: -> { Rails.env.development? }
   include Pundit
+  protect_from_forgery
   before_action :configure_permitted_parameters, if: :devise_controller?
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::RecordNotFound, Pundit::NotAuthorizedError,
+              with: :record_not_found unless Rails.env.development?
   helper_method :nobody_signed_in?, :current_user_id, :is_my?, :isnt_my?
 
   # Keep the current user id in memory
