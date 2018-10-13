@@ -1,8 +1,17 @@
-Welcome to H&M, <%= @invite.email %>
+<% if @invite.invite_url %>
+  Welcome to H&M!
+<% else %>
+  You’ve been invited to manage an event on H&M
+<% end %>
 ===============================================
- 
-Welcome, blah blah
- 
-To login to the site, just follow this link: TODO
- 
-Thanks and have a great day!
+
+<% if @invite.invite_url %>
+  Nice to meet you! H&M is the hackathon management system of your dreams. We think you’ll love it.
+<% end %>
+
+You’ve been invited to manage <%= @invite.event.name %> by <%= @invite.sender.name %>!
+
+To <% if @invite.invite_url %>login to the site & <% end %>view your invitation, just follow this link: <%= @invite.invite_url || event_organizer_position_invite_url(@invite.event, @invite) %>
+
+Have a hack-tastic day,
+H&M Team
