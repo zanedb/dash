@@ -6,7 +6,9 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
-  has_many :events
+  has_many :organizer_position_invites
+  has_many :organizer_positions
+  has_many :events, through: :organizer_positions
 
   def make_admin!
     self.admin_at = Time.current
