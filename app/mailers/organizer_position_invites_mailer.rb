@@ -1,5 +1,5 @@
 class OrganizerPositionInvitesMailer < ApplicationMailer
-  default from: 'invite@h-m.com'
+  default from: 'invitations@h-m.zane.sh'
 
   def notify
     @invite = params[:invite]
