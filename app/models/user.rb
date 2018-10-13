@@ -6,8 +6,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
-  has_many :organizer_position_invites
-  has_many :organizer_positions
+  has_many :organizer_position_invites, dependent: :destroy
+  has_many :organizer_positions, dependent: :destroy
   has_many :events, through: :organizer_positions
 
   after_create :check_for_invitations
