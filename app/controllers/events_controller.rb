@@ -12,6 +12,7 @@ class EventsController < ApplicationController
               else
                 current_user.events
               end
+    @invites = current_user.organizer_position_invites.pending
   end
 
   # GET /events/1
