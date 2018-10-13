@@ -76,3 +76,6 @@ gem 'local_time'
 
 # Email validation
 gem 'validates_email_format_of'
+
+# Pundit authorization/permissions
+gem 'pundit'
