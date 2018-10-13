@@ -13,7 +13,10 @@ class OrganizerPositionInvitesController < ApplicationController
     @invite.event = @event
     @invite.sender = current_user
 
-    # will be set to nil if not found, which is OK. see invite class for docs.
+    # if user doesn't exist, invite them & set value
+    unless User.find_by(email: invite_params[:email])
+      User.invite!(email: invite_params[:email], name: invite_params[:email])
+    end
     @invite.user = User.find_by(email: invite_params[:email])
 
     authorize @invite
