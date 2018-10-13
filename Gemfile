@@ -67,6 +67,7 @@ gem 'webpacker-react'
 
 # Authentication
 gem 'devise'
+gem 'devise_invitable'
 
 # URL Slugs
 gem 'friendly_id'
