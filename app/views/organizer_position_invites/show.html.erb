@@ -2,4 +2,4 @@
 <h3>Would you like to accept or decline?</h3>
 
 <%= link_to 'Accept invitation', event_organizer_position_invite_accept_path(@event, @invite), method: :post %>
-<%= link_to 'Reject', event_organizer_position_invite_reject_path(@event, @invite), method: :post %>
+<%= link_to 'Reject', event_organizer_position_invite_reject_path(@event, @invite), method: :post, data: { confirm: 'Are you sure?' } %>
