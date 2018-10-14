@@ -4,5 +4,5 @@ class OrganizerPosition < ApplicationRecord
 
   validates :user, uniqueness: { scope: :event }
 
-  has_one :organizer_position_invite
+  has_one :organizer_position_invite, dependent: :destroy
 end
