@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   end
 
   scope '/admin' do
-    get '/', to: 'admin#index'
-    get '/all_users', to: 'admin#all_users'
+    get '/', to: 'admin#index', as: :admin
+    get '/all_users', to: 'admin#all_users', as: :all_users
   end
 
   get '*unmatched_route', to: 'pages#not_found'
