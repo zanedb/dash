@@ -80,3 +80,6 @@ gem 'validates_email_format_of'
 
 # Pundit authorization/permissions
 gem 'pundit'
+
+# jquery-rails
+gem 'jquery-rails'

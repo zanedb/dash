@@ -1,0 +1,65 @@
+@import 'colors';
+@import 'scaffolds';
+
+.error {
+  color: red;
+}
+
+$__palette: (
+  primary: $base,
+  accent: $fuschia5,
+  info: $blue5,
+  success: $teal6,
+  error: $red7,
+  warning: $orange5,
+  pending: $yellow5,
+  black: $gray9,
+  slate: $gray8,
+  muted: $gray7,
+  smoke: $gray2,
+  snow: $gray0,
+  white: $white
+);
+
+.flash {
+  display: flex;
+  align-items: center;
+  color: $white;
+  background-color: $base;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  max-width: 32rem;
+}
+
+.flash__close {
+  cursor: pointer;
+  margin-left: 1rem;
+  font-size: 0.625rem;
+  float: right;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  line-height: 24px;
+}
+
+.flash__content {
+  flex: 1 1 auto;
+}
+
+@each $name, $val in $__palette {
+  .#{$name} {
+    color: $val;
+  }
+
+  .bg-#{$name} {
+    background-color: $val;
+  }
+
+  .b--#{$name} {
+    border-color: $val;
+  }
+}
