@@ -2,12 +2,15 @@
   <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', '#' %>
 </div>
 
-<h1>Attendees: <b><%= @event.name %></b></h1>
+<h1>
+  <%= @event.name %>
+  <br><span style="font-size: 2rem;">Attendees</span>
+</h1>
 <% if @attendees.empty? %>
-  <h2>There are no attendees.</h2>
+  <h3 class="no-margin">There are no attendees.</h3>
 <% else %>
-  <h3><%= link_to 'Export attendees as CSV', "#{event_attendees_path}.csv" %></h3>
-  <h2>All attendees</h2>
+  <h3 class="a-lil-bottom-margin"><%= link_to 'Export attendees as CSV', "#{event_attendees_path}.csv" %></h3>
+  <h3 class="no-margin">All attendees</h3>
   <ul>
     <% @attendees.each do |attendee| %>
       <li><%= link_to "#{attendee.fname} #{attendee.lname}", event_attendee_path(@event, attendee) %></li>
@@ -17,4 +20,4 @@
 
 <br>
 
-<h2><%= link_to 'Add an attendee', new_event_attendee_path %></h2>
+<h3 class="no-margin"><%= link_to 'Add an attendee', new_event_attendee_path %></h3>

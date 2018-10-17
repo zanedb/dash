@@ -3,11 +3,14 @@
 </div>
 
 <h1><%= "#{@attendee.fname} #{@attendee.lname}" %></h1>
-<h2>Email: <%= link_to @attendee.email, "mailto:#{@attendee.email}" %></h2>
-<h2>
+<h3 class="no-margin">
+  Email: <%= link_to @attendee.email, "mailto:#{@attendee.email}" %>
+</h3>
+<h4 class="no-margin">
+  <br/>
   Notes:<br/>
   <%= @attendee.note %>
-</h2>
+</h4>
 <h3>Event: <%= link_to @event.name, @event %></h3>
 
 <%= link_to 'Edit', edit_event_attendee_path(@event, @attendee) %>

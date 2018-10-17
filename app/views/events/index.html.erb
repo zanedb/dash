@@ -2,28 +2,29 @@
   <%= link_to 'Home', root_url %> › <%= link_to 'Events', '#' %>
 </div>
 
-<h1>Events</h1>
 <% if @invites.any? %>
-  <h2>You have <%= pluralize @invites.count, 'pending invitation' %>.</h2>
+  <h1>
+    Invitations
+    <br/><h3 class="no-margin">You have <%= pluralize @invites.count, 'pending invitation' %>.</h3>
+  </h1>
   <ul>
     <% @invites.each do |invite| %>
       <li><%= link_to invite.event.name, event_organizer_position_invite_path(invite.event, invite) %></li>
     <% end %>
   </ul>
 <% end %>
+<h1>Events</h1>
 <% if current_user.admin? %>
-  <h2>You’re an admin, showing all events:</h1>
+  <h3 class="a-lil-bottom-margin"><%= link_to 'New Event', new_event_path %></h3>
+  <h3 class="no-margin">You’re an admin, showing all events:</h3>
 <% end %>
 <% if @events.empty? && @invites.empty? %>
   <h2>No events.. yet.</h2>
 <% elsif @events %>
-  <% @events.each do |event| %>
-    <h1><%= link_to event.name, event %></h1>
-  <% end %>
+  <ul>
+    <% @events.each do |event| %>
+      <li><%= link_to event.name, event %></h3></li>
+    <% end %>
+  </ul>
 <% end %>
 
-<br>
-
-<% if current_user.admin? %>
-  <h2><%= link_to 'New Event', new_event_path %></h2>
-<% end %>

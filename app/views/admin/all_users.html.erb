@@ -3,14 +3,14 @@
 </div>
 
 <h1>All Users</h1>
-<h2>I sure hope no malicious actors are viewing this right now..</h2>
+<h3 class="a-lil-bottom-margin">I sure hope no malicious actors are viewing this right now..</h3>
 
 <% if @users.empty? %>
   <h3>Boo-hoo, no users. Wait, how is that even possible? You’re here, right? Right?</h3>
 <% else %>
-  <h3>Total Users: <%= @users.count %></h3>
-  <h3>New this week: <%= @users_new_week_count %></h3>
-  <h3>All active users: <%= @users_active_count %></h3>
+  <h3 class="no-margin">Total Users: <%= @users.count %></h3>
+  <h3 class="no-margin">New this week: <%= @users_new_week_count %></h3>
+  <h3 class="no-margin">All active users: <%= @users_active_count %></h3>
   <h2>Users:</h2>
   <ul>
     <% @users.each do |user| %>
