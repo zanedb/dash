@@ -3,8 +3,8 @@
 </div>
 
 <h1><%= @event.name %></h1>
-<h3>Starts at: <%= local_time(@event.startDate) %></h3>
-<h3>Ends at: <%= local_time(@event.endDate) %></h3>
+<h3>Starts at: <%= local_time(@event.start_date) %></h3>
+<h3>Ends at: <%= local_time(@event.end_date) %></h3>
 <h4 style="white-space: pre-line">
   Takes place at:
   <%= link_to @event.location, "https://www.google.com/maps?q=#{@event.location}", target: '_blank', rel: 'noopen noreferrer' %>
