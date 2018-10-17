@@ -1,5 +1,5 @@
 <div class="breadcrumbs">
-  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %> › <%= link_to "#{@attendee.fname} #{@attendee.lname}", '#'%>
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %> › <%= link_to "#{@attendee.first_name} #{@attendee.last_name}", '#'%>
 </div>
 
 <h1><%= "#{@attendee.fname} #{@attendee.lname}" %></h1>

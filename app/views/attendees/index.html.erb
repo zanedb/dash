@@ -13,7 +13,7 @@
   <h3 class="no-margin">All attendees</h3>
   <ul>
     <% @attendees.each do |attendee| %>
-      <li><%= link_to "#{attendee.fname} #{attendee.lname}", event_attendee_path(@event, attendee) %></li>
+      <li><%= link_to "#{attendee.first_name} #{attendee.last_name}", event_attendee_path(@event, attendee) %></li>
     <% end %>
   </ul>
 <% end %>

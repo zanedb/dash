@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  fname: MyString
-  lname: MyString
+  first_name: MyString
+  last_name: MyString
   email: MyString
   note: MyText
-  extras: 
+  ? extras
   event: one
 
 two:
-  fname: MyString
-  lname: MyString
+  first_name: MyString
+  last_name: MyString
   email: MyString
   note: MyText
-  extras: 
+  ? extras
   event: two

@@ -8,13 +8,13 @@ class Event < ApplicationRecord
   has_many :organizer_position_invites, dependent: :destroy
   has_many :users, through: :organizer_positions
   
-  validates :name, :startDate, :endDate, :location, :user_id, presence: true
+  validates :name, :start_date, :end_date, :location, :user_id, presence: true
 
   friendly_id :slug_candidates, use: :slugged
   def slug_candidates
     [
       :name,
-      [:name, :startDate],
+      [:name, :start_date],
       [:name, :location]
     ]
   end
