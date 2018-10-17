@@ -1,4 +1,5 @@
 @import 'colors';
+@import url('https://rsms.me/inter/inter-ui.css');
 
 * {
   box-sizing: border-box;
@@ -124,6 +125,50 @@ a {
 
 label {
   display: block;
+}
+
+$select: "url(<%= asset_url 'select.svg' %>)";
+select {
+  background: #{$select} right 0.75rem center / 0.5rem no-repeat $white;
+}
+// rails date(time) inputs
+select[name$='i)]'] {
+  width: 72px;
+  display: inline-block;
+}
+
+.input--short {
+  max-width: 16rem !important;
+}
+
+input[type='submit'],
+.btn {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: $red5;
+  color: $white;
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1.125;
+  -webkit-appearance: none;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.125) 0 2px 4px;
+  margin: 0;
+  text-decoration: none;
+  transition: box-shadow 0.125s ease-out;
+  border-radius: 9999px;
+  border-width: 0px;
+  border-style: solid;
+}
+.btn.btn--destroy {
+  background-color: $gray0 !important;
+  color: $red5 !important;
 }
 
 h1,
