@@ -5,30 +5,30 @@
   font-family: 'Inter UI';
   font-style: normal;
   font-weight: 400;
-  src: asset-url('Inter-UI-Regular.woff2') format('woff2'),
-    asset-url('Inter-UI-Regular.woff') format('woff');
+  src: url('Inter-UI-Regular.woff2') format('woff2'),
+    url('Inter-UI-Regular.woff') format('woff');
 }
 @font-face {
   font-family: 'Inter UI';
   font-style: italic;
   font-weight: 400;
-  src: asset-url('Inter-UI-Italic.woff2') format('woff2'),
-    asset-url('Inter-UI-Italic.woff') format('woff');
+  src: url('Inter-UI-Italic.woff2') format('woff2'),
+    url('Inter-UI-Italic.woff') format('woff');
 }
 /* bold */
 @font-face {
   font-family: 'Inter UI';
   font-style: normal;
   font-weight: 700;
-  src: asset-url('Inter-UI-Bold.woff2') format('woff2'),
-    asset-url('Inter-UI-Bold.woff') format('woff');
+  src: url('Inter-UI-Bold.woff2') format('woff2'),
+    url('Inter-UI-Bold.woff') format('woff');
 }
 @font-face {
   font-family: 'Inter UI';
   font-style: italic;
   font-weight: 700;
-  src: asset-url('Inter-UI-BoldItalic.woff2') format('woff2'),
-    asset-url('Inter-UI-BoldItalic.woff') format('woff');
+  src: url('Inter-UI-BoldItalic.woff2') format('woff2'),
+    url('Inter-UI-BoldItalic.woff') format('woff');
 }
 
 * {
@@ -154,7 +154,7 @@ label {
   display: block;
 }
 
-$select: "url(<%= asset-url 'select.svg' %>)";
+$select: "url(<%= url 'select.svg' %>)";
 select {
   background: #{$select} right 0.75rem center / 0.5rem no-repeat $white;
 }
