@@ -1,10 +1,10 @@
 <div class="breadcrumbs">
-  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %> › <%= link_to "#{@attendee.fname} #{@attendee.lname}", event_attendee_path(@event, @attendee) %>
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %> › <%= link_to "#{@attendee.first_name} #{@attendee.last_name}", event_attendee_path(@event, @attendee) %>
 </div>
 
 <h1>
   <%= @event.name %>
-  <br><span style="font-size: 2rem;"><%= "#{@attendee.fname} #{@attendee.lname}" %></span>
+  <br><span style="font-size: 2rem;"><%= "#{@attendee.first_name} #{@attendee.last_name}" %></span>
 </h1>
 
 <%= render 'form', attendee: @attendee, url: event_attendee_path(@event, @attendee) %>
