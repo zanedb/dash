@@ -154,9 +154,8 @@ label {
   display: block;
 }
 
-$select: "url(#{<%= url 'select.svg' %>})";
 select {
-  background: #{$select} right 0.75rem center / 0.5rem no-repeat $white;
+  background: right 0.75rem center / 0.5rem no-repeat $white;
 }
 // rails date(time) inputs
 select[name$='i)]'] {
