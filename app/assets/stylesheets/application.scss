@@ -45,7 +45,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: 'Inter UI', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   position: relative;
@@ -81,24 +81,21 @@ textarea {
   min-height: 36px;
   line-height: inherit;
   font-family: inherit;
-  font-size: 16px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
   width: 100%;
   color: inherit;
   background-color: transparent;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   border-width: 1px;
   border-style: solid;
-  border-color: rgb(221, 225, 228);
+  border-color: $gray3;
   transition: box-shadow 0.125s ease-out;
 
   &:focus {
-    box-shadow: rgb(173, 217, 245) 0 0 0 2px;
+    box-shadow: $gray3;
     outline: none;
-    border-color: rgb(45, 158, 228);
+    border-color: $gray3;
   }
 }
 
@@ -115,7 +112,7 @@ textarea {
 pre {
   background-color: $gray0;
   padding: 12px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 a {
@@ -179,7 +176,7 @@ input[type='submit'],
   padding-bottom: 8px;
   background-color: $red5;
   color: $white;
-  font-size: 20px;
+  font-size: 1.25rem;
   display: inline-block;
   vertical-align: middle;
   text-align: center;
@@ -188,7 +185,7 @@ input[type='submit'],
   line-height: 1.125;
   -webkit-appearance: none;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.125) 0 2px 4px;
+  box-shadow: $gray9 0 2px 4px;
   margin: 0;
   text-decoration: none;
   transition: box-shadow 0.125s ease-out;
@@ -209,22 +206,22 @@ h4 {
   line-height: 1.125;
 }
 h1 {
-  font-size: 40px;
+  font-size: 2.5rem;
   padding-bottom: 8px;
-  border-bottom: 1px solid #dde1e4;
+  border-bottom: 1px solid $gray3;
   margin-bottom: 1rem;
 }
 h2 {
-  font-size: 28px;
+  font-size: 1.75rem;
   padding-bottom: 4px;
-  border-bottom: 1px solid #dde1e4;
+  border-bottom: 1px solid $gray3;
   margin-bottom: 0.5rem;
 }
 h3 {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 h4 {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .no-margin {
@@ -245,7 +242,7 @@ $__palette: (
   pending: $yellow5,
   black: $gray9,
   slate: $gray8,
-  muted: $gray7,
+  muted: $gray3,
   smoke: $gray2,
   snow: $gray0,
   white: $white
@@ -270,10 +267,10 @@ $__palette: (
   float: right;
   background: rgba(255, 255, 255, 0.25);
   border-radius: 999px;
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   text-align: center;
-  line-height: 24px;
+  line-height: 1.5rem;
 }
 
 .flash__content {
