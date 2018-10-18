@@ -14,8 +14,5 @@ import Turbolinks from 'turbolinks'
 Turbolinks.start()
 
 import WebpackerReact from 'webpacker-react'
-import NotFound from '../pages/NotFound'
 
-WebpackerReact.setup({
-  NotFound
-})
+WebpackerReact.setup({})

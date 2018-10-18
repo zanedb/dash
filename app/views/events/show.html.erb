@@ -1,16 +1,18 @@
 <div class="breadcrumbs">
-  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, '#'%>
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %>
 </div>
 
 <h1><%= @event.name %></h1>
-<h3>Starts at: <%= local_time(@event.start_date) %></h3>
-<h3>Ends at: <%= local_time(@event.end_date) %></h3>
-<h4 style="white-space: pre-line">
+<h4 class="no-margin">
+  Starts at: <%= local_time(@event.startDate) %>
+  <br/>Ends at: <%= local_time(@event.endDate) %>
+</h4>
+<h4 style="white-space: pre-line" class="no-margin">
   Takes place at:
   <%= link_to @event.location, "https://www.google.com/maps?q=#{@event.location}", target: '_blank', rel: 'noopen noreferrer' %>
 </h4>
 
-<h3>Team Member Invitations</h3>
+<h2>Team Member Invitations</h2>
 <%= link_to 'Invite team member', new_event_organizer_position_invite_path(@event) %>
 <% if @invites %>
   <ul>

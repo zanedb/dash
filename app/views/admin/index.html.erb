@@ -1,8 +1,8 @@
 <div class="breadcrumbs">
-  <%= link_to 'Home', root_url %> › <%= link_to 'Admin Dashboard', '#' %>
+  <%= link_to 'Home', root_url %>
 </div>
 
 <h1>Admin Dashboard</h1>
-<h2>Welcome, <%= current_user.name %>. How does all the power feel?</h2>
+<h3 class="no-margin">Welcome, <%= current_user.name %>. How does all the power feel?</h3>
 
 <h3><%= link_to 'All Users', all_users_path %>

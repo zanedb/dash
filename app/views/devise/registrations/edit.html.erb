@@ -1,6 +1,7 @@
 <div class="breadcrumbs">
-  <a href="/">Home</a> › <a href="/users/edit">My Account</a>
+  <%= link_to 'Home', root_url %>
 </div>
+<h1>My Account</h1>
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
