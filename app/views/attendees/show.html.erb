@@ -6,15 +6,14 @@
   <%= @event.name %>
   <br><span style="font-size: 2rem;"><%= "#{@attendee.first_name} #{@attendee.last_name}" %></span>
 </h1>
-<h3 class="no-margin">
-  Email: <%= link_to @attendee.email, "mailto:#{@attendee.email}" %>
-</h3>
 <h4 class="no-margin">
-  <br/>
-  Notes:<br/>
-  <%= @attendee.note %>
+  Email: <%= link_to @attendee.email, "mailto:#{@attendee.email}" %>
 </h4>
-<h3>Event: <%= link_to @event.name, @event %></h3>
+<p>
+  Notes:
+  <br />
+  <%= @attendee.note %>
+</p>
 
 <%= link_to 'Edit', edit_event_attendee_path(@event, @attendee) %>
 <%= link_to 'Delete attendee', event_attendee_path(@event, @attendee), method: :delete, data: { confirm: 'Are you sure?' } %>
