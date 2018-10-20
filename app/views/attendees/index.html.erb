@@ -4,7 +4,7 @@
 
 <h1>
   <%= @event.name %>
-  <br><span style="font-size: 2rem;">Attendees</span>
+  <br><span style="font-size: 2rem;">Attendees (<%= @attendees.count %>)</span>
 </h1>
 <% if @attendees.empty? %>
   <h3 class="no-margin">There are no attendees.</h3>
