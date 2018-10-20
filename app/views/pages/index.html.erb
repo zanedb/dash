@@ -4,7 +4,7 @@
   <h4 class="a-lil-bottom-margin">
     👋 Welcome, <%= current_user.name %>. You’re doing great.
     <% if current_user.admin? %>
-      You’re also an <span style="color: red;">admin</span>, hellooooo.
+      (& you’re an <span style="color: red;">admin</span>)
     <% end %>
   </h4>
   <%= link_to 'View events', events_path %>
