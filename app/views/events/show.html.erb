@@ -3,35 +3,40 @@
 </div>
 
 <h1><%= @event.name %></h1>
-<h4 class="no-margin">
+<p class="no-margin">
   Starts at: <%= local_time(@event.start_date) %>
-  <br/>Ends at: <%= local_time(@event.end_date) %>
-</h4>
-<h4 style="white-space: pre-line" class="no-margin">
+  <br />
+  Ends at: <%= local_time(@event.end_date) %>
+</p>
+<p style="white-space: pre-line" class="no-margin">
   Takes place at:
   <%= link_to @event.location, "https://www.google.com/maps?q=#{@event.location}", target: '_blank', rel: 'noopen noreferrer' %>
-</h4>
+</p>
 
-<h2>Team Member Invitations</h2>
-<%= link_to 'Invite team member', new_event_organizer_position_invite_path(@event) %>
-<% if @invites %>
-  <ul>
-    <% @invites.each do |invite| %>
-      <li>
-        <b>
-          <% if invite.accepted_at %>
-            ACCEPTED
-          <% elsif invite.rejected_at %>
-            REJECTED
-          <% else %>
-            PENDING
-          <% end %>
-        </b>
-        <%= invite.email %>, sent by <%= invite.sender.name %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<div id="team-members" style="margin: 0 0 1rem;">
+  <h2>Team Members</h2>
+  <%= link_to 'Invite team member', new_event_organizer_position_invite_path(@event) %>
+  <% unless @invites %>
+    <p>No team members yet...</p>
+  <% end %>
+  <% if @invites&.accepted %>
+    <ul>
+      <% @invites.accepted.each do |invite| %>
+        <li><%= invite.user.name %>—<%= link_to invite.user.email, invite.user.email %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <% if @invites&.pending %>
+    <details>
+      <summary style="font-size: 1.2rem; font-weight: bold">Pending Invitations</summary>
+      <ul>
+        <% @invites.pending.each do |invite| %>
+          <li><%= link_to invite.email, invite.email %></li>
+        <% end %>
+      </ul>
+    </details>
+  <% end %>
+</div>
 
 <%= link_to 'Edit event details', edit_event_path(@event) %>
 <% if current_user.admin? %>
