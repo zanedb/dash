@@ -22,6 +22,8 @@
 
 class OrganizerPositionInvite < ApplicationRecord
   scope :pending, -> { where(accepted_at: nil, rejected_at: nil) }
+  scope :accepted, -> { where.not(accepted_at: nil) }
+  scope :rejected, -> { where.not(rejected_at: nil) }
 
   belongs_to :event
   belongs_to :user, required: false
