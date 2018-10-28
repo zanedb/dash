@@ -1,0 +1,2 @@
+class AttendeeField < ApplicationRecord
+end
