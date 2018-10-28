@@ -1,0 +1,2 @@
+module AttendeeFieldHelper
+end
