@@ -2,6 +2,7 @@ require 'csv'
 
 class Attendee < ApplicationRecord
   belongs_to :event
+  has_many :attendee_field_values, through: :attendee_fields
 
   def self.as_csv
     CSV.generate do |csv|
