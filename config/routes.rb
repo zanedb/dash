@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :attendees
+    resources :attendee_fields
 
     resources :organizer_position_invites, path: 'invites' do
       post 'accept'
