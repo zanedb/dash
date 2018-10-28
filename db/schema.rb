@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_28_055417) do
+ActiveRecord::Schema.define(version: 2018_10_28_061411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attendee_fields", force: :cascade do |t|
+    t.string "name"
+    t.string "label"
+    t.string "kind"
+    t.text "options", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "attendees", force: :cascade do |t|
     t.string "first_name"
