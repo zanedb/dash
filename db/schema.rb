@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_28_061411) do
+ActiveRecord::Schema.define(version: 2018_10_28_061650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attendee_field_values", force: :cascade do |t|
+    t.text "content"
+    t.bigint "attendee_field_id"
+    t.bigint "attendee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attendee_field_id"], name: "index_attendee_field_values_on_attendee_field_id"
+    t.index ["attendee_id"], name: "index_attendee_field_values_on_attendee_id"
+  end
 
   create_table "attendee_fields", force: :cascade do |t|
     t.string "name"
@@ -116,6 +126,8 @@ ActiveRecord::Schema.define(version: 2018_10_28_061411) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "attendee_field_values", "attendee_fields"
+  add_foreign_key "attendee_field_values", "attendees"
   add_foreign_key "attendees", "events"
   add_foreign_key "organizer_position_invites", "events"
   add_foreign_key "organizer_position_invites", "organizer_positions"
