@@ -26,12 +26,14 @@ ActiveRecord::Schema.define(version: 2018_10_28_061650) do
   end
 
   create_table "attendee_fields", force: :cascade do |t|
+    t.bigint "event_id"
     t.string "name"
     t.string "label"
     t.string "kind"
     t.text "options", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_attendee_fields_on_event_id"
   end
 
   create_table "attendees", force: :cascade do |t|
