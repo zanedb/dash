@@ -2,7 +2,6 @@ class AttendeeFieldsController < ApplicationController
   before_action :set_event
 
   def index
-    
   end
 
   private

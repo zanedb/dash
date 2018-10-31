@@ -6,3 +6,11 @@
   <%= @event.name %>
   <br><span style="font-size: 2rem;">Fields</span>
 </h1>
+
+<% if @event.attendee_fields.any? %>
+  <% @event.attendee_fields.each do |field| %>
+    <%= field %>
+  <% end %>
+<% else %>
+  <p>There are currently no fields.</p>
+<% end %>
