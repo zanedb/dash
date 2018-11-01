@@ -1,0 +1,22 @@
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Fields', event_attendee_fields_path %>
+</div>
+
+<h1>
+  <%= @event.name %>
+  <br><span style="font-size: 2rem;">Field</span>
+</h1>
+
+<%= form_tag do %>
+  <div class="field">
+    <%= label_tag("#{@attendee_field.label} (#{@attendee_field.name})") %>
+    <% if @attendee_field.kind == 'text' %>
+      <%= text_field_tag(nil) %>
+    <% elsif @attendee_field.kind == 'multiline' %>
+      <%= text_area_tag(nil) %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_event_attendee_field_path(@event, @attendee_field) %>
+<%= link_to 'Delete field', event_attendee_field_path(@event, @attendee_field), method: :delete, data: { confirm: 'Are you sure?' } %>

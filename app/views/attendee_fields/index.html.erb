@@ -8,9 +8,21 @@
 </h1>
 
 <% if @event.attendee_fields.any? %>
-  <% @event.attendee_fields.each do |field| %>
-    <%= field %>
+  <%= form_tag do %>
+    <% @event.attendee_fields.each do |field| %>
+      <div class="field">
+        <%= label_tag("#{field.label} (#{field.name})") %>
+        <% if field.kind == 'text' %>
+          <%= text_field_tag(nil) %>
+        <% elsif field.kind == 'multiline' %>
+          <%= text_area_tag(nil) %>
+        <% end %>
+        <%= link_to 'Edit', edit_event_attendee_field_path(@event, field) %>
+        <%= link_to 'Delete field', event_attendee_field_path(@event, field), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
   <% end %>
 <% else %>
   <p>There are currently no fields.</p>
 <% end %>
+<h3 class="no-margin"><%= link_to 'Add a field', new_event_attendee_field_path %></h3>

@@ -43,3 +43,4 @@
   <%= link_to 'Delete event', @event, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <%= link_to 'Attendees', event_attendees_path(@event) %>
+<%= link_to 'Fields', event_attendee_fields_path(@event) %>

@@ -1,0 +1,10 @@
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Fields', event_attendee_fields_path %>
+</div>
+
+<h1>
+  <%= @event.name %>
+  <br><span style="font-size: 2rem;">Add a Field</span>
+</h1>
+
+<%= render 'form', url: event_attendee_fields_path, attendee_field: @attendee_field %>
