@@ -44,6 +44,6 @@ class ApplicationController < ActionController::Base
   end
 
   def record_not_found
-    render react_component: 'NotFound', status: 404
+    render 'pages/not_found', status: 404
   end
 end
