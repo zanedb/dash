@@ -18,6 +18,7 @@ class AttendeesController < ApplicationController
   end
 
   def show
+    @attendee_fields = @event.attendee_fields
   end
 
   def new
@@ -67,6 +68,6 @@ class AttendeesController < ApplicationController
   end
 
   def attendee_params
-    params.require(:attendee).permit(:first_name, :last_name, :email, :note, :extras)
+    params.require(:attendee).permit(:first_name, :last_name, :email, :note)
   end
 end
