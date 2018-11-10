@@ -4,6 +4,10 @@ class Attendee < ApplicationRecord
   belongs_to :event
   has_many :attendee_field_values, through: :attendee_fields, dependent: :destroy
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def self.as_csv
     CSV.generate do |csv|
       filtered_columns = column_names - ['event_id'] # hide event_id in CSV
