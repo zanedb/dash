@@ -33,25 +33,25 @@
     Team Members
     <%= link_to 'Invite team member', new_event_organizer_position_invite_path(@event), class: 'btn bg-success' %>
   </h2>
-  <% unless @invites %>
-    <p>No team members yet…</p>
+  <% if @invites.empty? %>
+    <p class="muted">There are no team members.</p>
   <% end %>
   <% if @invites&.accepted %>
     <ul class="list list--unlinked list--row">
       <% @invites.accepted.each do |invite| %>
         <li>
           <strong><%= invite.user.name %></strong>
-          <span class="muted">—<%= link_to invite.user.email, invite.user.email %></span>
+          <span class="muted">—<%= mail_to invite.user.email %></span>
         </li>
       <% end %>
     </ul>
   <% end %>
-    <% if @invites.pending.any? %>
+  <% if @invites.pending.any? %>
     <details>
       <summary style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">Pending Invitations</summary>
       <ul>
         <% @invites.pending.each do |invite| %>
-          <li><%= link_to invite.email, invite.email %></li>
+          <li><%= mail_to invite.email %></li>
         <% end %>
       </ul>
     </details>
