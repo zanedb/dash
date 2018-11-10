@@ -2,18 +2,33 @@
   <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %>
 </div>
 
-<h1>
-  <%= @event.name %>
-  <br><span style="font-size: 2rem;"><%= "#{@attendee.first_name} #{@attendee.last_name}" %></span>
+<h1 class="heading">
+  <%= @attendee.name %>
+  <%= link_to 'Edit', edit_event_attendee_path(@event, @attendee), class: 'btn bg-info' %>
+  <%= link_to 'Delete', event_attendee_path(@event, @attendee), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
 </h1>
-<h4 class="no-margin">
-  Email: <%= link_to @attendee.email, "mailto:#{@attendee.email}" %>
-</h4>
-<p>
-  Notes:
-  <br />
-  <%= @attendee.note %>
-</p>
 
-<%= link_to 'Edit', edit_event_attendee_path(@event, @attendee) %>
-<%= link_to 'Delete attendee', event_attendee_path(@event, @attendee), method: :delete, data: { confirm: 'Are you sure?' } %>
+<article class="details">
+  <p>
+    <strong>First name</strong>
+    <%= @attendee.first_name %>
+  </p>
+  <p>
+    <strong>Last name</strong>
+    <%= @attendee.last_name %>
+  </p>
+  <p>
+    <strong>Email</strong>
+    <%= mail_to @attendee.email %>
+  </p>
+  <p>
+    <strong>Notes</strong>
+    <%= @attendee.note %>
+  </p>
+  <% @attendee_fields.each do |field| %>
+    <p>
+      <%= content_tag :strong, field.label %>
+      <%# field.value.content %>
+    </p>
+  <% end %>
+</article>

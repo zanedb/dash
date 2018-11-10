@@ -2,22 +2,20 @@
   <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %>
 </div>
 
-<h1>
-  <%= @event.name %>
-  <br><span style="font-size: 2rem;">Attendees (<%= @attendees.count %>)</span>
+<h1 class="heading">
+  Attendees (<%= @attendees.count %>)
+  <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn bg-success' %>
 </h1>
 <% if @attendees.empty? %>
-  <h3 class="no-margin">There are no attendees.</h3>
+  <p class="muted no-margin">There are no attendees.</p>
 <% else %>
-  <h3 class="a-lil-bottom-margin"><%= link_to 'Export attendees as CSV', "#{event_attendees_path}.csv" %></h3>
-  <h3 class="no-margin">All attendees</h3>
+  <h2 class="heading">
+    All attendees
+    <%= link_to 'Export as CSV', event_attendees_path(format: :csv), class: 'btn bg-info' %>
+  </h2>
   <ul>
     <% @attendees.each do |attendee| %>
       <li><%= link_to "#{attendee.first_name} #{attendee.last_name}", event_attendee_path(@event, attendee) %></li>
     <% end %>
   </ul>
 <% end %>
-
-<br>
-
-<h3 class="no-margin"><%= link_to 'Add an attendee', new_event_attendee_path %></h3>
