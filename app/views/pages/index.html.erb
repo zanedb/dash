@@ -1,19 +1,23 @@
-<h1>H&M</h1>
-<h3 class="a-lil-bottom-margin">✨ A next-gen hackathon management system</h3>
 <% if user_signed_in? %>
+  <h1>H&M</h1>
+  <h3 class="a-lil-bottom-margin">✨ A next-gen hackathon management system</h3>
   <h4 class="a-lil-bottom-margin">
     👋 Welcome, <%= current_user.name %>. You’re doing great.
     <% if current_user.admin? %>
-      (& you’re an <span style="color: red;">admin</span>)
+      (& you’re an <span class="primary bold">admin</span>)
     <% end %>
   </h4>
-  <%= link_to 'View events', events_path %>
-  <br />
-  <%= link_to 'Admin dashboard', admin_path %>
-  <br />
-  <%= link_to 'My account', edit_user_registration_path %>
-  <br />
-  <%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
-  <% else %>
-  <h2><%= link_to 'Login', new_user_session_path %></h2>
+  <ul class="list">
+    <li><%= link_to 'View events', events_path %></li>
+    <% if current_user.admin? %>
+      <li><%= link_to 'Admin dashboard', admin_path %></li>
+    <% end %>
+    <li><%= link_to 'My account', edit_user_registration_path %></li>
+    <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+  </ul>
+<% else %>
+  <h1>There’s more to see…</h1>
+  <article>
+    <%= link_to 'Sign in', new_user_session_path, class: 'btn bg-success' %>
+  </article>
 <% end %>
