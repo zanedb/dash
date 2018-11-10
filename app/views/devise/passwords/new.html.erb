@@ -1,20 +1,20 @@
 <div class="breadcrumbs">
-  <%= link_to 'Home', root_url %> › <%= link_to 'Sign In', new_user_session %>
+  <%= link_to 'Home', root_url %> › <%= link_to 'Sign In', new_user_session_path %>
 </div>
 
-<h2>Forgot your password?</h2>
+<h1>Forgot your password?</h1>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, autocomplete: 'email' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+    <%= f.submit 'Send me reset password instructions' %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%= render 'devise/shared/links' %>
