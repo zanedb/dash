@@ -13,15 +13,18 @@
     <% end %>
   </ul>
 <% end %>
-<h1>Events</h1>
-<% if current_user.admin? %>
-  <h3 class="a-lil-bottom-margin"><%= link_to 'New Event', new_event_path %></h3>
-  <h3 class="no-margin">You’re an admin, showing all events:</h3>
-<% end %>
+
+<h1 class="heading">
+  Events 
+  <% if current_user.admin? %>
+    <span class="muted" style="margin-left: 0.5rem;">(all)</span>
+    <%= link_to 'New Event', new_event_path, class: 'btn bg-success' %>
+  <% end %>
+</h1>
 <% if @events.empty? && @invites.empty? %>
-  <h2>No events.. yet.</h2>
+  <h2 class="muted">No events…yet.</h2>
 <% elsif @events %>
-  <ul>
+  <ul class="list">
     <% @events.each do |event| %>
       <li><%= link_to event.name, event %></h3></li>
     <% end %>
