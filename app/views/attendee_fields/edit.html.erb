@@ -3,8 +3,7 @@
 </div>
 
 <h1>
-  <%= @event.name %>
-  <br><span style="font-size: 2rem;"><%= "#{@attendee_field.label} (#{@attendee_field.name})" %></span>
+  <%= "#{@attendee_field.label} (#{@attendee_field.name})" %>
 </h1>
 
 <%= render 'form', attendee_field: @attendee_field, url: event_attendee_field_path(@event, @attendee_field) %>

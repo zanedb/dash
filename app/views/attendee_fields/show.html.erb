@@ -3,13 +3,11 @@
 </div>
 
 <h1>
-  <%= @event.name %>
-  <br><span style="font-size: 2rem;">Field</span>
+  <%= "#{@attendee_field.label} (#{@attendee_field.name})" %>
 </h1>
 
 <%= form_tag do %>
   <div class="field">
-    <%= label_tag("#{@attendee_field.label} (#{@attendee_field.name})") %>
     <% if @attendee_field.kind == 'text' %>
       <%= text_field_tag(nil) %>
     <% elsif @attendee_field.kind == 'multiline' %>

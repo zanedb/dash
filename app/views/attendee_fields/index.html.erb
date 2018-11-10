@@ -2,23 +2,23 @@
   <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %>
 </div>
 
-<h1>
-  <%= @event.name %>
-  <br><span style="font-size: 2rem;">Fields</span>
+<h1 class="heading">
+  Fields
+  <%= link_to 'Add a field', new_event_attendee_field_path, class: 'btn bg-success' %>
 </h1>
 
-<!-- lachlan hates me, TODO: remove -->
-<h3 class="no-margin" style="margin-bottom: 1rem;" ><%= link_to 'Add a field', new_event_attendee_field_path %></h3>
 <% if @event.attendee_fields.any? %>
   <%= form_tag do %>
     <% @event.attendee_fields.each do |field| %>
-      <div class="field">
-        <%= label_tag("#{field.label} (#{field.name})") %>
-        <% if field.kind == 'text' %>
-          <%= text_field_tag(nil) %>
-        <% elsif field.kind == 'multiline' %>
-          <%= text_area_tag(nil) %>
-        <% end %>
+      <div class="a-lil-bottom-margin">
+        <label class="field">
+          <%= "#{field.label} (#{field.name})" %>
+          <% if field.kind == 'text' %>
+            <%= text_field_tag(nil) %>
+          <% elsif field.kind == 'multiline' %>
+            <%= text_area_tag(nil) %>
+          <% end %>
+        </label>
         <%= link_to 'Edit', edit_event_attendee_field_path(@event, field) %>
         <%= link_to 'Delete field', event_attendee_field_path(@event, field), method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
