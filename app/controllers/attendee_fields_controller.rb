@@ -23,7 +23,7 @@ class AttendeeFieldsController < ApplicationController
     @attendee_field = @event.attendee_fields.new(attendee_field_params)
 
     if @attendee_field.save
-      redirect_to event_attendee_field_path(@event, @attendee_field)
+      redirect_to event_attendee_fields_path(@event)
       flash[:success] = 'Field was successfully created.'
     else
       render :new
@@ -32,7 +32,7 @@ class AttendeeFieldsController < ApplicationController
 
   def update
     if @attendee_field.update(attendee_field_params)
-      redirect_to event_attendee_field_path(@event, @attendee_field)
+      redirect_to event_attendee_fields_path(@event)
       flash[:success] = 'Field was successfully updated.'
     else
       render :edit
