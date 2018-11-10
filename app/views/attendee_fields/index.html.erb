@@ -7,6 +7,8 @@
   <br><span style="font-size: 2rem;">Fields</span>
 </h1>
 
+<!-- lachlan hates me, TODO: remove -->
+<h3 class="no-margin" style="margin-bottom: 1rem;" ><%= link_to 'Add a field', new_event_attendee_field_path %></h3>
 <% if @event.attendee_fields.any? %>
   <%= form_tag do %>
     <% @event.attendee_fields.each do |field| %>
@@ -25,4 +27,3 @@
 <% else %>
   <p>There are currently no fields.</p>
 <% end %>
-<h3 class="no-margin"><%= link_to 'Add a field', new_event_attendee_field_path %></h3>
