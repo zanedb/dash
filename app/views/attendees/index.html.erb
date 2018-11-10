@@ -3,7 +3,7 @@
 </div>
 
 <h1 class="heading">
-  Attendees (<%= @attendees.count %>)
+  Attendees <span class="badge"><%= @attendees.count %></span>
   <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn bg-success' %>
 </h1>
 <% if @attendees.empty? %>
