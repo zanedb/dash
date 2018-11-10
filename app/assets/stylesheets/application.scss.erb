@@ -185,10 +185,9 @@ input[type='submit'],
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor: pointer;
-  box-shadow: $gray9 0 2px 4px;
+  box-shadow: 0 2px 8px $gray4;
   margin: 0;
   text-decoration: none;
-  transition: box-shadow 0.125s ease-out;
   border-radius: 9999px;
   border-width: 0px;
   border-style: solid;
@@ -196,6 +195,153 @@ input[type='submit'],
 .btn.btn--destroy {
   background-color: $gray0 !important;
   color: $red5 !important;
+}
+
+.container {
+  width: 100%;
+  max-width: 64rem;
+  margin: 1rem auto;
+  padding: 0 0.5rem;
+}
+
+.flash {
+  display: flex;
+  align-items: center;
+  color: $white;
+  background-color: $base;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  max-width: 32rem;
+}
+
+.flash__close {
+  cursor: pointer;
+  margin-left: 1rem;
+  font-size: 0.625rem;
+  float: right;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
+  line-height: 1.5rem;
+}
+
+.flash__content {
+  flex: 1 1 auto;
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+  .btn {
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+}
+h2.heading,
+h3.heading {
+  margin-bottom: 0;
+  .btn {
+    font-size: 0.875rem;
+  }
+}
+@media (min-width: 32em) {
+  .container {
+    padding: 0 1rem;
+  }
+  .heading {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    .btn {
+      margin-left: auto;
+      margin-top: 0;
+      + .btn {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}
+
+$chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  > a,
+  li > a:first-child {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+  > a > li,
+  > li {
+    border-bottom: 1px solid $gray2;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    background: #{$chevron};
+    > p {
+      margin: 0;
+    }
+  }
+  &.list--row > li,
+  &.list--row > a > li {
+    flex-direction: row;
+    align-items: center;
+  }
+  &.list--row p {
+    flex: 1 1 auto;
+  }
+  .btn {
+    font-size: 0.875rem;
+    @media screen and (min-width: 32em) {
+      margin-top: -4px;
+      margin-bottom: -3px;
+    }
+  }
+}
+.list--row li {
+  flex-direction: row;
+}
+.list--unlinked li {
+  background: white;
+  &.bg-snow {
+    background: $gray0;
+  }
+}
+h1 + .list,
+h1 + .details {
+  margin-top: -1rem;
+}
+h3 + .list {
+  border-top: 1px solid $gray2;
+}
+
+.details {
+  > p,
+  > div {
+    display: grid;
+    border-bottom: 1px solid $gray2;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 0;
+
+    @media (min-width: 32em) {
+      grid-template-columns: 16rem auto;
+      grid-gap: 0.5rem;
+
+      strong {
+        text-align: right;
+      }
+    }
+  }
 }
 
 h1,
@@ -242,40 +388,11 @@ $__palette: (
   pending: $yellow5,
   black: $gray9,
   slate: $gray8,
-  muted: $gray3,
+  muted: $gray6,
   smoke: $gray2,
   snow: $gray0,
   white: $white
 );
-
-.flash {
-  display: flex;
-  align-items: center;
-  color: $white;
-  background-color: $base;
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.75rem;
-  max-width: 32rem;
-}
-
-.flash__close {
-  cursor: pointer;
-  margin-left: 1rem;
-  font-size: 0.625rem;
-  float: right;
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 999px;
-  width: 1.5rem;
-  height: 1.5rem;
-  text-align: center;
-  line-height: 1.5rem;
-}
-
-.flash__content {
-  flex: 1 1 auto;
-}
 
 @each $name, $val in $__palette {
   .#{$name} {
