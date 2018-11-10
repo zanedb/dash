@@ -16,7 +16,7 @@
     <% @users.each do |user| %>
       <li>
         <%= user.name %>, <%= link_to user.email, "mailto:#{user.email}" %>
-        <br/>Signed up: <%= local_time(user.created_at) %>
+        <br/>Signed up: <%= format_time(user.created_at) %>
         <% if user.admin? %>
           <br/><%= user.name %> is an <span style="color: red;">admin</span>!
         <% end %>
