@@ -36,11 +36,7 @@
       <label class="field">
         <%= field.label %>
         <% value = @values ? @values[field.name] : '' %>
-        <% if field.kind == 'text' %>
-          <%= form.text_field field.name, value: value %>
-        <% elsif field.kind == 'multiline' %>
-          <%= form.text_area field.name, value: value %>
-        <% end %>
+        <%= custom_field field, form, value %>
       </label>
     </div>
   <% end %>

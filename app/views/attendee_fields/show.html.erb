@@ -9,11 +9,7 @@
 
 <%= form_tag do %>
   <div class="field">
-    <% if @attendee_field.kind == 'text' %>
-      <%= text_field_tag(nil) %>
-    <% elsif @attendee_field.kind == 'multiline' %>
-      <%= text_area_tag(nil) %>
-    <% end %>
+    <%= custom_field @attendee_field %>
   </div>
 <% end %>
 
