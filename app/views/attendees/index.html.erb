@@ -10,6 +10,24 @@
 <ul class="list">
   <li><%= link_to 'Edit Fields', event_attendee_fields_path(@event) %></li>
 </ul>
+<details>
+  <summary style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">API Access</summary>
+  <div class="slate">
+    To add an attendee via API, send a POST request to <%= link_to api_new_attendee_url(@event), api_new_attendee_url(@event) %> as <code>application/x-www-form-urlencoded</code> with all attributes you’d like.
+    <br/><br/>For example, in cURL:
+    <pre>curl --data "attendee[first_name]=Example&attendee[last_name]=Name&attendee[email]=example@example.com" <%= api_new_attendee_url(@event) %></pre>
+    The API will return a <code>200 OK</code> and the attendee object if successful, like so:
+<pre>{
+  "id": 1,
+  "first_name": "Example",
+  "last_name": "Name",
+  "email": "example@example.com",
+  "note": null,
+  "created_at": "2018-11-11T21:57:32.352Z",
+  "updated_at": "2018-11-11T21:57:32.352Z"
+}</pre>
+  </div>
+</details>
 <% if @attendees.empty? %>
   <p class="muted no-margin">There are no attendees.</p>
 <% else %>
