@@ -9,6 +9,7 @@ class AttendeesController < ApplicationController
     # manually authenticate index methods, Pundit doesn't
     if @event.users.include?(current_user) || current_user.admin?
       @attendees = @event.attendees
+      @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
 
       respond_to do |format|
         format.html
@@ -70,7 +71,7 @@ class AttendeesController < ApplicationController
     # don't allow fetching by numeric IDs, only by slug
     @event = Event.friendly.find(params[:event_id]) unless params[:event_id] =~ /^[0-9]+$/
     raise ActiveRecord::RecordNotFound unless @event
-    authorize @event
+    authorize @event unless params[:action] == 'create' # temporary, TODO remove
   end
 
   def set_attendee
