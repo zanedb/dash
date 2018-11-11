@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class User < ApplicationRecord
   # Others available are:
   # :confirmable, :lockable, :timeoutable, and :omniauthable
@@ -18,6 +20,11 @@ class User < ApplicationRecord
       invite.user = self
       invite.save
     end
+  end
+
+  def avatar_url(size = 64)
+    hex = Digest::MD5.hexdigest(email.downcase.strip)
+    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=mp"
   end
 
   def make_admin!
