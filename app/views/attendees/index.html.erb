@@ -7,6 +7,9 @@
   Attendees <span class="badge"><%= @attendees.count %></span>
   <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn bg-success' %>
 </h1>
+<ul class="list">
+  <li><%= link_to 'Edit Fields', event_attendee_fields_path(@event) %></li>
+</ul>
 <% if @attendees.empty? %>
   <p class="muted no-margin">There are no attendees.</p>
 <% else %>
@@ -18,8 +21,15 @@
     <% @attendees.each do |attendee| %>
       <%= link_to event_attendee_path(@event, attendee) do %>
         <li>
-          <img class="profile-img" style="margin-right: 0.5rem;" src=<%= avatar_url(attendee.email, 32) %> />
-          <%= attendee.name %>
+          <img class="profile-img" style="margin-right: 1rem;" src=<%= avatar_url(attendee.email, 48) %> />
+          <div>
+            <strong style="display: block;">
+              <%= attendee.name %>
+            </strong>
+            <span class="muted">
+              <%= attendee.email %>
+            </span>
+          </div>
         </li>
       <% end %>
     <% end %>
