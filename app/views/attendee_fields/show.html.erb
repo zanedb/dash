@@ -7,9 +7,9 @@
   <%= "#{@attendee_field.label} (#{@attendee_field.name})" %>
 </h1>
 
-<%= form_tag do %>
+<%= form_with do |form| %>
   <div class="field">
-    <%= custom_field @attendee_field %>
+    <%= custom_field @attendee_field, form %>
   </div>
 <% end %>
 
