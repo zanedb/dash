@@ -3,6 +3,8 @@ class AttendeesController < ApplicationController
   before_action :set_event
   before_action :set_attendee, only: %i[show edit update destroy]
 
+  CORE_PARAMS = %i[first_name last_name email note]
+
   def index
     # manually authenticate index methods, Pundit doesn't
     if @event.users.include?(current_user) || current_user.admin?
@@ -18,7 +20,7 @@ class AttendeesController < ApplicationController
   end
 
   def show
-    @attendee_fields = @event.attendee_fields
+    @attendee_fields = @event.fields
   end
 
   def new
@@ -26,6 +28,7 @@ class AttendeesController < ApplicationController
   end
 
   def edit
+    @values = @attendee.field_values
   end
 
   def create
@@ -40,7 +43,11 @@ class AttendeesController < ApplicationController
   end
 
   def update
-    if @attendee.update(attendee_params)
+    @fields = @event.fields.includes(:values)
+    @fields.each do |field|
+      field.value_for(@attendee).update(content: attendee_params[field.name])
+    end
+    if @attendee.update(attendee_core_params)
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully updated.'
     else
@@ -68,6 +75,12 @@ class AttendeesController < ApplicationController
   end
 
   def attendee_params
-    params.require(:attendee).permit(:first_name, :last_name, :email, :note)
+    params
+      .require(:attendee)
+      .permit([CORE_PARAMS].push(@event.fields.collect(&:name).map(&:to_sym)).flatten)
+  end
+
+  def attendee_core_params
+    attendee_params.to_h.slice(*CORE_PARAMS)
   end
 end
