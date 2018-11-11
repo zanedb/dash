@@ -1,0 +1,40 @@
+.no-margin {
+  margin: 0;
+}
+.a-lil-bottom-margin {
+  margin: 0 0 1rem;
+}
+
+.profile-img {
+  border-radius: 50%;
+}
+
+$__palette: (
+  primary: $base,
+  accent: $fuschia5,
+  info: $blue5,
+  success: $teal6,
+  error: $red7,
+  warning: $orange5,
+  pending: $yellow5,
+  black: $gray9,
+  slate: $gray8,
+  muted: $gray6,
+  smoke: $gray2,
+  snow: $gray0,
+  white: $white
+);
+
+@each $name, $val in $__palette {
+  .#{$name} {
+    color: $val;
+  }
+
+  .bg-#{$name} {
+    background-color: $val;
+  }
+
+  .b--#{$name} {
+    border-color: $val;
+  }
+}
