@@ -16,10 +16,13 @@ module ApplicationHelper
 
   def custom_field(field, form, value = nil)
     value ||= ''
-    if field.kind == 'text'
+    case field.kind
+    when 'text'
       form.text_field field.name, value: value
-    elsif field.kind == 'multiline'
+    when 'multiline'
       form.text_area field.name, value: value
+    when 'email'
+      form.email_field field.name, value: value
     end
   end
 end
