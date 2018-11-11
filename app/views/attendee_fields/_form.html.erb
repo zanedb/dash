@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :kind %>
-    <%= form.select(:kind, ['text', 'multiline']) %>
+    <%= form.select :kind, AttendeeField.kinds.keys %>
   </div>
 
   <div class="field">
