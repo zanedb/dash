@@ -9,7 +9,7 @@
 
 <%= form_with do |form| %>
   <div class="field">
-    <%= custom_field @attendee_field, form %>
+    <%= custom_field @attendee_field, form, @attendee_field.kind %>
   </div>
 <% end %>
 
