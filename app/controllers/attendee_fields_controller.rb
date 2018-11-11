@@ -13,14 +13,14 @@ class AttendeeFieldsController < ApplicationController
   end
 
   def new
-    @attendee_field = @event.attendee_fields.new
+    @attendee_field = @event.fields.new
   end
 
   def edit
   end
 
   def create
-    @attendee_field = @event.attendee_fields.new(attendee_field_params)
+    @attendee_field = @event.fields.new(attendee_field_params)
 
     if @attendee_field.save
       redirect_to event_attendee_fields_path(@event)
@@ -55,7 +55,7 @@ class AttendeeFieldsController < ApplicationController
   end
 
   def set_attendee_field
-    @attendee_field = @event.attendee_fields.find(params[:id])
+    @attendee_field = @event.fields.find(params[:id])
   end
 
   def attendee_field_params

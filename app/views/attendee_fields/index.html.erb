@@ -8,9 +8,9 @@
   <%= link_to 'Add a field', new_event_attendee_field_path, class: 'btn bg-success' %>
 </h1>
 
-<% if @event.attendee_fields.any? %>
+<% if @event.fields.any? %>
   <%= form_tag do %>
-    <% @event.attendee_fields.each do |field| %>
+    <% @event.fields.each do |field| %>
       <div class="a-lil-bottom-margin">
         <label class="field">
           <%= "#{field.label} (#{field.name})" %>
