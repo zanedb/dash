@@ -12,6 +12,14 @@ class Attendee < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def field_values
+    data = {}
+    values.each do |value|
+      data[value.field.name] = value.content
+    end
+    data
+  end
+
   def self.as_csv
     CSV.generate do |csv|
       filtered_columns = column_names - ['event_id'] # hide event_id in CSV
