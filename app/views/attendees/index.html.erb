@@ -14,9 +14,14 @@
     All attendees
     <%= link_to 'Export as CSV', event_attendees_path(format: :csv), class: 'btn bg-info' %>
   </h2>
-  <ul>
+  <ul class="list list--row">
     <% @attendees.each do |attendee| %>
-      <li><%= link_to "#{attendee.first_name} #{attendee.last_name}", event_attendee_path(@event, attendee) %></li>
+      <%= link_to event_attendee_path(@event, attendee) do %>
+        <li>
+          <img class="profile-img" style="margin-right: 0.5rem;" src=<%= avatar_url(attendee.email, 32) %> />
+          <%= attendee.name %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 <% end %>

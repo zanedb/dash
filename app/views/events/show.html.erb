@@ -41,7 +41,7 @@
     <ul class="list list--unlinked list--row">
       <% @invites.accepted.each do |invite| %>
         <li>
-          <img class="profile-img" style="margin-right: 0.5rem;" src=<%= invite.user.avatar_url(32) %> />
+          <img class="profile-img" style="margin-right: 0.5rem;" src=<%= avatar_url(invite.user.email, 32) %> />
           <strong><%= invite.user.name %></strong>
           <span class="muted">—<%= mail_to invite.user.email %></span>
         </li>
