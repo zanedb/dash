@@ -8,6 +8,10 @@ class Attendee < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
 
+  def attrs
+    attributes.to_h.merge(field_values).except('event_id')
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
