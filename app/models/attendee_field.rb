@@ -21,9 +21,17 @@ class AttendeeField < ApplicationRecord
     message: 'cannot contain spaces'
   }
 
-  KINDS = %i[text multiline checkbox]
+  after_create :create_values
 
   def value_for(attendee)
     AttendeeFieldValue.where(attendee: attendee, field: self).first
+  end
+
+  protected
+
+  def create_values
+    event.attendees.each do |attendee|
+      attendee.values.create(field: self, content: '')
+    end
   end
 end
