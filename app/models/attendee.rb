@@ -5,6 +5,9 @@ class Attendee < ApplicationRecord
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
 
+  validates_presence_of :first_name, :last_name, :email
+  validates_email_format_of :email
+
   def name
     "#{first_name} #{last_name}"
   end
