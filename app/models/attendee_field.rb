@@ -1,4 +1,4 @@
 class AttendeeField < ApplicationRecord
   belongs_to :event
-  has_many :attendee_field_values
+  has_many :values, class_name: 'AttendeeFieldValue', foreign_key: 'attendee_field_id'
 end

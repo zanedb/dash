@@ -2,7 +2,8 @@ require 'csv'
 
 class Attendee < ApplicationRecord
   belongs_to :event
-  has_many :attendee_field_values, through: :attendee_fields, dependent: :destroy
+  has_many :fields, through: :values, class_name: 'AttendeeField'
+  has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
 
   def name
     "#{first_name} #{last_name}"
