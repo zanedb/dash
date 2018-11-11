@@ -31,6 +31,20 @@
     <%= form.text_area :note %>
   </div>
 
+  <% @event.fields.each do |field| %>
+    <div class="a-lil-bottom-margin">
+      <label class="field">
+        <%= field.label %>
+        <% value = @values ? @values[field.name] : '' %>
+        <% if field.kind == 'text' %>
+          <%= form.text_field field.name, value: value %>
+        <% elsif field.kind == 'multiline' %>
+          <%= form.text_area field.name, value: value %>
+        <% end %>
+      </label>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
