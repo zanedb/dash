@@ -14,20 +14,22 @@
   </ul>
 <% end %>
 
-<h1 class="heading">
-  Events 
-  <% if current_user.admin? %>
-    <span class="muted" style="margin-left: 0.5rem;">(all)</span>
-    <%= link_to 'New Event', new_event_path, class: 'btn bg-success' %>
-  <% end %>
-</h1>
-<% if @events.empty? && @invites.empty? %>
-  <h2 class="muted">No events…yet.</h2>
-<% elsif @events %>
-  <ul class="list">
-    <% @events.each do |event| %>
-      <li><%= link_to event.name, event %></h3></li>
+<% if @events.any? || @invites.empty? %>
+  <h1 class="heading">
+    Events 
+    <% if current_user.admin? %>
+      <span class="muted" style="margin-left: 0.5rem;">(all)</span>
+      <%= link_to 'New Event', new_event_path, class: 'btn bg-success' %>
     <% end %>
-  </ul>
+  </h1>
+  <% if @events.empty? %>
+    <p class="muted">There are no events.</p>
+  <% else %>
+    <ul class="list">
+      <% @events.each do |event| %>
+        <li><%= link_to event.name, event %></h3></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
 
