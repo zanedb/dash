@@ -32,9 +32,12 @@ class AttendeesController < ApplicationController
   end
 
   def create
-    @attendee = @event.attendees.new(attendee_params)
-
+    @attendee = @event.attendees.new(attendee_core_params)
     if @attendee.save
+      @fields = @event.fields
+      @fields.each do |field|
+        @attendee.values.create!(field: field, content: attendee_params[field.name])
+      end
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully created.'
     else
