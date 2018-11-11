@@ -22,11 +22,6 @@ class User < ApplicationRecord
     end
   end
 
-  def avatar_url(size = 64)
-    hex = Digest::MD5.hexdigest(email.downcase.strip)
-    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=mp"
-  end
-
   def make_admin!
     self.admin_at = Time.current
   end

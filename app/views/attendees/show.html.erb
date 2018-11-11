@@ -4,6 +4,7 @@
 </div>
 
 <h1 class="heading">
+  <img class="profile-img" style="margin-right: 0.5rem;" src=<%= avatar_url(@attendee.email, 36) %> />
   <%= @attendee.name %>
   <%= link_to 'Edit', edit_event_attendee_path(@event, @attendee), class: 'btn bg-info' %>
   <%= link_to 'Delete', event_attendee_path(@event, @attendee), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
@@ -29,7 +30,7 @@
   <% @attendee_fields.each do |field| %>
     <p>
       <%= content_tag :strong, field.label %>
-      <%# field.value.content %>
+      <%= @attendee.field_values[field.name] %>
     </p>
   <% end %>
 </article>
