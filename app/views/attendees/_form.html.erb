@@ -1,7 +1,7 @@
 <%= form_with(model: attendee, url: url, local: true) do |form| %>
   <% if attendee.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(attendee.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <h2><%= pluralize(attendee.errors.count, "error") %> prohibited this attendee from being saved:</h2>
 
       <ul>
         <% attendee.errors.full_messages.each do |message| %>
@@ -30,6 +30,16 @@
     <%= form.label :note %>
     <%= form.text_area :note %>
   </div>
+
+  <% @event.fields.each do |field| %>
+    <div class="a-lil-bottom-margin">
+      <label class="field">
+        <%= field.label %>
+        <% value = @values ? @values[field.name] : '' %>
+        <%= custom_field field, form, value %>
+      </label>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

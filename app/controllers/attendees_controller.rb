@@ -3,10 +3,13 @@ class AttendeesController < ApplicationController
   before_action :set_event
   before_action :set_attendee, only: %i[show edit update destroy]
 
+  CORE_PARAMS = %i[first_name last_name email note]
+
   def index
     # manually authenticate index methods, Pundit doesn't
     if @event.users.include?(current_user) || current_user.admin?
       @attendees = @event.attendees
+      @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
 
       respond_to do |format|
         format.html
@@ -18,6 +21,7 @@ class AttendeesController < ApplicationController
   end
 
   def show
+    @attendee_fields = @event.fields
   end
 
   def new
@@ -25,12 +29,16 @@ class AttendeesController < ApplicationController
   end
 
   def edit
+    @values = @attendee.field_values
   end
 
   def create
-    @attendee = @event.attendees.new(attendee_params)
-
+    @attendee = @event.attendees.new(attendee_core_params)
     if @attendee.save
+      @fields = @event.fields
+      @fields.each do |field|
+        @attendee.values.create!(field: field, content: attendee_params[field.name])
+      end
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully created.'
     else
@@ -39,7 +47,11 @@ class AttendeesController < ApplicationController
   end
 
   def update
-    if @attendee.update(attendee_params)
+    @fields = @event.fields.includes(:values)
+    @fields.each do |field|
+      field.value_for(@attendee).update(content: attendee_params[field.name])
+    end
+    if @attendee.update(attendee_core_params)
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully updated.'
     else
@@ -56,8 +68,7 @@ class AttendeesController < ApplicationController
   private
 
   def set_event
-    # don't allow fetching by numeric IDs, only by slug
-    @event = Event.friendly.find(params[:event_id]) unless params[:event_id] =~ /^[0-9]+$/
+    @event = Event.friendly.find_by_friendly_id(params[:event_id])
     raise ActiveRecord::RecordNotFound unless @event
     authorize @event
   end
@@ -67,6 +78,12 @@ class AttendeesController < ApplicationController
   end
 
   def attendee_params
-    params.require(:attendee).permit(:first_name, :last_name, :email, :note, :extras)
+    params
+      .require(:attendee)
+      .permit([CORE_PARAMS].push(@event.fields.collect(&:name).map(&:to_sym)).flatten)
+  end
+
+  def attendee_core_params
+    attendee_params.to_h.slice(*CORE_PARAMS)
   end
 end

@@ -185,10 +185,9 @@ input[type='submit'],
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor: pointer;
-  box-shadow: $gray9 0 2px 4px;
+  box-shadow: 0 2px 8px $gray4;
   margin: 0;
   text-decoration: none;
-  transition: box-shadow 0.125s ease-out;
   border-radius: 9999px;
   border-width: 0px;
   border-style: solid;
@@ -198,55 +197,12 @@ input[type='submit'],
   color: $red5 !important;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-weight: bold;
-  line-height: 1.125;
+.container {
+  width: 100%;
+  max-width: 64rem;
+  margin: 1rem auto;
+  padding: 0 0.5rem;
 }
-h1 {
-  font-size: 2.5rem;
-  padding-bottom: 8px;
-  border-bottom: 1px solid $gray3;
-  margin-bottom: 1rem;
-}
-h2 {
-  font-size: 1.75rem;
-  padding-bottom: 4px;
-  border-bottom: 1px solid $gray3;
-  margin-bottom: 0.5rem;
-}
-h3 {
-  font-size: 1.5rem;
-}
-h4 {
-  font-size: 1.25rem;
-}
-
-.no-margin {
-  margin: 0;
-}
-
-.a-lil-bottom-margin {
-  margin: 0 0 1rem;
-}
-
-$__palette: (
-  primary: $base,
-  accent: $fuschia5,
-  info: $blue5,
-  success: $teal6,
-  error: $red7,
-  warning: $orange5,
-  pending: $yellow5,
-  black: $gray9,
-  slate: $gray8,
-  muted: $gray3,
-  smoke: $gray2,
-  snow: $gray0,
-  white: $white
-);
 
 .flash {
   display: flex;
@@ -277,16 +233,90 @@ $__palette: (
   flex: 1 1 auto;
 }
 
-@each $name, $val in $__palette {
-  .#{$name} {
-    color: $val;
-  }
-
-  .bg-#{$name} {
-    background-color: $val;
-  }
-
-  .b--#{$name} {
-    border-color: $val;
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+  .btn {
+    margin-top: 8px;
+    margin-bottom: 4px;
   }
 }
+h2.heading,
+h3.heading {
+  margin-bottom: 0;
+  .btn {
+    font-size: 0.875rem;
+  }
+}
+@media (min-width: 32em) {
+  .container {
+    padding: 0 1rem;
+  }
+  .heading {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    .btn {
+      margin-left: auto;
+      margin-top: 0;
+      + .btn {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: bold;
+  line-height: 1.125;
+}
+h1 {
+  font-size: 2.5rem;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $gray3;
+  margin-bottom: 1rem;
+}
+h2 {
+  font-size: 1.75rem;
+  padding-bottom: 4px;
+  border-bottom: 1px solid $gray3;
+  margin-bottom: 0.5rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.25rem;
+}
+
+/* https://css-tricks.com/snippets/css/make-pre-text-wrap/ */
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  color: $white;
+  background-color: $gray6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.heading .badge {
+  font-size: 1rem;
+  margin-left: 1rem;
+}
+
+@import 'lists';
+@import 'utilities';

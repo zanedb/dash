@@ -1,0 +1,26 @@
+<% title "Fields on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %>
+</div>
+
+<h1 class="heading">
+  Fields
+  <%= link_to 'Add a field', new_event_attendee_field_path, class: 'btn bg-success' %>
+</h1>
+
+<% if @event.fields.any? %>
+  <%= form_with do |form| %>
+    <% @event.fields.each do |field| %>
+      <div class="a-lil-bottom-margin">
+        <label class="field">
+          <%= "#{field.label} (#{field.name})" %>
+          <%= custom_field field, form, field.kind %>
+        </label>
+        <%= link_to 'Edit', edit_event_attendee_field_path(@event, field) %>
+        <%= link_to 'Delete field', event_attendee_field_path(@event, field), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <p class="muted no-margin">There are no fields.</p>
+<% end %>

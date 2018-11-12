@@ -1,45 +1,60 @@
+<% title @event.name %>
 <div class="breadcrumbs">
   <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %>
 </div>
 
-<h1><%= @event.name %></h1>
-<p class="no-margin">
-  Starts at: <%= local_time(@event.start_date) %>
-  <br />
-  Ends at: <%= local_time(@event.end_date) %>
-</p>
-<p style="white-space: pre-line" class="no-margin">
-  Takes place at:
-  <%= link_to @event.location, "https://www.google.com/maps?q=#{@event.location}", target: '_blank', rel: 'noopen noreferrer' %>
-</p>
+<h1 class="heading">
+  <%= @event.name %>
+  <%= link_to 'Edit', edit_event_path(@event), class: 'btn bg-info' %>
+  <% if current_user.admin? %>
+    <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
+  <% end %>
+</h1>
+
+<div class="slate" style="column-count: 2;">
+  <p class="no-margin" style="break-inside: avoid;">
+    Starts at: <%= format_time(@event.start_date) %>
+    <br />
+    Ends at: <%= format_time(@event.end_date) %>
+  </p>
+
+  <p class="no-margin" style="white-space: pre-line; break-inside: avoid;">
+    Takes place at:
+    <%= link_to @event.location, "https://www.google.com/maps?q=#{@event.location}", target: '_blank', rel: 'noopen noreferrer' %>
+  </p>
+</div>
+
+<ul class="list">
+  <li><%= link_to 'Attendees', event_attendees_path(@event) %></li>
+</ul>
 
 <div id="team-members" style="margin: 0 0 1rem;">
-  <h2>Team Members</h2>
-  <%= link_to 'Invite team member', new_event_organizer_position_invite_path(@event) %>
-  <% unless @invites %>
-    <p>No team members yet...</p>
+  <h2 class="heading">
+    Team Members
+    <%= link_to 'Invite team member', new_event_organizer_position_invite_path(@event), class: 'btn bg-success' %>
+  </h2>
+  <% if @invites.empty? %>
+    <p class="muted">There are no team members.</p>
   <% end %>
   <% if @invites&.accepted %>
-    <ul>
+    <ul class="list list--unlinked list--row">
       <% @invites.accepted.each do |invite| %>
-        <li><%= invite.user.name %>—<%= link_to invite.user.email, invite.user.email %></li>
+        <li>
+          <img class="profile-img" style="margin-right: 0.5rem;" src=<%= avatar_url(invite.user.email, 32) %> />
+          <strong><%= invite.user.name %></strong>
+          <span class="muted">—<%= mail_to invite.user.email %></span>
+        </li>
       <% end %>
     </ul>
   <% end %>
-    <% if @invites.pending.any? %>
+  <% if @invites.pending.any? %>
     <details>
-      <summary style="font-size: 1.2rem; font-weight: bold">Pending Invitations</summary>
+      <summary style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">Pending Invitations</summary>
       <ul>
         <% @invites.pending.each do |invite| %>
-          <li><%= link_to invite.email, invite.email %></li>
+          <li><%= mail_to invite.email %></li>
         <% end %>
       </ul>
     </details>
   <% end %>
 </div>
-
-<%= link_to 'Edit event details', edit_event_path(@event) %>
-<% if current_user.admin? %>
-  <%= link_to 'Delete event', @event, method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
-<%= link_to 'Attendees', event_attendees_path(@event) %>

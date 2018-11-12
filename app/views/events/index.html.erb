@@ -1,3 +1,4 @@
+<% title 'Events' %>
 <div class="breadcrumbs">
   <%= link_to 'Home', root_url %>
 </div>
@@ -5,26 +6,31 @@
 <% if @invites.any? %>
   <h1>
     Invitations
-    <br/><h3 class="no-margin">You have <%= pluralize @invites.count, 'pending invitation' %>.</h3>
   </h1>
-  <ul>
+  <p class="a-lil-bottom-margin slate">You have <%= pluralize @invites.count, 'pending invitation' %>.</p>
+  <ul class="list list--border-top">
     <% @invites.each do |invite| %>
       <li><%= link_to invite.event.name, event_organizer_position_invite_path(invite.event, invite) %></li>
     <% end %>
   </ul>
 <% end %>
-<h1>Events</h1>
-<% if current_user.admin? %>
-  <h3 class="a-lil-bottom-margin"><%= link_to 'New Event', new_event_path %></h3>
-  <h3 class="no-margin">You’re an admin, showing all events:</h3>
-<% end %>
-<% if @events.empty? && @invites.empty? %>
-  <h2>No events.. yet.</h2>
-<% elsif @events %>
-  <ul>
-    <% @events.each do |event| %>
-      <li><%= link_to event.name, event %></h3></li>
+
+<% if @events.any? || @invites.empty? %>
+  <h1 class="heading">
+    Events 
+    <% if current_user.admin? %>
+      <span class="muted" style="margin-left: 0.5rem;">(all)</span>
+      <%= link_to 'New Event', new_event_path, class: 'btn bg-success' %>
     <% end %>
-  </ul>
+  </h1>
+  <% if @events.empty? %>
+    <p class="muted">There are no events.</p>
+  <% else %>
+    <ul class="list">
+      <% @events.each do |event| %>
+        <li><%= link_to event.name, event %></h3></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
 

@@ -18,12 +18,16 @@
 
   <div class="field">
     <%= form.label :start_date   %>
-    <%= form.datetime_select :start_date %>
+    <%# Time.use_zone("Pacific Time (US & Canada)") do %>
+      <%= form.datetime_select :start_date, ampm: true %> UTC
+    <%# end %>
   </div>
 
   <div class="field">
     <%= form.label :end_date %>
-    <%= form.datetime_select :end_date %>
+    <%# Time.use_zone("Pacific Time (US & Canada)") do %>
+      <%= form.datetime_select :end_date, ampm: true %> UTC
+    <%# end %>
   </div>
 
   <div class="field">

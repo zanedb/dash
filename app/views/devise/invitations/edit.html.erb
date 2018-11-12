@@ -1,0 +1,24 @@
+<% title 'Welcome' %>
+<h1>Welcome to H&M!</h1>
+
+<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
+  <%= devise_error_messages! %>
+  <%= f.hidden_field :invitation_token, readonly: true %>
+  <p class="slate no-margin">
+    Nice to meet you. H&M is the hackathon management system <i>of your dreams</i>. 
+    <br/>Please fill out the fields below to get started.
+  </p>
+
+  <p><%= f.label :name %>
+  <%= f.text_field :name, value: '' %></p>
+
+  <% if f.object.class.require_password_on_accepting %>
+  <p><%= f.label :password %>
+  <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %></p>
+  <% end %>
+
+  <p><%= f.submit 'Continue' %></p>
+<% end %>

@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class User < ApplicationRecord
   # Others available are:
   # :confirmable, :lockable, :timeoutable, and :omniauthable

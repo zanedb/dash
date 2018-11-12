@@ -1,23 +1,76 @@
+<% title "Attendees on #{@event.name}" %>
 <div class="breadcrumbs">
   <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %>
 </div>
 
-<h1>
-  <%= @event.name %>
-  <br><span style="font-size: 2rem;">Attendees (<%= @attendees.count %>)</span>
+<h1 class="heading">
+  Attendees <span class="badge"><%= @attendees.count %></span>
+  <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn bg-success' %>
 </h1>
+<ul class="list">
+  <li><%= link_to 'Edit Fields', event_attendee_fields_path(@event) %></li>
+</ul>
+<details>
+  <summary style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">API Access</summary>
+  <div class="slate">
+    To add an attendee via API, send a POST request to <%= link_to api_new_attendee_url(@event), api_new_attendee_url(@event) %>, as either <code>application/json</code> or <code>application/x-www-form-urlencoded</code> with any (permitted) attributes you’d like.
+    <br>Below are examples of each method:
+    <details style="margin-top: 0.75rem;">
+      <summary><code>application/json</code></summary>
+      Sending a request in cURL:
+<pre>curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"attendee":{"first_name":"Example","last_name":"Name","email":"example@example.com"<% @event.fields.each do |field| %><%= ",\"#{field.name}\":\"Example\"" %><% end %>}}' \
+  <%= api_new_attendee_url(@event) %>
+</pre>
+    </details>
+    <details style="margin-bottom: 0.75rem;">
+      <summary><code>application/x-www-form-urlencoded</code></summary>
+      Sending a request in cURL:
+<pre>curl \
+  --data "attendee[first_name]=Example&attendee[last_name]=Name&attendee[email]=example@example.com<% @event.fields.each do |field| %><%= "&attendee[#{field.name}]=Example" %><% end %>" \
+  <%= api_new_attendee_url(@event) %>
+</pre>
+    </details>
+    The API will return a <code>200 OK</code> and the attendee object in JSON if successful, like so:
+<pre>{
+  "id": 1,
+  "first_name": "Example",
+  "last_name": "Name",
+  "email": "example@example.com",
+  "note": null,
+  <% @event.fields.each do |field| %>
+  <span class="highlight"><%= "\"#{field.name}\": \"Example\"," %></span>
+  <% end %>
+  "created_at": "2018-11-11T21:57:32.352Z",
+  "updated_at": "2018-11-11T21:57:32.352Z"
+}</pre>
+    The <u>note</u> field<% if @event.fields.any? %>, along with all custom fields (highlighted) are optional.<% else %> is optional. Remember that you can add <%= link_to 'custom fields', event_attendee_fields_path(@event) %>, which are accepted in the API as well.<% end %>
+    Additionally, if your request is invalid, errors will be sent back in a JSON <code>errors</code> object.
+  </div>
+</details>
 <% if @attendees.empty? %>
-  <h3 class="no-margin">There are no attendees.</h3>
+  <p class="muted no-margin">There are no attendees.</p>
 <% else %>
-  <h3 class="a-lil-bottom-margin"><%= link_to 'Export attendees as CSV', "#{event_attendees_path}.csv" %></h3>
-  <h3 class="no-margin">All attendees</h3>
-  <ul>
+  <h2 class="heading">
+    All attendees
+    <%= link_to 'Export as CSV', event_attendees_path(format: :csv), class: 'btn bg-info' %>
+  </h2>
+  <ul class="list list--row">
     <% @attendees.each do |attendee| %>
-      <li><%= link_to "#{attendee.first_name} #{attendee.last_name}", event_attendee_path(@event, attendee) %></li>
+      <%= link_to event_attendee_path(@event, attendee) do %>
+        <li>
+          <img class="profile-img" style="margin-right: 1rem;" src=<%= avatar_url(attendee.email, 48) %> />
+          <div>
+            <strong style="display: block;">
+              <%= attendee.name %>
+            </strong>
+            <span class="muted">
+              <%= attendee.email %>
+            </span>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 <% end %>
-
-<br>
-
-<h3 class="no-margin"><%= link_to 'Add an attendee', new_event_attendee_path %></h3>

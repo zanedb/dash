@@ -1,0 +1,17 @@
+<% title "Field #{@attendee_field.name} on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %> › <%= link_to 'Fields', event_attendee_fields_path %>
+</div>
+
+<h1>
+  <%= "#{@attendee_field.label} (#{@attendee_field.name})" %>
+</h1>
+
+<%= form_with do |form| %>
+  <div class="field">
+    <%= custom_field @attendee_field, form, @attendee_field.kind %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_event_attendee_field_path(@event, @attendee_field) %>
+<%= link_to 'Delete field', event_attendee_field_path(@event, @attendee_field), method: :delete, data: { confirm: 'Are you sure?' } %>

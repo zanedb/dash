@@ -1,8 +1,23 @@
-<h1>You’ve been invited to <%= @invite.event.name %> by <%= @invite.sender.name %>.</h1>
+<% title 'Viewing Invitation' %>
+<h1>
+  You’re invited to manage <%= @invite.event.name %><% unless @invite.sender.admin? %> by <%= @invite.sender.name %><% end %>.
+</h1>
 <p>
   Would you like to accept or decline?
-  <i>(this is intended for <%= @invite.email %>)</i>
+  <span class="slate">(this is intended for <%= @invite.email %>)</span>
 </p>
 
-<%= link_to 'Accept invitation', event_organizer_position_invite_accept_path(@event, @invite), method: :post %>
-<%= link_to 'Reject', event_organizer_position_invite_reject_path(@event, @invite), method: :post, data: { confirm: 'Are you sure?' } %>
+<%= 
+  link_to 'Accept invitation', 
+  event_organizer_position_invite_accept_path(@event, @invite), 
+  method: :post, 
+  class: 'btn bg-success', 
+  style: 'margin-right: 0.5rem;' 
+%>
+<%=
+  link_to 'Reject', 
+  event_organizer_position_invite_reject_path(@event, @invite), 
+  method: :post, 
+  data: { confirm: 'Are you sure?' }, 
+  class: 'btn btn--destroy'
+%>

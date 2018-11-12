@@ -1,0 +1,77 @@
+$chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  > a,
+  li > a:first-child {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+  > a > li,
+  > li {
+    border-bottom: 1px solid $gray2;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    background: #{$chevron};
+    > p {
+      margin: 0;
+    }
+  }
+  &.list--row > li,
+  &.list--row > a > li {
+    flex-direction: row;
+    align-items: center;
+  }
+  &.list--row p {
+    flex: 1 1 auto;
+  }
+  .btn {
+    font-size: 0.875rem;
+    @media (min-width: 32em) {
+      margin-top: -4px;
+      margin-bottom: -3px;
+    }
+  }
+}
+.list--row li {
+  flex-direction: row;
+}
+.list--unlinked li {
+  background: white;
+  &.bg-snow {
+    background: $gray0;
+  }
+}
+.list--border-top {
+  border-top: 1px solid $gray2;
+}
+h1 + .list,
+h1 + .details {
+  margin-top: -1rem;
+}
+h3 + .list {
+  border-top: 1px solid $gray2;
+}
+
+.details {
+  > p,
+  > div {
+    display: grid;
+    border-bottom: 1px solid $gray2;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 0;
+
+    @media (min-width: 32em) {
+      grid-template-columns: 16rem auto;
+      grid-gap: 0.5rem;
+
+      strong {
+        text-align: right;
+      }
+    }
+  }
+}

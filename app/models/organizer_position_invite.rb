@@ -39,7 +39,7 @@ class OrganizerPositionInvite < ApplicationRecord
   after_create :send_email
 
   def send_email
-    OrganizerPositionInvitesMailer.with(invite: self).notify.deliver_later
+    OrganizerPositionInvitesMailer.with(invite: self).notify.deliver_now
   end
 
   def accept

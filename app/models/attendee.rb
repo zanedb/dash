@@ -2,6 +2,27 @@ require 'csv'
 
 class Attendee < ApplicationRecord
   belongs_to :event
+  has_many :fields, through: :values, class_name: 'AttendeeField'
+  has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
+
+  validates_presence_of :first_name, :last_name, :email
+  validates_email_format_of :email
+
+  def attrs
+    attributes.to_h.merge(field_values).except('event_id')
+  end
+
+  def name
+    "#{first_name} #{last_name}"
+  end
+
+  def field_values
+    data = {}
+    values.each do |value|
+      data[value.field.name] = value.content
+    end
+    data
+  end
 
   def self.as_csv
     CSV.generate do |csv|
