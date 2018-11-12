@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
   before_action :set_event
-  
+
   CORE_PARAMS = %i[first_name last_name email note]
 
   def new_attendee
@@ -11,18 +11,10 @@ class ApiController < ApplicationController
         @attendee.values.create!(field: field, content: attendee_params[field.name])
       end
 
-      render json: @attendee.attrs.as_json
+      render json: @attendee.attrs.as_json, status: status
     else
-      render_error('server error', 500)
+      render json: { errors: @attendee.errors }, status: 400
     end
-  end
-
-  def render_success(obj = { success: true }, status = 200)
-      render json: obj, status: status
-  end
-
-  def render_error(msg, status = 400)
-    render json: { error: msg }, status: status
   end
 
   private
