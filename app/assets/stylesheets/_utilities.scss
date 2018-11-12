@@ -9,6 +9,16 @@
   border-radius: 50%;
 }
 
+.highlight {
+  border-radius: 1em 0px;
+  background-image: linear-gradient(
+    -100deg,
+    rgba(250, 247, 133, 0.33),
+    rgba(250, 247, 133, 0.66) 95%,
+    rgba(250, 247, 133, 0.1)
+  );
+}
+
 $__palette: (
   primary: $base,
   accent: $fuschia5,
