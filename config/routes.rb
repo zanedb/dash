@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   scope '/api/v1' do
     post '/events/:event_id/attendees', to: 'api#new_attendee', as: :api_new_attendee
+    options '/events/:event_id/attendees', to: 'api#new_attendee', as: :api_new_attendee
   end
 
   scope '/admin' do
