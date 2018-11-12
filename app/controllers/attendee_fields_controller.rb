@@ -48,8 +48,7 @@ class AttendeeFieldsController < ApplicationController
   private
 
   def set_event
-    # don't allow fetching by numeric IDs, only by slug
-    @event = Event.friendly.find(params[:event_id]) unless params[:event_id] =~ /^[0-9]+$/
+    @event = Event.friendly.find_by_friendly_id(params[:event_id])
     raise ActiveRecord::RecordNotFound unless @event
     authorize @event
   end
