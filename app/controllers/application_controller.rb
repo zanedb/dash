@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  http_basic_authenticate_with name: 'user',
-                               password: 'mcKekj7jBzz7spaV36aQNZS3',
-                               unless: -> { Rails.env.development? }
   include Pundit
   protect_from_forgery
   before_action :configure_permitted_parameters, if: :devise_controller?
