@@ -1,6 +1,7 @@
 class ApiController < ApplicationController
   before_action :set_event
   before_action :set_headers
+  skip_before_action :verify_authenticity_token
 
   CORE_PARAMS = %i[first_name last_name email note]
 
