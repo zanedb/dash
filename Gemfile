@@ -79,3 +79,6 @@ gem 'pundit'
 
 # jquery-rails
 gem 'jquery-rails'
+
+# CORS
+gem 'rack-cors'
