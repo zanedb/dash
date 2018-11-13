@@ -47,7 +47,7 @@
 }</pre>
     The <strong>note</strong> field<% if @event.fields.any? %>, along with all custom fields (highlighted) are optional.<% else %> is optional. Remember that you can add <%= link_to 'custom fields', event_attendee_fields_path(@event) %>, which are accepted in the API as well.<% end %>
     Additionally, if your request is invalid, errors will be sent back in a JSON <code>errors</code> object.
-    <br/>Finally, ensure that all requests are sent from permitted domains, which can be configured on the <%= link_to 'event management page', edit_event_path(@event) %>.
+    <br/>Finally, ensure that all requests are sent from permitted domains, which can be configured on the <%= link_to 'event management page', edit_event_path(@event)%>.
   </div>
 </details>
 <% if @attendees.empty? %>
