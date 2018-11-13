@@ -1,6 +1,5 @@
 class ApiController < ApplicationController
   before_action :set_event
-  before_action :set_headers
   skip_before_action :verify_authenticity_token
 
   CORE_PARAMS = %i[first_name last_name email note]
@@ -20,13 +19,6 @@ class ApiController < ApplicationController
   end
 
   private
-
-  def set_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-    headers['Access-Control-Request-Method'] = '*'
-    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  end
 
   def set_event
     @event = Event.friendly.find_by_friendly_id(params[:event_id])
