@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
   before_action :set_event
+  before_action :block_unpermitted_requests
   skip_before_action :verify_authenticity_token
 
   CORE_PARAMS = %i[first_name last_name email note]
@@ -19,6 +20,21 @@ class ApiController < ApplicationController
   end
 
   private
+
+  def block_unpermitted_requests
+    # only allow requests from permitted domains
+    unless @event.permitted_domains.blank?
+      permitted_domains = @event.permitted_domains.gsub(/\s+/, '').split(',')
+      unless permitted_domains.include?(request.headers['origin'])
+        render json: {
+          errors: {
+            request: ['is not from a permitted source']
+          }
+        }, status: 400
+        return
+      end
+    end
+  end
 
   def set_event
     @event = Event.friendly.find_by_friendly_id(params[:event_id])
