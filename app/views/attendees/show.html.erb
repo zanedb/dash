@@ -30,7 +30,10 @@
   <% @attendee_fields.each do |field| %>
     <p>
       <%= content_tag :strong, field.label %>
-      <%= @attendee.field_values[field.name] %>
+      <%= content_tag :span, 
+        @attendee.field_values[field.name], 
+        class: field.kind == 'multiline' ? 'multi-line' : ''
+      %>
     </p>
   <% end %>
 </article>
