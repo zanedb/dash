@@ -35,6 +35,16 @@
     <%= form.text_area :location %>
   </div>
 
+  <div class="field">
+    <%= form.label :permitted_domains %>
+    <p class="slate no-margin">
+      For the <%= link_to 'attendee API access', "#{event_attendees_path(@event)}#api-access" %>, you can choose which domains are allowed to submit attendees.
+      <br/>If you leave this field blank (default), requests from any domain are accepted.
+      <br/>Separate multiple domains with commas and no space.
+    </p>
+    <%= form.text_area :permitted_domains %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

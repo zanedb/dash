@@ -11,7 +11,7 @@
   <li><%= link_to 'Edit Fields', event_attendee_fields_path(@event) %></li>
 </ul>
 <details>
-  <summary style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">API Access</summary>
+  <summary id="api-access" style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">API Access</summary>
   <div class="slate">
     To add an attendee via API, send a POST request to <%= link_to api_new_attendee_url(@event), api_new_attendee_url(@event) %>, as either <code>application/json</code> or <code>application/x-www-form-urlencoded</code> with any (permitted) attributes you’d like.
     <br>Below are examples of each method:
