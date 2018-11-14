@@ -57,6 +57,7 @@
   <h2 class="heading">
     <% if params[:search] %>
       Attendees for “<%= params[:search] %>”
+      <%= link_to 'X', event_attendees_path(@event), class: 'badge no-decoration' %>
     <% else %>
       All attendees
     <% end %>
