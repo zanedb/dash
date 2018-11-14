@@ -1,14 +1,20 @@
+# frozen_string_literal: true
+
 class AttendeesController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
   before_action :set_attendee, only: %i[show edit update destroy]
 
-  CORE_PARAMS = %i[first_name last_name email note]
+  CORE_PARAMS = %i[first_name last_name email note].freeze
 
   def index
     # manually authenticate index methods, Pundit doesn't
     if @event.users.include?(current_user) || current_user.admin?
-      @attendees = @event.attendees
+      @attendees = if params[:search]
+                     @event.attendees.search(params[:search])
+                   else
+                     @event.attendees
+                   end
       @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
 
       respond_to do |format|

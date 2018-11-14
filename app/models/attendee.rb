@@ -1,6 +1,12 @@
 require 'csv'
 
 class Attendee < ApplicationRecord
+  include SearchCop
+
+  search_scope :search do
+    attributes [:first_name, :last_name], :email
+  end
+
   belongs_to :event
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy

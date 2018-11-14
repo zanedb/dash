@@ -55,9 +55,16 @@
   <p class="muted no-margin">There are no attendees.</p>
 <% else %>
   <h2 class="heading">
-    All attendees
+    <% if params[:search] %>
+      Attendees for “<%= params[:search] %>”
+    <% else %>
+      All attendees
+    <% end %>
     <%= link_to 'Export as CSV', event_attendees_path(format: :csv), class: 'btn bg-info' %>
   </h2>
+  <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
+    <%= text_field_tag :search, params[:search], placeholder: 'Search Attendees', style: 'width: 100%;max-width: 100%;' %>
+  <% end %>
   <ul class="list list--row">
     <% @attendees.each do |attendee| %>
       <%= link_to event_attendee_path(@event, attendee) do %>
