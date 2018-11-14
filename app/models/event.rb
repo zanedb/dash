@@ -8,8 +8,17 @@ class Event < ApplicationRecord
   has_many :organizer_positions, dependent: :destroy
   has_many :organizer_position_invites, dependent: :destroy
   has_many :users, through: :organizer_positions
-  
+
   validates :name, :start_date, :end_date, :location, :user_id, presence: true
+  validate :permitted_domains_cannot_have_trailing_slash
+
+  def permitted_domains_cannot_have_trailing_slash
+    permitted_domains.split(',').each do |domain|
+      if domain[-1] == '/'
+        errors.add(:permitted_domains, 'cannot contain trailing slashes')
+      end
+    end
+  end
 
   friendly_id :slug_candidates, use: :slugged
   def slug_candidates
