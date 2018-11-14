@@ -82,3 +82,6 @@ gem 'jquery-rails'
 
 # CORS
 gem 'rack-cors'
+
+# search
+gem 'search_cop'
