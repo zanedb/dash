@@ -39,8 +39,8 @@
     <%= form.label :permitted_domains %>
     <p class="slate no-margin">
       For the 
-      <% @event.persisted? ? 
-        link_to 'attendee API access', "#{event_attendees_path(@event)}#api-access" 
+      <%= @event.persisted? ? 
+        (link_to 'attendee API access', "#{event_attendees_path(@event)}#api-access")
         : 'attendee API access'
       %>, you can choose which domains are allowed to submit attendees.
       <br/>If you leave this field blank (default), requests from any domain are accepted.
