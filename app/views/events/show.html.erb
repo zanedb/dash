@@ -56,7 +56,9 @@
       <summary style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">Pending Invitations</summary>
       <ul>
         <% @invites.pending.each do |invite| %>
-          <li><%= mail_to invite.email %></li>
+          <li>
+            <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy Invite', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %><% end %>
+          </li>
         <% end %>
       </ul>
     </details>

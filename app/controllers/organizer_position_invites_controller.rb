@@ -40,6 +40,15 @@ class OrganizerPositionInvitesController < ApplicationController
     authorize @invite
   end
 
+  def destroy
+    @invite = OrganizerPositionInvite.find(params[:id])
+    authorize @invite
+
+    @invite.destroy
+    redirect_to @invite.event
+    flash[:success] = 'Invite was successfully destroyed.'
+  end
+
   def accept
     @invite = OrganizerPositionInvite.find(params[:organizer_position_invite_id])
     authorize @invite

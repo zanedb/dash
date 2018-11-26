@@ -21,6 +21,10 @@ class OrganizerPositionInvitePolicy < ApplicationPolicy
     record.event&.users&.include?(user) || user.admin?
   end
 
+  def destroy?
+    user.admin?
+  end
+
   def accept?
     record.user == user
   end
