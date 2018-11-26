@@ -24,8 +24,12 @@
   </p>
 </div>
 
-<ul class="list">
-  <li><%= link_to 'Attendees', event_attendees_path(@event) %></li>
+<ul class="list list--row">
+  <li>
+    <%= link_to event_attendees_path(@event), style: 'display: flex; align-items:center;' do %>
+      Attendees<span class="badge"><%= @event.attendees.count %></span>
+    <% end %>
+  </li>
 </ul>
 
 <div id="team-members" style="margin: 0 0 1rem;">
