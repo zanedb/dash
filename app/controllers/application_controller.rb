@@ -4,8 +4,10 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery
   before_action :configure_permitted_parameters, if: :devise_controller?
-  rescue_from ActiveRecord::RecordNotFound, Pundit::NotAuthorizedError,
-              with: :record_not_found unless Rails.env.development?
+  unless Rails.env.development?
+    rescue_from Pundit::NotAuthorizedError,
+                with: :record_not_authorized
+  end
   helper_method :nobody_signed_in?, :current_user_id, :is_my?, :isnt_my?
 
   # Keep the current user id in memory
@@ -41,7 +43,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :accept_invitation, keys: %i[name]
   end
 
-  def record_not_found
-    render 'pages/not_found', status: 404
+  def record_not_authorized
+    render 'pages/not_authorized', status: 404
   end
 end

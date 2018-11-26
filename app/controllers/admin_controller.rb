@@ -2,7 +2,7 @@
 
 class AdminController < ApplicationController
   before_action :please_sign_in
-  before_action -> { record_not_found unless current_user.admin? }
+  before_action -> { record_not_authorized unless current_user.admin? }
 
   def index; end
 

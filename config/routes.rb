@@ -27,7 +27,5 @@ Rails.application.routes.draw do
     get '/all_users', to: 'admin#all_users', as: :all_users
   end
 
-  get '*unmatched_route', to: 'pages#not_found'
-
   root 'pages#index'
 end
