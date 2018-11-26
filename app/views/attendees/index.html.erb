@@ -61,7 +61,7 @@
   <%= link_to 'Export as CSV', event_attendees_path(format: :csv), class: 'btn bg-info' %>
 </h2>
 <% if @attendees.empty? %>
-  <p class="muted no-margin">There are no attendees.</p>
+  <p class="muted">There are no attendees.</p>
 <% else %>
   <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
     <%= text_field_tag :search, params[:search], placeholder: 'Search Attendees', class: 'full-width' %>
