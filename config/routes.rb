@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   end
 
   resources :events do
-    resources :attendees
+    resources :attendees do
+      collection do
+        post '/:id/check_in', to: 'attendees#check_in', as: :check_in
+        post '/:id/check_out', to: 'attendees#check_out', as: :check_out
+      end
+    end
     resources :attendee_fields, path: 'fields'
 
     resources :organizer_position_invites, path: 'invites' do

@@ -30,6 +30,14 @@ class Attendee < ApplicationRecord
     data
   end
 
+  def checked_in?
+    checked_in_at.present?
+  end
+
+  def checked_out?
+    !checked_in?
+  end
+
   def self.as_csv
     CSV.generate do |csv|
       filtered_columns = column_names - ['event_id'] # hide event_id in CSV

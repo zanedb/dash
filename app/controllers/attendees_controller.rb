@@ -3,8 +3,8 @@
 class AttendeesController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
-  before_action :set_attendee, only: %i[show edit update destroy]
-  before_action -> { authorize @attendee }, only: %i[show edit update destroy]
+  before_action :set_attendee, only: %i[show edit update destroy check_in check_out]
+  before_action -> { authorize @attendee }, only: %i[show edit update destroy check_in check_out]
 
   CORE_PARAMS = %i[first_name last_name email note].freeze
 
@@ -73,6 +73,26 @@ class AttendeesController < ApplicationController
     @attendee.destroy
     redirect_to event_attendees_path(@event)
     flash[:success] = 'Attendee was successfully destroyed.'
+  end
+
+  def check_in
+    if @attendee.update(checked_in_at: Time.current, checked_in_by_id: current_user_id)
+      flash[:success] = 'Successfully checked-in attendee.'
+      redirect_to event_attendees_path(@event)
+    else
+      flash[:error] = 'Failed to check-in attendee.'
+      redirect_to event_attendee_path(@event, @attendee)
+    end
+  end
+
+  def check_out
+    if @attendee.update(checked_in_at: nil, checked_in_by_id: nil)
+      flash[:success] = 'Successfully checked-out attendee.'
+      redirect_to event_attendees_path(@event)
+    else
+      flash[:error] = 'Failed to check-out attendee.'
+      redirect_to event_attendee_path(@event, @attendee)
+    end
   end
 
   private
