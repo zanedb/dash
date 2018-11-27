@@ -4,11 +4,17 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery
   before_action :configure_permitted_parameters, if: :devise_controller?
+  #after_action :verify_authorized if Rails.env.development?
   unless Rails.env.development?
     rescue_from Pundit::NotAuthorizedError,
                 with: :record_not_authorized
   end
-  helper_method :nobody_signed_in?, :current_user_id, :is_my?, :isnt_my?
+  helper_method :nobody_signed_in?, :current_user_id, :is_my?, :isnt_my?, :set_event
+
+  def set_event
+    @event = Event.friendly.find_by_friendly_id(params[:event_id] || params[:id])
+    raise ActiveRecord::RecordNotFound unless @event
+  end
 
   # Keep the current user id in memory
   def current_user_id

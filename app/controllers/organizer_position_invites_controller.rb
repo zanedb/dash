@@ -80,9 +80,4 @@ class OrganizerPositionInvitesController < ApplicationController
   def invite_params
     params.require(:organizer_position_invite).permit(:email)
   end
-
-  def set_event
-    @event = Event.friendly.find_by_friendly_id(params[:event_id])
-    raise ActiveRecord::RecordNotFound unless @event
-  end
 end

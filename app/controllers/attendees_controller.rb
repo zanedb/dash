@@ -73,12 +73,6 @@ class AttendeesController < ApplicationController
 
   private
 
-  def set_event
-    @event = Event.friendly.find_by_friendly_id(params[:event_id])
-    raise ActiveRecord::RecordNotFound unless @event
-    authorize @event
-  end
-
   def set_attendee
     @attendee = @event.attendees.find(params[:id])
   end

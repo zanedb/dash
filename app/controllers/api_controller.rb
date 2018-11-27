@@ -28,17 +28,12 @@ class ApiController < ApplicationController
       unless permitted_domains.include?(request.headers['origin'])
         render json: {
           errors: {
-            request: ['is not from a permitted source']
+            request: ['is not from a permitted domain']
           }
         }, status: 400
         return
       end
     end
-  end
-
-  def set_event
-    @event = Event.friendly.find_by_friendly_id(params[:event_id])
-    raise ActiveRecord::RecordNotFound unless @event
   end
 
   def attendee_params
