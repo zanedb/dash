@@ -63,7 +63,7 @@ class OrganizerPositionInvite < ApplicationRecord
 
   def reject
     unless user.present?
-      errors.add(:user, 'must be present to accept invite')
+      errors.add(:user, 'must be present to reject invite')
       return false
     end
 
