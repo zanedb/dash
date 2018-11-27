@@ -4,10 +4,12 @@ class AttendeesController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
   before_action :set_attendee, only: %i[show edit update destroy]
+  before_action -> { authorize @attendee }, only: %i[show edit update destroy]
 
   CORE_PARAMS = %i[first_name last_name email note].freeze
 
   def index
+    skip_authorization
     # manually authenticate index methods, Pundit doesn't
     if @event.users.include?(current_user) || current_user.admin?
       @attendees = if params[:search]
@@ -32,6 +34,7 @@ class AttendeesController < ApplicationController
 
   def new
     @attendee = @event.attendees.new
+    authorize @attendee
   end
 
   def edit
@@ -40,6 +43,7 @@ class AttendeesController < ApplicationController
 
   def create
     @attendee = @event.attendees.new(attendee_core_params)
+    authorize @attendee
     if @attendee.save
       @fields = @event.fields
       @fields.each do |field|

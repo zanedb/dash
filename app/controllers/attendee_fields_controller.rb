@@ -1,6 +1,7 @@
 class AttendeeFieldsController < ApplicationController
   before_action :set_event
   before_action :set_attendee_field, only: %i[show edit update destroy]
+  before_action -> { authorize @attendee_field }, only: %i[show edit update destroy]
 
   def index
     # manually authenticate index methods, Pundit doesn't
@@ -14,6 +15,7 @@ class AttendeeFieldsController < ApplicationController
 
   def new
     @attendee_field = @event.fields.new
+    authorize @attendee_field
   end
 
   def edit
@@ -21,6 +23,7 @@ class AttendeeFieldsController < ApplicationController
 
   def create
     @attendee_field = @event.fields.new(attendee_field_params)
+    authorize @attendee_field
 
     if @attendee_field.save
       redirect_to event_attendee_fields_path(@event)

@@ -3,6 +3,7 @@
 class EventsController < ApplicationController
   before_action :please_sign_in
   before_action :set_event, only: %i[show edit update destroy]
+  before_action -> { authorize @event }, only: %i[show edit update destroy]
 
   # GET /events
   def index
