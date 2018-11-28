@@ -78,20 +78,20 @@ class AttendeesController < ApplicationController
   def check_in
     if @attendee.update(checked_in_at: Time.current, checked_in_by_id: current_user_id)
       flash[:success] = 'Successfully checked-in attendee.'
-      redirect_to event_attendees_path(@event)
+      redirect_to request.referrer || event_attendees_path(@event)
     else
       flash[:error] = 'Failed to check-in attendee.'
-      redirect_to event_attendee_path(@event, @attendee)
+      redirect_to request.referrer || event_attendee_path(@event, @attendee)
     end
   end
 
   def check_out
     if @attendee.update(checked_in_at: nil, checked_in_by_id: nil)
       flash[:success] = 'Successfully checked-out attendee.'
-      redirect_to event_attendees_path(@event)
+      redirect_to request.referrer || event_attendees_path(@event)
     else
       flash[:error] = 'Failed to check-out attendee.'
-      redirect_to event_attendee_path(@event, @attendee)
+      redirect_to request.referrer || event_attendee_path(@event, @attendee)
     end
   end
 
