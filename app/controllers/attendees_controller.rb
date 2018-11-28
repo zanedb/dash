@@ -76,6 +76,8 @@ class AttendeesController < ApplicationController
   end
 
   def check_in
+    return false if @attendee.checked_in?
+
     if @attendee.update(checked_in_at: Time.current, checked_in_by_id: current_user_id)
       flash[:success] = 'Successfully checked-in attendee.'
       redirect_to request.referrer || event_attendees_path(@event)
@@ -86,6 +88,8 @@ class AttendeesController < ApplicationController
   end
 
   def check_out
+    return false if @attendee.checked_out?
+
     if @attendee.update(checked_in_at: nil, checked_in_by_id: nil)
       flash[:success] = 'Successfully checked-out attendee.'
       redirect_to request.referrer || event_attendees_path(@event)
