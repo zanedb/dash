@@ -28,6 +28,10 @@
     <%= mail_to @attendee.email %>
   </p>
   <p>
+    <strong>Registered at</strong>
+    <span style="white-space: pre-wrap;"><%= format_time(@attendee.created_at) %></span>
+  </p>
+  <p>
     <strong>Notes</strong>
     <span style="white-space: pre-wrap;"><%= @attendee.note %></span>
   </p>
