@@ -13,9 +13,9 @@ class AttendeesController < ApplicationController
     # manually authenticate index methods, Pundit doesn't
     if @event.users.include?(current_user) || current_user.admin?
       @attendees = if params[:search]
-                     @event.attendees.search(params[:search])
+                     @event.attendees.search(params[:search]).order(created_at: :desc)
                    else
-                     @event.attendees
+                     @event.attendees.order(created_at: :desc)
                    end
       @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
 
