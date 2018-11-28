@@ -74,6 +74,9 @@
           <div>
             <strong style="display: block;">
               <%= attendee.name %>
+              <% if attendee.checked_in? %>
+                <span class="badge">Checked in</span>
+              <% end %>
             </strong>
             <span class="muted">
               <%= attendee.email %>
