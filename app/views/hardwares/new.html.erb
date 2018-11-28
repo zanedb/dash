@@ -1,0 +1,10 @@
+<% title "New hardware item on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_path %> › <%= link_to 'Events', events_path %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardware items', event_hardwares_path(@event) %>
+</div>
+
+<h1>
+  Add hardware items
+</h1>
+
+<%= render 'form', url: event_hardwares_path(@event), hardware: @hardware %>

@@ -1,0 +1,56 @@
+<% title "Hardware item #{@hardware.description} on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardwares', event_hardwares_path %>
+</div>
+
+<h1 class="heading">
+  <%= @hardware.name %>
+  <% if @hardware.checked_in? %>
+    <span class="badge">Checked in</span>
+  <% end %>
+  <%= @hardware.checked_in? ? 
+    (link_to 'Undo check in', check_out_event_hardwares_path(@event, @hardware), method: :post, class: 'btn bg-success')
+    : (link_to 'Check in', check_in_event_hardwares_path(@event, @hardware), method: :post, class: 'btn bg-success') 
+  %>
+  <%= link_to 'Edit', edit_event_hardware_path(@event, @hardware), class: 'btn bg-info' %>
+  <%= link_to 'Delete', event_hardware_path(@event, @hardware), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
+</h1>
+
+<article class="details">
+  <p>
+    <strong>Vendor</strong>
+    <%= @hardware.vendor %>
+  </p>
+
+  <p>
+    <strong>Model</strong>
+    <%= @hardware.model %>
+  </p>
+
+  <p>
+    <strong>Barcode</strong>
+    <%= @hardware.barcode %>
+  </p>
+
+  <% if @hardware.checked_out? %>
+    <p>
+      <strong>Checked out to</strong>
+      <%= @hardware.checked_out_to %>
+    </p>
+
+    <p>
+      <strong>Checked out at</strong>
+      <%= format_time @hardware.checked_out_at %>
+    </p>
+
+    <p>
+      <strong>Checked out by</strong>
+      <%= @hardware.checked_out_by %>
+    </p>
+  <% else %>
+    <p>
+      <strong>Checked out</strong>
+      No
+    </p>
+  <% end %>
+</article>

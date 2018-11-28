@@ -1,0 +1,49 @@
+<%= form_with(model: hardware, local: true) do |form| %>
+  <% if hardware.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hardware.errors.count, "error") %> prohibited this hardware from being saved:</h2>
+
+      <ul>
+      <% hardware.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :vendor %>
+    <%= form.text_field :vendor, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model, required: true  %>
+  </div>
+
+  <% if hardware.new_record? %>
+    <div class="field">
+      <%= form.label :quantity %>
+      <%= form.number_field :quantity, required: true %>
+    </div>
+  <% else %>
+    <div class="field">
+      <%= form.label :checked_out_to %>
+      <%= form.text_field :checked_out_to %>
+    </div>
+
+    <div class="field">
+      <%= form.label :checked_out_at %>
+      <%= form.datetime_select :checked_out_at %>
+    </div>
+
+    <div class="field">
+      <%= form.label :checked_out_by %>
+      <%= form.text_field :checked_out_by %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

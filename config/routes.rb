@@ -21,6 +21,11 @@ Rails.application.routes.draw do
       post 'accept'
       post 'reject'
     end
+
+    resources :hardwares, param: :barcode do
+      post 'check_in', to: 'hardwares#check_in', as: :check_in
+      post 'check_out', to: 'hardwares#check_out', as: :check_out
+    end
   end
 
   scope '/api/v1' do
