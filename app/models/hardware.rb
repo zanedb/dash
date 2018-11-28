@@ -1,34 +1,20 @@
 class Hardware < ApplicationRecord
+  extend FriendlyId
+
   belongs_to :event
+  belongs_to :user
+  has_many :hardware_items
 
-  self.primary_key = :barcode
-
-  validates_presence_of :vendor, :model, :barcode
-  validates_uniqueness_of :barcode
-
-  before_create :set_barcode
-
-  def set_barcode
-    self.barcode = 10.times.map { rand(10) }.join
-  end
-
-  def to_param
-    "#{self.barcode}"
-  end
+  validates_presence_of :vendor, :model, :quantity
 
   def description
-    "#{vendor} #{model} (#{barcode})"
+    "#{vendor} #{model}"
   end
 
-  def checked_out?
-    checked_out_at.present?
+  friendly_id :slug_candidates, use: :slugged
+  def slug_candidates
+    [
+      [:vendor, :model]
+    ]
   end
-
-  def checked_out_description
-    if checked_out?
-      "#{username} checked out to “#{checked_out_by.name}”"
-    else
-      'not checked out'
-    end      
-  end    
 end

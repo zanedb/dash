@@ -5,7 +5,7 @@
 
 <h1 class="heading">
   Hardware items <span class="badge"><%= @hardwares.count %></span>
-  <%= link_to 'Add a hardware item', new_event_harware_path(event: @event), class: 'btn bg-success' %>
+  <%= link_to 'Add a hardware item', new_event_hardware_path(event: @event), class: 'btn bg-success' %>
 </h1>
 
 <% if @hardwares.empty? %>
@@ -20,7 +20,7 @@
           </strong>
           <span class="muted">
             <%= hardware.checked_out_description %>
-            <%= content_tag :span, "#{time_ago_in_words(checked_out_at)} ago" if harware.checked_out? %>
+            <%= content_tag :span, "#{time_ago_in_words(checked_out_at)} ago" if hardware.checked_out? %>
           </span>
         </li>
       <% end %>

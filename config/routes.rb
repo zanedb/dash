@@ -22,9 +22,11 @@ Rails.application.routes.draw do
       post 'reject'
     end
 
-    resources :hardwares, param: :barcode do
-      post 'check_in', to: 'hardwares#check_in', as: :check_in
-      post 'check_out', to: 'hardwares#check_out', as: :check_out
+    resources :hardwares, path: 'hardware' do
+      resources :hardware_items, param: :barcode, path: 'items' do
+        post 'check_out', to: 'hardware_items#check_out', as: :check_out
+        post 'check_in', to: 'hardware_items#check_in', as: :check_in
+      end
     end
   end
 

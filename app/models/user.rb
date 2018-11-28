@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :organizer_position_invites, dependent: :destroy
   has_many :organizer_positions, dependent: :destroy
   has_many :events, through: :organizer_positions
+  has_many :hardwares, through: :events
 
   after_create :check_for_invitations
 

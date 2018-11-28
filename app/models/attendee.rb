@@ -5,6 +5,7 @@ class Attendee < ApplicationRecord
 
   search_scope :search do
     attributes [:first_name, :last_name], :email
+    attributes :fields 
   end
 
   belongs_to :event

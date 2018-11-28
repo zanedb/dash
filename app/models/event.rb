@@ -9,6 +9,7 @@ class Event < ApplicationRecord
   has_many :organizer_position_invites, dependent: :destroy
   has_many :users, through: :organizer_positions
   has_many :hardwares, dependent: :destroy
+  has_many :hardware_items, through: :hardwares, dependent: :destroy
 
   validates :name, :start_date, :end_date, :location, :user_id, presence: true
   validate :permitted_domains_cannot_have_trailing_slash
