@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HardwaresController < ApplicationController
+class HardwareItemsController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
   before_action :set_hardware
