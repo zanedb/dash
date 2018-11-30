@@ -32,8 +32,10 @@ class HardwareItemsController < ApplicationController
   def check_out
     if @hardware_item.update(
       checked_out_by_id: current_user_id,
-      checked_out_to: params[:checked_out_to],
-      checked_out_at: Time.now
+      checked_out_to: params[:hardware_item][:checked_out_to],
+      checked_out_at: Time.now,
+      checked_in_by_id: nil,
+      checked_in_at: nil
     )
       flash[:success] = "Checked out #{@hardware_item.description}."
     else
@@ -43,10 +45,17 @@ class HardwareItemsController < ApplicationController
   end
 
   def check_in
-    if @hardware_item.check_in!
-      flash[:success] = "Checked in #{@hardware_item.description}"
+    if @hardware_item.checked_out?
+      if @hardware_item.update(
+        checked_in_by_id: current_user_id,
+        checked_in_at: Time.now
+      )
+        flash[:success] = "Checked in #{@hardware_item.description}"
+      else
+        flash[:error] = "Failed to check in #{@hardware_item.description}."
+      end
     else
-      flash[:error] = "Failed to check in #{@hardware_item.description}."
+      flash[:error] = 'Must be checked out first.'
     end
     redirect_to event_hardware_path(@event, @hardware)
   end
