@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_28_043540) do
+ActiveRecord::Schema.define(version: 2018_11_30_065706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,7 +82,10 @@ ActiveRecord::Schema.define(version: 2018_11_28_043540) do
     t.string "barcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "checked_in_at"
+    t.bigint "checked_in_by_id"
     t.index ["barcode"], name: "index_hardware_items_on_barcode", unique: true
+    t.index ["checked_in_by_id"], name: "index_hardware_items_on_checked_in_by_id"
     t.index ["checked_out_by_id"], name: "index_hardware_items_on_checked_out_by_id"
     t.index ["hardware_id"], name: "index_hardware_items_on_hardware_id"
   end
@@ -163,6 +166,7 @@ ActiveRecord::Schema.define(version: 2018_11_28_043540) do
   add_foreign_key "attendees", "events"
   add_foreign_key "attendees", "users", column: "checked_in_by_id"
   add_foreign_key "hardware_items", "hardwares"
+  add_foreign_key "hardware_items", "users", column: "checked_in_by_id"
   add_foreign_key "hardware_items", "users", column: "checked_out_by_id"
   add_foreign_key "hardwares", "events"
   add_foreign_key "hardwares", "users"
