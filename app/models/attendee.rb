@@ -8,6 +8,8 @@ class Attendee < ApplicationRecord
     attributes :fields 
   end
 
+  default_scope { order(created_at: :desc) }
+
   belongs_to :event
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
