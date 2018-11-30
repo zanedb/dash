@@ -4,7 +4,7 @@
 </div>
 
 <h1 class="heading">
-  Hardware items <span class="badge"><%= @hardwares.count %></span>
+  Hardware items<span class="badge"><%= @hardwares.count %></span>
   <%= link_to 'Add a hardware item', new_event_hardware_path(@event), class: 'btn bg-success' %>
 </h1>
 
@@ -19,7 +19,7 @@
             <%= hardware.description %>
           </strong>
           <span class="muted">
-            —<%= "Quantity #{hardware.quantity} CHANGE TO AVAILABLE" %>
+            —<%= "#{hardware.available} available, #{hardware.quantity} total" %>
           </span>
         </li>
       <% end %>

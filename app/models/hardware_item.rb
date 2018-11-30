@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class HardwareItem < ApplicationRecord
+  scope :not_checked_out, -> { where(checked_out_at: nil) }
+  scope :checked_out_and_in, -> { where.not(checked_out_at: nil, checked_in_at: nil) }
+
   belongs_to :hardware
 
   self.primary_key = :barcode

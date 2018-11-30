@@ -49,6 +49,10 @@ class Hardware < ApplicationRecord
     "#{vendor} #{model}"
   end
 
+  def available
+    hardware_items.not_checked_out.count + hardware_items.checked_out_and_in.count
+  end
+
   friendly_id :slug_candidates, use: :slugged
   def slug_candidates
     [
