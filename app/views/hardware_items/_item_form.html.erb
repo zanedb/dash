@@ -11,8 +11,6 @@
     </div>
   <% end %>
 
-  <p class="muted">Checking out at <%= format_time Time.now %> by <%= current_user.name %>.</p>
-
   <div class="field">
     <%= form.label 'Checking out to' %>
     <%= form.text_field :checked_out_to, required: true %>

@@ -6,7 +6,7 @@
 <h1 class="heading">
   <%= @hardware_item.description %>
   <% if @hardware_item.checked_out? %>
-    <span class="badge">Checked out</span>
+    <span class="badge">Checked out<% if @hardware_item.both? %> & in<% end %></span>
   <% end %>
   <%= link_to 'Edit Barcode', edit_event_hardware_hardware_item_path(@event, @hardware, @hardware_item), class: 'btn bg-info' %>
   <%= link_to 'Delete', event_hardware_hardware_item_path(@event, @hardware, @hardware_item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
@@ -43,7 +43,19 @@
       <strong>Checked out by</strong>
       <%= @hardware_item.checked_out_by_id %>
     </p>
-  <% else %>
+    <% if @hardware_item.checked_in? %>
+      <p>
+        <strong>Checked in at</strong>
+        <%= format_time @hardware_item.checked_in_at %>
+      </p>
+
+      <p>
+        <strong>Checked in by</strong>
+        <%= @hardware_item.checked_in_by_id %>
+      </p>
+    <% end %>
+  <% end %>
+  <% unless (@hardware_item.checked_out? && @hardware_item.checked_in?) %>
     <p>
       <strong>Checked out</strong>
       No
@@ -51,10 +63,21 @@
   <% end %>
 </article>
 
-<% unless @hardware_item.checked_out? %>
-  <h2>Check out</h2>
+<% unless (@hardware_item.checked_out? && !@hardware_item.checked_in?) %>
+  <h2>Check out <% if @hardware_item.both? %>again<% end %></h2>
+  <p class="muted">
+    <% if @hardware_item.both? %>
+      This item has already been checked out and in.
+      You can check it out again
+    <% else %>
+      Checking out
+    <% end %>
+    at <%= format_time Time.now %> by <%= current_user.name %>.
+  </p>
   <%= render 'item_form', hardware_item: @hardware_item, url: event_hardware_hardware_item_check_out_path(@event, @hardware, @hardware_item) %>
 <% end %>
-<% unless @hardware_item.checked_in? %>
+<% if (@hardware_item.checked_out? && !@hardware_item.checked_in?) %>
   <h2>Check in</h2>
+  <p class="muted">Checking back in at <%= format_time Time.now %> by <%= current_user.name %>.</p>
+  <%= link_to 'Check in', event_hardware_hardware_item_check_in_path(@event, @hardware, @hardware_item), method: :post, class: 'btn bg-success' %>
 <% end %>

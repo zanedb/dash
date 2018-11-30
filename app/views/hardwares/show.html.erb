@@ -33,7 +33,11 @@
         <li style="display: flex; align-items: center;">
           <%= item.barcode %>
           <% if item.checked_out? %>
-            <span class="badge">Checked out</span>
+            <%= 
+              content_tag :span,
+              "Checked out#{item.both? ? ' & in' : ''}",
+              class: item.both? ? 'badge bg-success' : 'badge bg-info' 
+            %>
           <% end %>
         </li>
       <% end %>
