@@ -4,17 +4,8 @@ class HardwareItemsController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
   before_action :set_hardware
-  before_action :set_hardware_item, except: [:index]
-  before_action -> { authorize @hardware_item }, except: [:index]
-
-  def index
-    # manually authenticate index methods, Pundit doesn't
-    if @event.users.include?(current_user) || current_user.admin?
-      @hardware_items = @hardware.hardware_items
-    else
-      raise Pundit::NotAuthorizedError, 'not allowed to view this action'
-    end
-  end
+  before_action :set_hardware_item
+  before_action -> { authorize @hardware_item }
 
   def show; end
 
@@ -41,7 +32,7 @@ class HardwareItemsController < ApplicationController
     else
       flash[:error] = "Failed to check out #{@hardware_item.description}."
     end
-    redirect_to event_hardware_path(@event, @hardware)
+    redirect_to request.referrer || event_hardware_path(@event, @hardware)
   end
 
   def check_in
@@ -57,7 +48,7 @@ class HardwareItemsController < ApplicationController
     else
       flash[:error] = 'Must be checked out first.'
     end
-    redirect_to event_hardware_path(@event, @hardware)
+    redirect_to request.referrer || event_hardware_path(@event, @hardware)
   end
 
   def destroy
