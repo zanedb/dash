@@ -25,22 +25,18 @@ class HardwareItem < ApplicationRecord
   end
 
   def checked_in?
-    !checked_out_at.present?
+    checked_in_at.present?
+  end
+
+  def both?
+    checked_out? && checked_in?
   end
 
   def checked_out_description
     if checked_out?
-      "#{username} checked out to “#{checked_out_by.name}”"
-    else
-      'not checked out'
+      "#{description} checked out by “#{checked_out_by.name}”"
+    elsif checked_in?
+      "#{description} checked in by “#{checked_out_by.name}”"
     end
-  end
-
-  def check_in!
-    update(
-      checked_out_by_id: nil,
-      checked_out_to: nil,
-      checked_out_at: nil
-    )
   end
 end
