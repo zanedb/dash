@@ -27,14 +27,16 @@
 <h2>Barcodes</h2>
 
 <% if @hardware_items.present? %>
-  <ul class="list">
+  <ul class="list list--row">
     <% @hardware_items.each do |item| %>
-      <li>
-        <%= link_to item.barcode, event_hardware_hardware_item_path(@event, @hardware, item) %>
-        <% if item.checked_out? %>
-          <span class="badge">Checked out</span>
-        <% end %>
-      </li>
+      <%= link_to event_hardware_hardware_item_path(@event, @hardware, item) do %>
+        <li style="display: flex; align-items: center;">
+          <%= item.barcode %>
+          <% if item.checked_out? %>
+            <span class="badge">Checked out</span>
+          <% end %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 <% else %>

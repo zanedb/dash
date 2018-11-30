@@ -17,7 +17,7 @@ class HardwareItem < ApplicationRecord
   end
 
   def description
-    "#{hardware.vendor} #{hardware.model} (#{barcode})"
+    "#{hardware.vendor} #{hardware.model}—#{barcode}"
   end
 
   def checked_out?
