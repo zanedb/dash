@@ -1,0 +1,24 @@
+<%= form_with(model: hardware_item, url: url, method: :post, local: true) do |form| %>
+  <% if hardware_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hardware_item.errors.count, "error") %> prohibited this hardware item from being saved:</h2>
+
+      <ul>
+      <% hardware_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p class="muted">Checking out at <%= format_time Time.now %> by <%= current_user.name %>.</p>
+
+  <div class="field">
+    <%= form.label 'Checking out to' %>
+    <%= form.text_field :checked_out_to, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Check out' %>
+  </div>
+<% end %>

@@ -1,15 +1,15 @@
+# frozen_string_literal: true
+
 class HardwareItem < ApplicationRecord
   belongs_to :hardware
 
   self.primary_key = :barcode
 
-  validates_presence_of :barcode
-  validates_uniqueness_of :barcode
-
   before_create :set_barcode
 
   def set_barcode
     self.barcode = 10.times.map { rand(10) }.join
+    # TODO fix so that if barcode generated already exists it doesnt fail
   end
 
   def to_param
@@ -22,6 +22,10 @@ class HardwareItem < ApplicationRecord
 
   def checked_out?
     checked_out_at.present?
+  end
+
+  def checked_in?
+    !checked_out_at.present?
   end
 
   def checked_out_description

@@ -24,12 +24,4 @@ class HardwarePolicy < ApplicationPolicy
   def destroy?
     record.event.users.include?(user) || user.admin?
   end
-
-  def check_in?
-    record.event.users.include?(user) || user.admin?
-  end
-
-  def check_out?
-    record.event.users.include?(user) || user.admin?
-  end
 end

@@ -1,6 +1,6 @@
 <% title "Hardware item #{@hardware.description} on #{@event.name}" %>
 <div class="breadcrumbs">
-  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardwares', event_hardwares_path %>
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %>
 </div>
 
 <h1 class="heading">
@@ -14,9 +14,29 @@
     <strong>Vendor</strong>
     <%= @hardware.vendor %>
   </p>
-
   <p>
     <strong>Model</strong>
     <%= @hardware.model %>
   </p>
+  <p>
+    <strong>Quantity</strong>
+    <%= @hardware.quantity %>
+  </p>
 </article>
+
+<h2>Barcodes</h2>
+
+<% if @hardware_items.present? %>
+  <ul class="list">
+    <% @hardware_items.each do |item| %>
+      <li>
+        <%= link_to item.barcode, event_hardware_hardware_item_path(@event, @hardware, item) %>
+        <% if item.checked_out? %>
+          <span class="badge">Checked out</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="muted">There are no items.</p>
+<% end %>

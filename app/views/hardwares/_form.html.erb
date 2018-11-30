@@ -1,7 +1,7 @@
-<%= form_with(model: hardware, url: event_hardware_path(@event, @hardware), local: true) do |form| %>
+<%= form_with(model: hardware, url: url, local: true) do |form| %>
   <% if hardware.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(hardware.errors.count, "error") %> prohibited this hardware from being saved:</h2>
+      <h2><%= pluralize(hardware.errors.count, "error") %> prohibited this hardware item from being saved:</h2>
 
       <ul>
       <% hardware.errors.full_messages.each do |message| %>

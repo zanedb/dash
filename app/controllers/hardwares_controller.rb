@@ -3,10 +3,9 @@
 class HardwaresController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
-  before_action :set_hardware, only: %i[show edit update destroy check_out check_in]
-  before_action -> { authorize @hardware }, only: %i[show edit update destroy check_out check_in]
+  before_action :set_hardware, except: %i[index new create]
+  before_action -> { authorize @hardware }, except: %i[index new create]
 
-  # GET /hardwares
   def index
     # manually authenticate index methods, Pundit doesn't
     if @event.users.include?(current_user) || current_user.admin?
@@ -16,16 +15,17 @@ class HardwaresController < ApplicationController
     end
   end
 
-  # GET /hardwares/new
   def new
     @hardware = @event.hardwares.new
     authorize @hardware
   end
 
-  # GET /hardwares/1/edit
+  def show
+    @hardware_items = @hardware.hardware_items
+  end
+  
   def edit; end
 
-  # POST /hardwares
   def create
     @hardware = @event.hardwares.new(hardware_params)
     authorize @hardware
@@ -38,7 +38,6 @@ class HardwaresController < ApplicationController
     end
   end
 
-  # PATCH/PUT /hardwares/1
   def update
     if @hardware.update(hardware_params)
       flash[:success] = 'Hardware was successfully updated.'
@@ -48,7 +47,6 @@ class HardwaresController < ApplicationController
     end
   end
 
-  # DELETE /hardwares/1
   def destroy
     @hardware.destroy
     flash[:success] = 'Hardware was successfully destroyed.'

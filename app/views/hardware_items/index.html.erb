@@ -1,0 +1,28 @@
+<% title "Hardware item on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_path %> › <%= link_to 'Events', events_path %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %> › <%= link_to @hardware.description, event_hardware_path(@event, @hardware) %>
+</div>
+
+<h1 class="heading">
+  Hardware items <span class="badge"><%= @hardware.hardware_items.count %></span>
+  <%= link_to 'Add a hardware item', new_event_hardware_path(@event), class: 'btn bg-success' %>
+</h1>
+
+<% if @hardware.hardware_items.empty? %>
+  <p class="muted">There are no hardware items.</p>
+<% else %>
+  <ul class="list list--row">
+    <% @hardware.hardware_items.each do |hardware| %>
+      <%= link_to event_hardware_path(@event, hardware) do %>
+        <li>
+          <strong style="display: block;">
+            <%= hardware.description %>
+          </strong>
+          <span class="muted">
+            —<%= "Quantity #{hardware.quantity} CHANGE TO AVAILABLE" %>
+          </span>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

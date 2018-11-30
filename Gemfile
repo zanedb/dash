@@ -74,7 +74,7 @@ gem 'local_time'
 # Email validation
 gem 'validates_email_format_of'
 
-# Pundit authorization/permissions
+# Pundit for authorization/permissions
 gem 'pundit'
 
 # jquery-rails
@@ -85,3 +85,6 @@ gem 'rack-cors'
 
 # search
 gem 'search_cop'
+
+# barcodes
+gem 'barby'
