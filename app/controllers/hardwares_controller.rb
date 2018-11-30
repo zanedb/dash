@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class HardwaresController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
-  before_action :set_hardware, only: %i[edit update destroy check_out check_in]
-  before_action -> { authorize @hardware }, only: %i[edit update destroy check_out check_in]
+  before_action :set_hardware, only: %i[show edit update destroy check_out check_in]
+  before_action -> { authorize @hardware }, only: %i[show edit update destroy check_out check_in]
 
   # GET /hardwares
   def index
@@ -16,22 +18,21 @@ class HardwaresController < ApplicationController
 
   # GET /hardwares/new
   def new
-    @hardware = Hardware.new
+    @hardware = @event.hardwares.new
     authorize @hardware
   end
 
   # GET /hardwares/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /hardwares
   def create
-    @hardware = @event.hardwares.new(hardware_params.merge(user: current_user))
+    @hardware = @event.hardwares.new(hardware_params)
     authorize @hardware
-               
+
     if @hardware.save
       flash[:success] = 'Hardware was successfully created.'
-      redirect_to @hardware
+      redirect_to event_hardware_path(@event, @hardware)
     else
       render :new
     end
@@ -41,12 +42,12 @@ class HardwaresController < ApplicationController
   def update
     if @hardware.update(hardware_params)
       flash[:success] = 'Hardware was successfully updated.'
-      redirect_to @hardware
+      redirect_to event_hardware_path(@event, @hardware)
     else
       render :edit
     end
   end
-    
+
   # DELETE /hardwares/1
   def destroy
     @hardware.destroy

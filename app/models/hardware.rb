@@ -2,7 +2,6 @@ class Hardware < ApplicationRecord
   extend FriendlyId
 
   belongs_to :event
-  belongs_to :user
   has_many :hardware_items
 
   validates_presence_of :vendor, :model, :quantity
