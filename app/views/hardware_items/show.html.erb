@@ -68,11 +68,10 @@
   <p class="muted">
     <% if @hardware_item.both? %>
       This item has already been checked out and in.
-      You can check it out again
+      You can check it out again.
     <% else %>
-      Checking out
+      Checking out at <%= format_time Time.now %> by <%= current_user.name %>.
     <% end %>
-    at <%= format_time Time.now %> by <%= current_user.name %>.
   </p>
   <%= render 'item_form', hardware_item: @hardware_item, url: event_hardware_hardware_item_check_out_path(@event, @hardware, @hardware_item) %>
 <% end %>
