@@ -53,7 +53,7 @@ class Hardware < ApplicationRecord
     hardware_items.not_checked_out.count + hardware_items.checked_out_and_in.count
   end
 
-  friendly_id :slug_candidates, use: :slugged
+  friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
     [
       %i[vendor model]
