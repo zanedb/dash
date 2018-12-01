@@ -10,6 +10,9 @@ class Attendee < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
+  scope :checked_in, -> { where.not(checked_in_at: nil) }
+  scope :checked_in_and_out, -> { where.not(checked_in_at: nil, checked_out_at: nil) }
+
   belongs_to :event
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
@@ -58,6 +61,14 @@ class Attendee < ApplicationRecord
 
   def both?
     checked_out? && checked_in?
+  end
+
+  def self.checked_in_total
+    all.checked_in.count
+  end
+
+  def self.checked_in_and_out_total
+    all.checked_in_and_out.count
   end
 
   def self.as_csv
