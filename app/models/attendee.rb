@@ -50,9 +50,13 @@ class Attendee < ApplicationRecord
 
   def self.as_csv
     CSV.generate do |csv|
-      filtered_columns = column_names - ['event_id'] # hide event_id in CSV
-      csv << filtered_columns
+      csv << all.first.attrs.keys
       all.each do |item|
+        csv << item.attrs.values
+      end
+    end
+  end
+
   def self.import_csv(file, event)
     CSV.foreach(file.path, headers: true) do |row|
       row = row.to_h
