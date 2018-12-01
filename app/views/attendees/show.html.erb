@@ -7,7 +7,11 @@
   <img class="profile-img" style="margin-right: 1rem;" src=<%= avatar_url(@attendee.email, 36) %> />
   <%= @attendee.name %>
   <% if @attendee.checked_in? %>
-    <span class="badge">Checked in<% if @attendee.both? %> & out<% end %></span>
+    <%= 
+      content_tag :span,
+      "Checked in#{@attendee.both? ? ' & out' : ''}",
+      class: @attendee.both? ? 'badge bg-success' : 'badge bg-info' 
+    %>
   <% end %>
   <%= link_to 'Edit', edit_event_attendee_path(@event, @attendee), class: 'btn bg-info' %>
   <%= link_to 'Delete', event_attendee_path(@event, @attendee), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
@@ -33,23 +37,17 @@
   <% if @attendee.checked_in? %>
     <p>
       <strong>Checked in</strong>
-      <%= "Checked in by #{@attendee.checked_in_by.name}" %>
-    </p>
-
-    <p>
-      <strong>Checked in at</strong>
-      <%= format_time @attendee.checked_in_at %>
+      <span>
+        <%= "Checked in by #{@attendee.checked_in_by.name} at " %><%= format_time @attendee.checked_in_at %>
+      </span>
     </p>
 
     <% if @attendee.checked_out? %>
       <p>
         <strong>Checked out</strong>
-        <%= "Checked out by #{@attendee.checked_out_by.name}" %>
-      </p>
-      
-      <p>
-        <strong>Checked out at</strong>
-        <%= format_time @attendee.checked_out_at %>
+        <span>
+          <%= "Checked out by #{@attendee.checked_out_by.name} at " %><%= format_time @attendee.checked_out_at %>
+        </span>
       </p>
     <% end %>
   <% end %>
