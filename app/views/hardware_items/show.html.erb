@@ -12,7 +12,16 @@
   <%= link_to 'Delete', event_hardware_hardware_item_path(@event, @hardware, @hardware_item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
 </h1>
 
+<div class="md-float-right">
+  <%= @barcode.html_safe %>
+</div>
+
 <article class="details">
+  <p>
+    <strong>Barcode</strong>
+    <%= @hardware_item.barcode %>
+  </p>
+  
   <p>
     <strong>Vendor</strong>
     <%= @hardware.vendor %>
@@ -21,11 +30,6 @@
   <p>
     <strong>Model</strong>
     <%= @hardware.model %>
-  </p>
-
-  <p>
-    <strong>Barcode</strong>
-    <%= @hardware_item.barcode %>
   </p>
 
   <% if @hardware_item.checked_out? %>

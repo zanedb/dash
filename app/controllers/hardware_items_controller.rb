@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require 'barby'
+require 'barby/barcode/code_128'
+require 'barby/outputter/svg_outputter'
+
 class HardwareItemsController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
@@ -7,7 +11,9 @@ class HardwareItemsController < ApplicationController
   before_action :set_hardware_item
   before_action -> { authorize @hardware_item }
 
-  def show; end
+  def show
+    @barcode = Barby::Code128.new(@hardware_item.barcode).to_svg(height: 30, xdim: 2)
+  end
 
   def edit; end
 
