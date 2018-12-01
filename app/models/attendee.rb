@@ -66,7 +66,7 @@ class Attendee < ApplicationRecord
       # Save custom field values for attendee
       row.except(*core_keys).each do |name, value|
         field = event.fields.where(name: name).first
-        field.values.create(content: value, attendee: record)
+        record.values.create!(field: field, content: value.to_s)
       end
     end
   end
