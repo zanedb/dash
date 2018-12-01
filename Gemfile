@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -35,15 +37,15 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'web-console', '>= 3.3.0'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :test do
@@ -55,36 +57,20 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # React
 gem 'webpacker'
 gem 'webpacker-react'
 
-# Authentication
-gem 'devise'
-gem 'devise_invitable'
-
-# URL Slugs
-gem 'friendly_id'
-
-# Friendly time
-gem 'local_time'
-
-# Email validation
-gem 'validates_email_format_of'
-
-# Pundit for authorization/permissions
-gem 'pundit'
-
-# jquery-rails
-gem 'jquery-rails'
-
-# CORS
-gem 'rack-cors'
-
-# search
-gem 'search_cop'
-
-# barcodes
-gem 'barby'
+gem 'aws-sdk-s3' # AWS S3
+gem 'barby' # barcodes
+gem 'devise' # authentication
+gem 'devise_invitable' # inviting users
+gem 'friendly_id' # URL Slugs
+gem 'jquery-rails' # jQuery
+gem 'local_time' # time formatting
+gem 'pundit' # authorization/permissions
+gem 'rack-cors' # CORS
+gem 'search_cop' # search
+gem 'validates_email_format_of' # email validation
