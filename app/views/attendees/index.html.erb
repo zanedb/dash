@@ -58,7 +58,8 @@
   <% else %>
     All attendees
   <% end %>
-  <%= link_to 'Export as CSV', event_attendees_path(format: :csv), class: 'btn bg-info' %>
+  <%= link_to 'Import Attendees', import_event_attendees_path(@event), class: 'btn bg-info' %>
+  <%= link_to 'Export CSV', event_attendees_path(format: :csv), class: 'btn bg-info' %>
 </h2>
 <% if @attendees.empty? %>
   <p class="muted">There are no attendees.</p>

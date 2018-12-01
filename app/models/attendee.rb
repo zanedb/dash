@@ -17,8 +17,11 @@ class Attendee < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
 
+  CORE_PARAMS = %i[first_name last_name email note created_at].freeze
+
+  # returns an object containing all attendee data
   def attrs
-    attributes.to_h.merge(field_values).except('event_id')
+    attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
   end
 
   def name
@@ -31,6 +34,10 @@ class Attendee < ApplicationRecord
       data[value.field.name] = value.content
     end
     data
+  end
+
+  def field_for(name)
+    fields.where(name: name)
   end
 
   def checked_in?
@@ -46,7 +53,16 @@ class Attendee < ApplicationRecord
       filtered_columns = column_names - ['event_id'] # hide event_id in CSV
       csv << filtered_columns
       all.each do |item|
-        csv << item.attributes.values_at(*filtered_columns)
+  def self.import_csv(file, event)
+    CSV.foreach(file.path, headers: true) do |row|
+      row = row.to_h
+      core_keys = CORE_PARAMS.map(&:to_s)
+      # Create attendee record with core params
+      record = event.attendees.create(row.slice(*core_keys))
+      # Save custom field values for attendee
+      row.except(*core_keys).each do |name, value|
+        field = event.fields.where(name: name).first
+        field.values.create(content: value, attendee: record)
       end
     end
   end
