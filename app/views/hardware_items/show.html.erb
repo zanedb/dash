@@ -34,8 +34,8 @@
 
   <% if @hardware_item.checked_out? %>
     <p>
-      <strong>Checked out to</strong>
-      <%= @hardware_item.checked_out_to %>
+      <strong>Checked out</strong>
+      <%= "Checked out to #{@hardware_item.checked_out_to} by #{@hardware_item.checked_out_by.name}" %>
     </p>
 
     <% if @hardware_item.checked_out_to_file.attached? %>
@@ -50,10 +50,6 @@
       <%= format_time @hardware_item.checked_out_at %>
     </p>
 
-    <p>
-      <strong>Checked out by</strong>
-      <%= @hardware_item.checked_out_by.name %>
-    </p>
     <% if @hardware_item.checked_in? %>
       <p>
         <strong>Checked in at</strong>
@@ -61,12 +57,12 @@
       </p>
 
       <p>
-        <strong>Checked in by</strong>
-        <%= @hardware_item.checked_in_by.name %>
+        <strong>Checked in</strong>
+        <%= "Checked in by #{@hardware_item.checked_in_by.name}" %>
       </p>
     <% end %>
   <% end %>
-  <% unless (@hardware_item.checked_out? && @hardware_item.checked_in?) %>
+  <% unless @hardware_item.checked_out? %>
     <p>
       <strong>Checked out</strong>
       No
