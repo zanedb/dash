@@ -5,30 +5,33 @@ class AttendeesController < ApplicationController
   before_action :set_event
   before_action :set_attendee, only: %i[show edit update destroy check_in check_out]
   before_action -> { authorize @attendee }, only: %i[show edit update destroy check_in check_out]
+  before_action :custom_authorization, only: %i[index import import_csv]
 
   CORE_PARAMS = %i[first_name last_name email note].freeze
 
   def index
-    skip_authorization
-    # manually authenticate index methods, Pundit doesn't
-    if @event.users.include?(current_user) || current_user.admin?
-      @attendees = params[:search] ?
-        @event.attendees.search(params[:search])
-        : @event.attendees
-      @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
+    @attendees = params[:search] ?
+      @event.attendees.search(params[:search])
+      : @event.attendees
+    @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
 
-      respond_to do |format|
-        format.html
-        format.csv do
-          if @attendees.present?
-            send_data @attendees.as_csv
-          else
-            flash[:error] = 'No attendees available.'
-            redirect_to event_attendees_path(@event)
-          end
+    respond_to do |format|
+      format.html
+      format.csv do
+        if @attendees.present?
+          send_data @attendees.as_csv
+        else
+          flash[:error] = 'No attendees available.'
+          redirect_to event_attendees_path(@event)
         end
       end
-    else
+    end
+  end
+
+  def custom_authorization
+    skip_authorization
+    # manually authenticate certain methods, Pundit can't
+    unless @event.users.include?(current_user) || current_user.admin?
       raise Pundit::NotAuthorizedError, 'not allowed to view this action'
     end
   end
@@ -107,14 +110,13 @@ class AttendeesController < ApplicationController
     end
   end
 
-  def import
-  end
+  def import; end
 
   def import_csv
     begin
       Attendee.import_csv(params[:file], @event)
       flash[:success] = 'Imported CSV of attendees.'
-    rescue
+    rescue StandardError
       flash[:error] = 'Invalid CSV.'
     end
     redirect_to event_attendees_path(@event)
