@@ -19,7 +19,14 @@ class AttendeesController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.csv { send_data @attendees.as_csv }
+        format.csv do
+          if @attendees.present?
+            send_data @attendees.as_csv
+          else
+            flash[:error] = 'No attendees available.'
+            redirect_to event_attendees_path(@event)
+          end
+        end
       end
     else
       raise Pundit::NotAuthorizedError, 'not allowed to view this action'
