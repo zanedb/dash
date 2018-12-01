@@ -76,7 +76,11 @@
             <strong style="display: block;">
               <%= attendee.name %>
               <% if attendee.checked_in? %>
-                <span class="badge">Checked in</span>
+                <%= 
+                  content_tag :span,
+                  "Checked in#{attendee.both? ? ' & out' : ''}",
+                  class: attendee.both? ? 'badge bg-success' : 'badge bg-info' 
+                %>
               <% end %>
             </strong>
             <span class="muted">

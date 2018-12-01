@@ -7,12 +7,8 @@
   <img class="profile-img" style="margin-right: 1rem;" src=<%= avatar_url(@attendee.email, 36) %> />
   <%= @attendee.name %>
   <% if @attendee.checked_in? %>
-    <span class="badge">Checked in</span>
+    <span class="badge">Checked in<% if @attendee.both? %> & out<% end %></span>
   <% end %>
-  <%= @attendee.checked_in? ? 
-    (link_to 'Undo check in', check_out_event_attendees_path(@event, @attendee), method: :post, class: 'btn bg-success')
-    : (link_to 'Check in', check_in_event_attendees_path(@event, @attendee), method: :post, class: 'btn bg-success') 
-  %>
   <%= link_to 'Edit', edit_event_attendee_path(@event, @attendee), class: 'btn bg-info' %>
   <%= link_to 'Delete', event_attendee_path(@event, @attendee), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
 </h1>
@@ -34,6 +30,35 @@
     <strong>Registered at</strong>
     <%= format_time(@attendee.created_at) %>
   </p>
+  <% if @attendee.checked_in? %>
+    <p>
+      <strong>Checked in</strong>
+      <%= "Checked in by #{@attendee.checked_in_by.name}" %>
+    </p>
+
+    <p>
+      <strong>Checked in at</strong>
+      <%= format_time @attendee.checked_in_at %>
+    </p>
+
+    <% if @attendee.checked_out? %>
+      <p>
+        <strong>Checked out</strong>
+        <%= "Checked out by #{@attendee.checked_out_by.name}" %>
+      </p>
+      
+      <p>
+        <strong>Checked out at</strong>
+        <%= format_time @attendee.checked_out_at %>
+      </p>
+    <% end %>
+  <% end %>
+  <% unless @attendee.checked_in? %>
+    <p>
+      <strong>Checked in</strong>
+      No
+    </p>
+  <% end %>
   <p>
     <strong>Notes</strong>
     <span style="white-space: pre-wrap;"><%= @attendee.note %></span>
@@ -48,3 +73,21 @@
     </p>
   <% end %>
 </article>
+
+<% unless (@attendee.checked_in? && !@attendee.checked_out?) %>
+  <h2>Check in <% if @attendee.both? %>again<% end %></h2>
+  <p class="muted">
+    <% if @attendee.both? %>
+      This attendee has already been checked in and out.
+      You can check them out again.
+    <% else %>
+      Checking in <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.
+    <% end %>
+  </p>
+  <%= link_to 'Check in', check_in_event_attendees_path(@event, @attendee), method: :post, class: 'btn bg-info' %>
+<% end %>
+<% if (@attendee.checked_in? && !@attendee.checked_out?) %>
+  <h2>Check out</h2>
+  <p class="muted">Checking back out <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %><strong>.</p>
+  <%= link_to 'Check out', check_out_event_attendees_path(@event, @attendee), method: :post, class: 'btn bg-success' %>
+<% end %>

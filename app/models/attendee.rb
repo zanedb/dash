@@ -40,12 +40,24 @@ class Attendee < ApplicationRecord
     fields.where(name: name)
   end
 
+  def checked_out?
+    checked_out_at.present?
+  end
+
   def checked_in?
     checked_in_at.present?
   end
 
-  def checked_out?
-    !checked_in?
+  def checked_out_by
+    User.find(checked_out_by_id)
+  end
+
+  def checked_in_by
+    User.find(checked_in_by_id)
+  end
+
+  def both?
+    checked_out? && checked_in?
   end
 
   def self.as_csv

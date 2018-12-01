@@ -59,6 +59,8 @@ class HardwareItemsController < ApplicationController
   end
 
   def check_in
+    return false if @hardware_item.checked_in?
+
     if @hardware_item.checked_out?
       if @hardware_item.update(
         checked_in_by_id: current_user_id,
