@@ -5,6 +5,7 @@ class HardwareItem < ApplicationRecord
   scope :checked_out_and_in, -> { where.not(checked_out_at: nil, checked_in_at: nil) }
 
   belongs_to :hardware
+  has_one_attached :checked_out_to_file
 
   self.primary_key = :barcode
 
@@ -29,6 +30,14 @@ class HardwareItem < ApplicationRecord
 
   def checked_in?
     checked_in_at.present?
+  end
+
+  def checked_out_by
+    User.find(checked_out_by_id)
+  end
+
+  def checked_in_by
+    User.find(checked_in_by_id)
   end
 
   def both?

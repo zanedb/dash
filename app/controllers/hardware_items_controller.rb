@@ -21,6 +21,7 @@ class HardwareItemsController < ApplicationController
   end
 
   def check_out
+    @hardware_item&.checked_out_to_file&.purge
     if @hardware_item.update(
       checked_out_by_id: current_user_id,
       checked_out_to: params[:hardware_item][:checked_out_to],
@@ -28,6 +29,9 @@ class HardwareItemsController < ApplicationController
       checked_in_by_id: nil,
       checked_in_at: nil
     )
+      if params[:hardware_item][:checked_out_to_file]
+        @hardware_item.update(checked_out_to_file: params[:hardware_item][:checked_out_to_file])
+      end
       flash[:success] = "Checked out #{@hardware_item.description}."
     else
       flash[:error] = "Failed to check out #{@hardware_item.description}."

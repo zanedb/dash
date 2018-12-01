@@ -34,6 +34,13 @@
       <%= @hardware_item.checked_out_to %>
     </p>
 
+    <% if @hardware_item.checked_out_to_file.attached? %>
+      <p>
+        <strong>Check out proof</strong>
+        <%= link_to 'View', url_for(@hardware_item.checked_out_to_file) %>
+      </p>
+    <% end %>
+
     <p>
       <strong>Checked out at</strong>
       <%= format_time @hardware_item.checked_out_at %>
@@ -41,7 +48,7 @@
 
     <p>
       <strong>Checked out by</strong>
-      <%= @hardware_item.checked_out_by_id %>
+      <%= @hardware_item.checked_out_by.name %>
     </p>
     <% if @hardware_item.checked_in? %>
       <p>
@@ -51,7 +58,7 @@
 
       <p>
         <strong>Checked in by</strong>
-        <%= @hardware_item.checked_in_by_id %>
+        <%= @hardware_item.checked_in_by.name %>
       </p>
     <% end %>
   <% end %>
