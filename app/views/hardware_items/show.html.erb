@@ -48,7 +48,13 @@
     <% if @hardware_item.checked_out_to_file.attached? %>
       <p>
         <strong>Check out proof</strong>
-        <%= link_to 'View', url_for(@hardware_item.checked_out_to_file) %>
+        <% if @hardware_item.checked_out_to_file.content_type.include? 'image' %>
+          <%= link_to url_for(@hardware_item.checked_out_to_file) do %>
+            <%= image_tag url_for(@hardware_item.checked_out_to_file), height: 100 %>
+          <% end %>
+        <% else %>
+          <%= link_to "View #{@hardware_item.checked_out_to_file.filename}", url_for(@hardware_item.checked_out_to_file) %>
+        <% end %>
       </p>
     <% end %>
 
