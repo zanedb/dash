@@ -75,3 +75,5 @@ gem 'pundit' # authorization/permissions
 gem 'rack-cors' # CORS
 gem 'search_cop' # search
 gem 'validates_email_format_of' # email validation
+gem 'prawn' # PDFs
+gem 'cairo' # SVG/PNG rendering

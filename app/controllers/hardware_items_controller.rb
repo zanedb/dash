@@ -2,7 +2,9 @@
 
 require 'barby'
 require 'barby/barcode/code_128'
-require 'barby/outputter/svg_outputter'
+require 'barby/outputter/cairo_outputter'
+require 'barby/outputter/prawn_outputter'
+require 'prawn'
 
 class HardwareItemsController < ApplicationController
   before_action :please_sign_in
@@ -12,7 +14,18 @@ class HardwareItemsController < ApplicationController
   before_action -> { authorize @hardware_item }
 
   def show
-    @barcode = Barby::Code128.new(@hardware_item.barcode).to_svg(height: 30, xdim: 2)
+    @barcode = Barby::Code128.new(@hardware_item.barcode)
+    @barcode_svg = @barcode.to_svg(height: 30, xdim: 2, margin: 0)
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        @barcode_png = @barcode.to_png(height: 30, xdim: 2, margin: 0)
+        @barcode_pdf = @barcode.to_pdf(y: 720)
+
+        send_data @barcode_pdf
+      end
+    end
   end
 
   def edit; end

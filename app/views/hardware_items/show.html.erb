@@ -13,7 +13,8 @@
 </h1>
 
 <div class="md-float-right">
-  <%= @barcode.html_safe %>
+  <%= @barcode_svg.html_safe %>
+  <%= link_to 'Print PDF', event_hardware_hardware_item_path(@event, @hardware, @hardware_item, format: :pdf), style: 'display: block;', class: 'md-align-right'  %>
 </div>
 
 <article class="details">
