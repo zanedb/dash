@@ -14,7 +14,7 @@ class HardwareItem < ApplicationRecord
   def set_barcode
     # terrible solution lol
     code = gen_barcode
-    code = gen_barcode until HardwareItem.find_by(barcode: new_barcode).blank?
+    code = gen_barcode until HardwareItem.find_by(barcode: code).blank?
     self.barcode = code
   end
 
