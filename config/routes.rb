@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       collection do
         post '/:id/check_in', to: 'attendees#check_in', as: :check_in
         post '/:id/check_out', to: 'attendees#check_out', as: :check_out
+        get '/import', to: 'attendees#import', as: :import
+        post '/import_csv', to: 'attendees#import_csv', as: :import_csv
       end
     end
     resources :attendee_fields, path: 'fields'
@@ -20,6 +22,13 @@ Rails.application.routes.draw do
     resources :organizer_position_invites, path: 'invites' do
       post 'accept'
       post 'reject'
+    end
+
+    resources :hardwares, path: 'hardware' do
+      resources :hardware_items, param: :barcode, path: 'items' do
+        post 'check_out', to: 'hardware_items#check_out', as: :check_out
+        post 'check_in', to: 'hardware_items#check_in', as: :check_in
+      end
     end
   end
 

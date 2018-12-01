@@ -25,11 +25,16 @@
 </div>
 
 <ul class="list list--row">
-  <li>
-    <%= link_to event_attendees_path(@event), style: 'display: flex; align-items:center;' do %>
+  <%= link_to event_attendees_path(@event) do %>
+    <li style="display: flex; align-items: center;">
       Attendees<span class="badge"><%= @event.attendees.count %></span>
-    <% end %>
-  </li>
+    </li>
+  <% end %>
+  <%= link_to event_hardwares_path(@event) do %>
+    <li style="display: flex; align-items: center;">
+      Hardware<span class="badge"><%= @event.hardwares.count %></span>
+    </li>
+  <% end %>
 </ul>
 
 <div id="team-members" style="margin: 0 0 1rem;">

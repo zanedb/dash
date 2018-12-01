@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_27_055940) do
+ActiveRecord::Schema.define(version: 2018_12_01_011737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "attendee_field_values", force: :cascade do |t|
     t.text "content"
@@ -72,6 +93,35 @@ ActiveRecord::Schema.define(version: 2018_11_27_055940) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "hardware_items", force: :cascade do |t|
+    t.string "checked_out_to"
+    t.datetime "checked_out_at"
+    t.bigint "checked_out_by_id"
+    t.bigint "hardware_id"
+    t.string "barcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "checked_in_at"
+    t.bigint "checked_in_by_id"
+    t.index ["barcode"], name: "index_hardware_items_on_barcode", unique: true
+    t.index ["checked_in_by_id"], name: "index_hardware_items_on_checked_in_by_id"
+    t.index ["checked_out_by_id"], name: "index_hardware_items_on_checked_out_by_id"
+    t.index ["hardware_id"], name: "index_hardware_items_on_hardware_id"
+  end
+
+  create_table "hardwares", force: :cascade do |t|
+    t.string "vendor"
+    t.string "model"
+    t.integer "quantity"
+    t.string "slug"
+    t.bigint "event_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_hardwares_on_event_id"
+    t.index ["user_id"], name: "index_hardwares_on_user_id"
   end
 
   create_table "organizer_position_invites", force: :cascade do |t|
@@ -136,6 +186,11 @@ ActiveRecord::Schema.define(version: 2018_11_27_055940) do
   add_foreign_key "attendee_field_values", "attendees"
   add_foreign_key "attendees", "events"
   add_foreign_key "attendees", "users", column: "checked_in_by_id"
+  add_foreign_key "hardware_items", "hardwares"
+  add_foreign_key "hardware_items", "users", column: "checked_in_by_id"
+  add_foreign_key "hardware_items", "users", column: "checked_out_by_id"
+  add_foreign_key "hardwares", "events"
+  add_foreign_key "hardwares", "users"
   add_foreign_key "organizer_position_invites", "events"
   add_foreign_key "organizer_position_invites", "organizer_positions"
   add_foreign_key "organizer_position_invites", "users"

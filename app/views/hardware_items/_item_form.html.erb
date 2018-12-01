@@ -1,0 +1,28 @@
+<%= form_with(model: hardware_item, url: url, method: :post, local: true) do |form| %>
+  <% if hardware_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hardware_item.errors.count, "error") %> prohibited this hardware item from being saved:</h2>
+
+      <ul>
+      <% hardware_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label 'Checking out to' %>
+    <%= form.text_field :checked_out_to, required: true, value: '' %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'Proof of attendee' %>
+    <span class="muted">This can be a photo of an ID card, collateral, etc. Optional.</span>
+    <%= form.file_field :checked_out_to_file %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Check out' %>
+  </div>
+<% end %>

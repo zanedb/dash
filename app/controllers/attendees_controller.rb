@@ -12,11 +12,9 @@ class AttendeesController < ApplicationController
     skip_authorization
     # manually authenticate index methods, Pundit doesn't
     if @event.users.include?(current_user) || current_user.admin?
-      @attendees = if params[:search]
-                     @event.attendees.search(params[:search]).order(created_at: :desc)
-                   else
-                     @event.attendees.order(created_at: :desc)
-                   end
+      @attendees = params[:search] ?
+        @event.attendees.search(params[:search])
+        : @event.attendees
       @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
 
       respond_to do |format|
@@ -97,6 +95,19 @@ class AttendeesController < ApplicationController
       flash[:error] = 'Failed to check-out attendee.'
       redirect_to request.referrer || event_attendee_path(@event, @attendee)
     end
+  end
+
+  def import
+  end
+
+  def import_csv
+    begin
+      Attendee.import_csv(params[:file], @event)
+      flash[:success] = 'Imported CSV of attendees.'
+    rescue
+      flash[:error] = 'Invalid CSV.'
+    end
+    redirect_to event_attendees_path(@event)
   end
 
   private

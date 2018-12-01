@@ -12,10 +12,6 @@ class AttendeeField < ApplicationRecord
     scope: :event,
     message: 'must be unique'
   }
-  validates :name, uniqueness: { 
-    case_sensitive: false,
-    message: 'must be lowercase'
-  }
   validates :name, format: {
     without: /\s/,
     message: 'cannot contain spaces'

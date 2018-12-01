@@ -5,7 +5,10 @@ class Attendee < ApplicationRecord
 
   search_scope :search do
     attributes [:first_name, :last_name], :email
+    attributes :fields 
   end
+
+  default_scope { order(created_at: :desc) }
 
   belongs_to :event
   has_many :fields, through: :values, class_name: 'AttendeeField'
@@ -14,8 +17,11 @@ class Attendee < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
 
+  CORE_PARAMS = %i[first_name last_name email note created_at].freeze
+
+  # returns an object containing all attendee data
   def attrs
-    attributes.to_h.merge(field_values).except('event_id')
+    attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
   end
 
   def name
@@ -30,6 +36,10 @@ class Attendee < ApplicationRecord
     data
   end
 
+  def field_for(name)
+    fields.where(name: name)
+  end
+
   def checked_in?
     checked_in_at.present?
   end
@@ -40,10 +50,23 @@ class Attendee < ApplicationRecord
 
   def self.as_csv
     CSV.generate do |csv|
-      filtered_columns = column_names - ['event_id'] # hide event_id in CSV
-      csv << filtered_columns
+      csv << all.first.attrs.keys
       all.each do |item|
-        csv << item.attributes.values_at(*filtered_columns)
+        csv << item.attrs.values
+      end
+    end
+  end
+
+  def self.import_csv(file, event)
+    CSV.foreach(file.path, headers: true) do |row|
+      row = row.to_h
+      core_keys = CORE_PARAMS.map(&:to_s)
+      # Create attendee record with core params
+      record = event.attendees.create(row.slice(*core_keys))
+      # Save custom field values for attendee
+      row.except(*core_keys).each do |name, value|
+        field = event.fields.where(name: name).first
+        field.values.create(content: value, attendee: record)
       end
     end
   end

@@ -1,0 +1,93 @@
+<% title "Hardware item #{@hardware_item.description} on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %> › <%= link_to @hardware.description, event_hardware_path(@event, @hardware) %>
+</div>
+
+<h1 class="heading">
+  <%= @hardware_item.description %>
+  <% if @hardware_item.checked_out? %>
+    <span class="badge">Checked out<% if @hardware_item.both? %> & in<% end %></span>
+  <% end %>
+  <%= link_to 'Edit Barcode', edit_event_hardware_hardware_item_path(@event, @hardware, @hardware_item), class: 'btn bg-info' %>
+  <%= link_to 'Delete', event_hardware_hardware_item_path(@event, @hardware, @hardware_item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
+</h1>
+
+<div class="md-float-right">
+  <%= @barcode.html_safe %>
+</div>
+
+<article class="details">
+  <p>
+    <strong>Barcode</strong>
+    <%= @hardware_item.barcode %>
+  </p>
+  
+  <p>
+    <strong>Vendor</strong>
+    <%= @hardware.vendor %>
+  </p>
+
+  <p>
+    <strong>Model</strong>
+    <%= @hardware.model %>
+  </p>
+
+  <% if @hardware_item.checked_out? %>
+    <p>
+      <strong>Checked out to</strong>
+      <%= @hardware_item.checked_out_to %>
+    </p>
+
+    <% if @hardware_item.checked_out_to_file.attached? %>
+      <p>
+        <strong>Check out proof</strong>
+        <%= link_to 'View', url_for(@hardware_item.checked_out_to_file) %>
+      </p>
+    <% end %>
+
+    <p>
+      <strong>Checked out at</strong>
+      <%= format_time @hardware_item.checked_out_at %>
+    </p>
+
+    <p>
+      <strong>Checked out by</strong>
+      <%= @hardware_item.checked_out_by.name %>
+    </p>
+    <% if @hardware_item.checked_in? %>
+      <p>
+        <strong>Checked in at</strong>
+        <%= format_time @hardware_item.checked_in_at %>
+      </p>
+
+      <p>
+        <strong>Checked in by</strong>
+        <%= @hardware_item.checked_in_by.name %>
+      </p>
+    <% end %>
+  <% end %>
+  <% unless (@hardware_item.checked_out? && @hardware_item.checked_in?) %>
+    <p>
+      <strong>Checked out</strong>
+      No
+    </p>
+  <% end %>
+</article>
+
+<% unless (@hardware_item.checked_out? && !@hardware_item.checked_in?) %>
+  <h2>Check out <% if @hardware_item.both? %>again<% end %></h2>
+  <p class="muted">
+    <% if @hardware_item.both? %>
+      This item has already been checked out and in.
+      You can check it out again.
+    <% else %>
+      Checking out at <%= format_time Time.now %> by <%= current_user.name %>.
+    <% end %>
+  </p>
+  <%= render 'item_form', hardware_item: @hardware_item, url: event_hardware_hardware_item_check_out_path(@event, @hardware, @hardware_item) %>
+<% end %>
+<% if (@hardware_item.checked_out? && !@hardware_item.checked_in?) %>
+  <h2>Check in</h2>
+  <p class="muted">Checking back in at <%= format_time Time.now %> by <%= current_user.name %>.</p>
+  <%= link_to 'Check in', event_hardware_hardware_item_check_in_path(@event, @hardware, @hardware_item), method: :post, class: 'btn bg-success' %>
+<% end %>

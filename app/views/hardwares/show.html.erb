@@ -1,0 +1,48 @@
+<% title "Hardware item #{@hardware.description} on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %>
+</div>
+
+<h1 class="heading">
+  <%= @hardware.description %>
+  <%= link_to 'Edit', edit_event_hardware_path(@event, @hardware), class: 'btn bg-info' %>
+  <%= link_to 'Delete', event_hardware_path(@event, @hardware), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
+</h1>
+
+<article class="details">
+  <p>
+    <strong>Vendor</strong>
+    <%= @hardware.vendor %>
+  </p>
+  <p>
+    <strong>Model</strong>
+    <%= @hardware.model %>
+  </p>
+  <p>
+    <strong>Quantity</strong>
+    <%= @hardware.quantity %>
+  </p>
+</article>
+
+<h2>Barcodes</h2>
+
+<% if @hardware_items.present? %>
+  <ul class="list list--row">
+    <% @hardware_items.each do |item| %>
+      <%= link_to event_hardware_hardware_item_path(@event, @hardware, item) do %>
+        <li style="display: flex; align-items: center;">
+          <%= item.barcode %>
+          <% if item.checked_out? %>
+            <%= 
+              content_tag :span,
+              "Checked out#{item.both? ? ' & in' : ''}",
+              class: item.both? ? 'badge bg-success' : 'badge bg-info' 
+            %>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="muted">There are no items.</p>
+<% end %>
