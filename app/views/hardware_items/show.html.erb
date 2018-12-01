@@ -6,7 +6,11 @@
 <h1 class="heading">
   <%= @hardware_item.description %>
   <% if @hardware_item.checked_out? %>
-    <span class="badge">Checked out<% if @hardware_item.both? %> & in<% end %></span>
+    <%= 
+      content_tag :span,
+      "Checked out#{@hardware_item.both? ? ' & in' : ''}",
+      class: @hardware_item.both? ? 'badge bg-success' : 'badge bg-info' 
+    %>
   <% end %>
   <%= link_to 'Edit Barcode', edit_event_hardware_hardware_item_path(@event, @hardware, @hardware_item), class: 'btn bg-info' %>
   <%= link_to 'Delete', event_hardware_hardware_item_path(@event, @hardware, @hardware_item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
@@ -36,7 +40,9 @@
   <% if @hardware_item.checked_out? %>
     <p>
       <strong>Checked out</strong>
-      <%= "Checked out to #{@hardware_item.checked_out_to} by #{@hardware_item.checked_out_by.name}" %>
+      <span>
+        <%= "Checked out to #{@hardware_item.checked_out_to} by #{@hardware_item.checked_out_by.name} at " %><%= format_time @hardware_item.checked_out_at %>
+      </span>
     </p>
 
     <% if @hardware_item.checked_out_to_file.attached? %>
@@ -46,20 +52,12 @@
       </p>
     <% end %>
 
-    <p>
-      <strong>Checked out at</strong>
-      <%= format_time @hardware_item.checked_out_at %>
-    </p>
-
     <% if @hardware_item.checked_in? %>
       <p>
-        <strong>Checked in at</strong>
-        <%= format_time @hardware_item.checked_in_at %>
-      </p>
-
-      <p>
         <strong>Checked in</strong>
-        <%= "Checked in by #{@hardware_item.checked_in_by.name}" %>
+        <span>
+          <%= "Checked in by #{@hardware_item.checked_in_by.name} at " %><%= format_time @hardware_item.checked_in_at %>
+        </span>
       </p>
     <% end %>
   <% end %>
@@ -78,13 +76,13 @@
       This item has already been checked out and in.
       You can check it out again.
     <% else %>
-      Checking out at <%= format_time Time.now %> by <%= current_user.name %>.
+      Checking out at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.
     <% end %>
   </p>
   <%= render 'item_form', hardware_item: @hardware_item, url: event_hardware_hardware_item_check_out_path(@event, @hardware, @hardware_item) %>
 <% end %>
 <% if (@hardware_item.checked_out? && !@hardware_item.checked_in?) %>
   <h2>Check in</h2>
-  <p class="muted">Checking back in at <%= format_time Time.now %> by <%= current_user.name %>.</p>
+  <p class="muted">Checking back in at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.</p>
   <%= link_to 'Check in', event_hardware_hardware_item_check_in_path(@event, @hardware, @hardware_item), method: :post, class: 'btn bg-success' %>
 <% end %>
