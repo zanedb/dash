@@ -12,8 +12,14 @@ class HardwareItem < ApplicationRecord
   before_create :set_barcode
 
   def set_barcode
-    self.barcode = 10.times.map { rand(10) }.join
-    # TODO fix so that if barcode generated already exists it doesnt fail
+    # terrible solution lol
+    code = gen_barcode
+    code = gen_barcode until HardwareItem.find_by(barcode: new_barcode).blank?
+    self.barcode = code
+  end
+
+  def gen_barcode
+    10.times.map { rand(10) }.join
   end
 
   def to_param
