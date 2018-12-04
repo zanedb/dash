@@ -49,6 +49,15 @@
     <%= form.text_area :permitted_domains %>
   </div>
 
+  <div class="field">
+    <%= form.label 'Webhook URL' %>
+    <p class="slate no-margin">
+      When an attendee is created, H&M will send a POST request to the following URL with all attendee data in JSON.
+      <br/>If you leave this field blank (default), nothing will happen.
+    </p>
+    <%= form.text_field :webhook_post_url %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

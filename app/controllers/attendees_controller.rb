@@ -57,6 +57,9 @@ class AttendeesController < ApplicationController
       @fields.each do |field|
         @attendee.values.create!(field: field, content: attendee_params[field.name])
       end
+      if @event.webhook_post_url.present?
+        HTTParty.post(@event.webhook_post_url, body: { attendee: @attendee.attrs })
+      end
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully created.'
     else

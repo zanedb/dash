@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_01_092614) do
+ActiveRecord::Schema.define(version: 2018_12_04_044905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2018_12_01_092614) do
     t.integer "user_id"
     t.string "slug"
     t.string "permitted_domains"
+    t.string "webhook_post_url"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
