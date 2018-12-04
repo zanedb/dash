@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 class Attendee < ApplicationRecord
   include SearchCop
 
   search_scope :search do
-    attributes [:first_name, :last_name], :email
-    #attributes :fields 
+    attributes %i[first_name last_name], :email
+    # attributes :fields
   end
 
   default_scope { order(created_at: :desc) }
@@ -20,7 +22,7 @@ class Attendee < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
 
-  CORE_PARAMS = %i[first_name last_name email note created_at].freeze
+  CORE_PARAMS = %i[first_name last_name email note created_at checked_in_at checked_out_at].freeze
 
   # returns an object containing all attendee data
   def attrs
@@ -73,7 +75,8 @@ class Attendee < ApplicationRecord
 
   def self.as_csv
     CSV.generate do |csv|
-      csv << all.first.attrs.keys
+      keys = CORE_PARAMS.map(&:to_s) + all.first.field_values.keys
+      csv << keys
       all.each do |item|
         csv << item.attrs.values
       end
