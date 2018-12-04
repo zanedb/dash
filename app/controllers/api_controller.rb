@@ -12,6 +12,9 @@ class ApiController < ApplicationController
       @fields.each do |field|
         @attendee.values.create!(field: field, content: attendee_params[field.name])
       end
+      if @event.webhook_post_url.present?
+        HTTParty.post(@event.webhook_post_url, body: { attendee: @attendee.attrs })
+      end
 
       render json: @attendee.attrs.as_json, status: status
     else
