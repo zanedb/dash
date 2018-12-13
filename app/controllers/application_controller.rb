@@ -9,11 +9,19 @@ class ApplicationController < ActionController::Base
     rescue_from Pundit::NotAuthorizedError,
                 with: :record_not_authorized
   end
-  helper_method :nobody_signed_in?, :current_user_id, :is_my?, :isnt_my?, :set_event
+  helper_method :nobody_signed_in?, :current_user_id, :set_event, :custom_authorization
 
   def set_event
     @event = Event.friendly.find_by_friendly_id(params[:event_id] || params[:id])
     raise ActiveRecord::RecordNotFound unless @event
+  end
+
+  def custom_authorization
+    skip_authorization
+    # manually authenticate certain methods, Pundit can't
+    unless @event.users.include?(current_user) || current_user.admin?
+      raise Pundit::NotAuthorizedError, 'not allowed to view this action'
+    end
   end
 
   # Keep the current user id in memory
