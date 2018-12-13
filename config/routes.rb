@@ -18,6 +18,12 @@ Rails.application.routes.draw do
       end
     end
     resources :attendee_fields, path: 'fields'
+    resources :emails do
+      collection do
+        get 'settings', to: 'emails#settings', as: :settings
+        patch 'configure', to: 'emails#configure', as: :configure
+      end
+    end
 
     resources :organizer_position_invites, path: 'invites' do
       post 'accept'
