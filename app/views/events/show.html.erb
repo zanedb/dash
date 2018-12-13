@@ -35,6 +35,11 @@
       Hardware<span class="badge"><%= @event.hardwares.count %></span>
     </li>
   <% end %>
+  <%= link_to event_emails_path(@event) do %>
+    <li style="display: flex; align-items: center;">
+      Emails<span class="badge"><%= @event.email_config.enabled? ? @event.emails.count : 'Disabled' %></span>
+    </li>
+  <% end %>
 </ul>
 
 <div id="team-members" style="margin: 0 0 1rem;">

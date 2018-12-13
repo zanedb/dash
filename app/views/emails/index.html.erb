@@ -1,0 +1,20 @@
+<% title "Emails on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %>
+</div>
+
+<h1 class="heading">
+  Emails
+  <% if @event.email_config.enabled? %>
+    <%= link_to 'Send an email', new_event_email_path, class: 'btn bg-success' %>
+    <%= link_to 'Edit settings', settings_event_emails_path, class: 'btn bg-info' %>
+  <% else %>
+    <%= link_to 'Configure email sending', settings_event_emails_path, class: 'btn bg-info' %>
+  <% end %>
+</h1>
+
+<% if @event.email_config.enabled? %>
+  a
+<% else %>
+  <p class="muted no-margin">Email sending hasn’t been configured.</p>
+<% end %>
