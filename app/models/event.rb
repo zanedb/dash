@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   default_scope { order(id: :asc) }
 
   has_one :email_config, dependent: :destroy
+  has_many :emails, dependent: :destroy
   has_many :attendees, dependent: :destroy
   has_many :fields, class_name: 'AttendeeField', dependent: :destroy
   has_many :organizer_positions, dependent: :destroy

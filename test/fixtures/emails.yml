@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recipient: MyString
+  sender_email: MyString
+  subject: MyText
+  body: MyText
+  read_receipt_img_url: MyString
+  read_receipt_stats_url: MyString
+
+two:
+  recipient: MyString
+  sender_email: MyString
+  subject: MyText
+  body: MyText
+  read_receipt_img_url: MyString
+  read_receipt_stats_url: MyString
