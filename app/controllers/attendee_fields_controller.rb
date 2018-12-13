@@ -1,4 +1,5 @@
 class AttendeeFieldsController < ApplicationController
+  before_action :please_sign_in
   before_action :set_event
   before_action :set_attendee_field, only: %i[show edit update destroy]
   before_action -> { authorize @attendee_field }, only: %i[show edit update destroy]
