@@ -15,3 +15,23 @@
 
 <%= link_to 'Edit', edit_event_attendee_field_path(@event, @attendee_field) %>
 <%= link_to 'Delete field', event_attendee_field_path(@event, @attendee_field), method: :delete, data: { confirm: 'Are you sure?' } %>
+
+<h2>Responses</h2>
+
+<% if @attendee_field.values.empty? %>
+  <p class="muted">There are no responses.</p>
+<% else %>
+  <ul class="list list--row">
+    <% @attendee_field.values.each do |value| %>
+      <%= link_to event_attendee_path(@event, value.attendee) do %>
+        <li>
+          <div>
+            <strong style="display: block;">
+              <%= value.attendee.name %>—<%= value.content %>
+            </strong>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

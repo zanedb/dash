@@ -16,6 +16,7 @@
           <%= "#{field.label} (#{field.name})" %>
           <%= custom_field field, form, field.kind %>
         </label>
+        <%= link_to 'View field responses', event_attendee_field_path(@event, field) %>
         <%= link_to 'Edit', edit_event_attendee_field_path(@event, field) %>
         <%= link_to 'Delete field', event_attendee_field_path(@event, field), method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
