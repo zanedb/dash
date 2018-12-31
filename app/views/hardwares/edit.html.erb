@@ -1,6 +1,6 @@
 <% title "Editing hardware item #{@hardware.description} on #{@event.name}" %>
 <div class="breadcrumbs">
-  <%= link_to 'Home', root_path %> › <%= link_to 'Events', events_path %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %> › <%= link_to @hardware.description, event_hardware_path(@event, @hardware) %>
+ <%= link_to 'Home', root_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %> › <%= link_to @hardware.description, event_hardware_path(@event, @hardware) %>
 </div>
 
 <h1>Editing Hardware Item</h1>
