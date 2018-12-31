@@ -1,35 +1,6 @@
 @import 'colors';
-
-/* normal */
-@font-face {
-  font-family: 'Inter UI';
-  font-style: normal;
-  font-weight: 400;
-  src: asset_url('Inter-UI-Regular.woff2') format('woff2'),
-    asset_url('Inter-UI-Regular.woff') format('woff');
-}
-@font-face {
-  font-family: 'Inter UI';
-  font-style: italic;
-  font-weight: 400;
-  src: asset_url('Inter-UI-Italic.woff2') format('woff2'),
-    asset_url('Inter-UI-Italic.woff') format('woff');
-}
-/* bold */
-@font-face {
-  font-family: 'Inter UI';
-  font-style: normal;
-  font-weight: 700;
-  src: asset_url('Inter-UI-Bold.woff2') format('woff2'),
-    asset_url('Inter-UI-Bold.woff') format('woff');
-}
-@font-face {
-  font-family: 'Inter UI';
-  font-style: italic;
-  font-weight: 700;
-  src: asset_url('Inter-UI-BoldItalic.woff2') format('woff2'),
-    asset_url('Inter-UI-BoldItalic.woff') format('woff');
-}
+@import 'fonts';
+@import 'basscss';
 
 * {
   box-sizing: border-box;
@@ -46,11 +17,13 @@ body {
   flex-direction: column;
   font-size: 1rem;
   font-family: 'Inter UI', system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
   position: relative;
   -webkit-font-smoothing: antialiased;
   color: $black;
-  margin: 1rem;
+  margin: 0rem;
+}
+main {
+  line-height: 1.5;
 }
 
 a {
