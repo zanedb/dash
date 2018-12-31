@@ -1,0 +1,63 @@
+<% title "Editing email settings on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Home', root_url %> › <%= link_to 'Events', events_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Emails', event_emails_path(@event) %>
+</div>
+<h1>Email Configuration</h1>
+
+<%= form_with(model: @email_config, local: true, url: configure_event_emails_path) do |form| %>
+  <% if @email_config.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@email_config.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+        <% @email_config.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :smtp_url %>
+    <%= form.text_field :smtp_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :smtp_port %>
+    <%= form.text_field :smtp_port %>
+  </div>
+
+  <div class="field">
+    <%= form.label :authentication %>
+    <%= form.text_field :authentication, placeholder: 'PLAIN' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :smtp_url %>
+    <%= form.text_field :smtp_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :domain %>
+    <%= form.text_field :domain %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sender_email %>
+    <%= form.text_field :sender_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Configure' %>
+  </div>
+<% end %>
