@@ -9,8 +9,40 @@
     <% end %>
   </h4>
   <p class="slate">(Please note: <u>H&M</u> is in no way the final name. Consider it a codename.)</p>
+
+  <% if @invites.any? %>
+    <h2>
+      Invitations
+    </h2>
+    <p class="a-lil-bottom-margin slate">You have <%= pluralize @invites.count, 'pending invitation' %>.</p>
+    <ul class="list list--border-top">
+      <% @invites.each do |invite| %>
+        <li><%= link_to invite.event.name, event_organizer_position_invite_path(invite.event, invite) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @events.any? || @invites.empty? %>
+    <h2 class="heading">
+      Events 
+      <% if current_user.admin? %>
+        <span class="muted" style="margin-left: 0.5rem;">(all)</span>
+        <%= link_to 'New Event', new_event_path, class: 'btn bg-success' %>
+      <% end %>
+    </h2>
+    <% if @events.empty? %>
+      <p class="muted">There are no events.</p>
+    <% else %>
+      <ul class="list">
+        <% @events.each do |event| %>
+          <li><%= link_to event.name, event %></h3></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+
+  <h2>Account</h2>
   <ul class="list">
-    <li><%= link_to 'View events', events_path %></li>
     <% if current_user.admin? %>
       <li><%= link_to 'Admin dashboard', admin_path %></li>
     <% end %>
