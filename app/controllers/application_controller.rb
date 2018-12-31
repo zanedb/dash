@@ -50,6 +50,6 @@ class ApplicationController < ActionController::Base
   end
 
   def record_not_authorized
-    render 'pages/not_authorized', status: 404
+    raise ActiveRecord::RecordNotFound
   end
 end
