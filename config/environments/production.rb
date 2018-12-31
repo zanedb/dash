@@ -52,6 +52,9 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
+  # Enable for adding to HSTS preload list
+  # See https://ankane.org/sensitive-data-rails
+  # config.ssl_options = {hsts: {subdomains: true, preload: true, expires: 1.year}}
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
