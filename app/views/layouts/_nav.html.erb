@@ -1,0 +1,21 @@
+<nav
+  role="navigation"
+  class="nav bg-blur"
+  data-behavior="nav">
+  <%= link_to root_path, class: 'nav__tab nav__left' do %>
+    <img src="/logo.png">
+    <span>Events</span>
+  <% end %>
+  <%= link_to edit_user_registration_path, class: 'nav__tab nav__right' do %>
+    <img src=<%= avatar_url(current_user.email, 48) %> class="profile-img">
+  <% end %>
+</nav>
+
+<% flash.each do |key, value| %>
+  <article role="alertdialog" class="flash bg-<%= key %>">
+    <span class="flash__content">
+      <%= value %>
+    </span>
+    <div class="flash__close" data-behavior="flash_close" role="button">X</div>
+  </article>
+<% end %>

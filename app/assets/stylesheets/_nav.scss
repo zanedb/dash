@@ -1,0 +1,49 @@
+.nav {
+  padding: 0.5rem 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 8px 0 rgba(#000, 0.125);
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .nav {
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+}
+
+@media (max-width: 32rem) {
+  .nav {
+    padding: 0.5rem 0.5rem;
+  }
+}
+
+.nav__left {
+  float: left;
+}
+
+.nav__right {
+  float: right;
+}
+
+.nav__tab {
+  display: inline-flex;
+  align-items: center;
+  color: $gray7;
+  text-decoration: none;
+
+  span {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-left: 1rem;
+  }
+
+  img {
+    width: 48px;
+    height: 48px;
+  }
+}

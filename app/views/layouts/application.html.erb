@@ -14,8 +14,8 @@
   </head>
 
   <body>
+    <%= render 'layouts/nav' %>
     <main class="container">
-      <%= render 'shared/flash' if flash.any? %>
       <%= yield %>
     </main>
   </body>
