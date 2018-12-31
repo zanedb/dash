@@ -9,6 +9,8 @@ class PagesController < ApplicationController
                   current_user.events
                 end
       @invites = current_user.organizer_position_invites.pending
+    else
+      redirect_to new_user_session_path
     end
   end
 end
