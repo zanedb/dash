@@ -41,13 +41,15 @@
     <% end %>
   <% end %>
 
-  <h2>Account</h2>
+  <h2 class="heading">
+    Account
+    <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn--destroy' %>
+  </h2>
   <ul class="list">
     <% if current_user.admin? %>
       <li><%= link_to 'Admin dashboard', admin_path %></li>
     <% end %>
     <li><%= link_to 'My account', edit_user_registration_path %></li>
-    <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
   </ul>
 <% else %>
   <h1>There’s more to see…</h1>
