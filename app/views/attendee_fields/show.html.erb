@@ -16,6 +16,21 @@
 <%= link_to 'Edit', edit_event_attendee_field_path(@event, @attendee_field) %>
 <%= link_to 'Delete field', event_attendee_field_path(@event, @attendee_field), method: :delete, data: { confirm: 'Are you sure?' } %>
 
+<% if @attendee_field.kind == 'multiselect' %>
+  <h2>Stats</h2>
+  <% if @attendee_field.options.empty? %>
+    <p class="muted">There are no options yet. <%= link_to 'Add some?', edit_event_attendee_field_path(@event, @attendee_field) %></p>
+  <% else %>
+    <ul class="list">
+      <% @attendee_field.options.each do |option| %>
+        <li>
+          <%= @attendee_field.label %> “<%= option %>”: <%= @attendee_field.values.where(content: option).count %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
+
 <h2>Responses</h2>
 
 <% if @attendee_field.values.empty? %>
