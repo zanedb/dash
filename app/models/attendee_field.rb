@@ -5,7 +5,7 @@ class AttendeeField < ApplicationRecord
     foreign_key: 'attendee_field_id',
     dependent: :destroy
 
-  enum kinds: %i[text multiline email checkbox]
+  enum kinds: %i[text multiline email checkbox multiselect]
 
   validates_presence_of :name, :label, :kind
   validates :name, uniqueness: {
