@@ -7,13 +7,7 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    authorize Event
-    @events = if current_user.admin?
-                Event.all
-              else
-                current_user.events
-              end
-    @invites = current_user.organizer_position_invites.pending
+    redirect_to root_url
   end
 
   # GET /events/1
