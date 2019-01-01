@@ -3,10 +3,7 @@
   <h1>H&M</h1>
   <h3 class="a-lil-bottom-margin">✨ A next-gen hackathon management system</h3>
   <h4 class="a-lil-bottom-margin">
-    👋 Welcome, <%= current_user.name %>. You’re doing great.
-    <% if current_user.admin? %>
-      (& you’re an <span class="primary">admin</span>)
-    <% end %>
+    👋 Welcome, <%= current_user.name %>. Happy <%= local_time(Time.now, '%A') %>! You’re doing great.
   </h4>
   <p class="slate">(Please note: <u>H&M</u> is in no way the final name. Consider it a codename.)</p>
 
