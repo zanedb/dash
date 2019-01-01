@@ -1,11 +1,11 @@
 <% title "Hardware on #{@event.name}" %>
 <div class="breadcrumbs">
- <%= link_to 'Home', root_url %> › <%= link_to @event.name, @event %>
+ <%= link_to @event.name, @event %>
 </div>
 
 <h1 class="heading">
   Hardware items<span class="badge"><%= @hardwares.count %></span>
-  <%= link_to 'Add a hardware item', new_event_hardware_path(@event), class: 'btn bg-success' %>
+  <%= link_to 'Add a hardware item', new_event_hardware_path(@event), class: 'btn' %>
 </h1>
 
 <% if @hardwares.empty? %>

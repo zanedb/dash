@@ -1,6 +1,6 @@
 <% title "Hardware item #{@hardware_item.description} on #{@event.name}" %>
 <div class="breadcrumbs">
-  <%= link_to 'Home', root_url %> › <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %> › <%= link_to @hardware.description, event_hardware_path(@event, @hardware) %>
+  <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %> › <%= link_to @hardware.description, event_hardware_path(@event, @hardware) %>
 </div>
 
 <h1 class="heading">
@@ -12,7 +12,7 @@
       class: @hardware_item.both? ? 'badge bg-success' : 'badge bg-info' 
     %>
   <% end %>
-  <%= link_to 'Edit Barcode', edit_event_hardware_hardware_item_path(@event, @hardware, @hardware_item), class: 'btn bg-info' %>
+  <%= link_to 'Edit Barcode', edit_event_hardware_hardware_item_path(@event, @hardware, @hardware_item), class: 'btn' %>
   <%= link_to 'Delete', event_hardware_hardware_item_path(@event, @hardware, @hardware_item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
 </h1>
 
@@ -90,5 +90,5 @@
 <% if (@hardware_item.checked_out? && !@hardware_item.checked_in?) %>
   <h2>Check in</h2>
   <p class="muted">Checking back in at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.</p>
-  <%= link_to 'Check in', event_hardware_hardware_item_check_in_path(@event, @hardware, @hardware_item), method: :post, class: 'btn bg-success' %>
+  <%= link_to 'Check in', event_hardware_hardware_item_check_in_path(@event, @hardware, @hardware_item), method: :post, class: 'btn' %>
 <% end %>
