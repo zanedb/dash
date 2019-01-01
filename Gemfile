@@ -64,19 +64,30 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'webpacker'
 gem 'webpacker-react'
 
+# Dev Tools
 gem 'autoprefixer-rails' # vendor prefixes
+gem 'jquery-rails' # jQuery
+
+# Misc
 gem 'aws-sdk-s3' # AWS S3
+gem 'friendly_id' # URL Slugs
+gem 'local_time' # time formatting
+gem 'search_cop' # search
+
+# APIs
+gem 'httparty' # HTTP requests
+gem 'rack-cors' # CORS
+
+# Validation
+gem 'validates_email_format_of' # email validation
+
+# Rendering
 gem 'barby' # barcodes
 gem 'cairo' # SVG/PNG rendering
-gem 'devise' # authentication
-gem 'devise_invitable' # inviting users
-gem 'friendly_id' # URL Slugs
-gem 'httparty' # HTTP requests
-gem 'jquery-rails' # jQuery
-gem 'local_time' # time formatting
 gem 'nokogiri' # inline SVG
 gem 'prawn' # PDFs
+
+# Auth
+gem 'devise' # authentication
+gem 'devise_invitable' # inviting users
 gem 'pundit' # authorization/permissions
-gem 'rack-cors' # CORS
-gem 'search_cop' # search
-gem 'validates_email_format_of' # email validation
