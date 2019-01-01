@@ -143,32 +143,45 @@ select[name$='i)]'] {
 
 input[type='submit'],
 .btn {
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  background-color: $red5;
-  color: $white;
-  font-size: 1.25rem;
-  display: inline-block;
-  vertical-align: middle;
-  text-align: center;
-  font-family: inherit;
+  align-items: center;
+  color: $primary;
+  background-color: #fff;
+  border: 0;
+  border-radius: 8px;
+  font-size: 0.875rem;
   font-weight: bold;
-  line-height: 1.125;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
-  box-shadow: 0 2px 8px $gray4;
-  margin: 0;
+  -webkit-box-shadow: inset 0 0 0 1px currentColor;
+  -moz-box-shadow: inset 0 0 0 1px currentColor;
+  box-shadow: inset 0 0 0 1px currentColor;
+  -webkit-tap-highlight-color: transparent;
+  justify-content: center;
+  line-height: 1.5;
+  overflow: hidden;
+  padding: 0.5rem 1rem;
+  position: relative;
+  text-align: center;
   text-decoration: none;
-  border-radius: 9999px;
-  border-width: 0px;
-  border-style: solid;
+  text-transform: uppercase;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #2d9ce4;
+    color: #fff;
+  }
 }
 .btn.btn--destroy {
-  background-color: $gray0 !important;
+  background-color: #fff !important;
   color: $red5 !important;
+
+  &:hover {
+    background-color: $red5 !important;
+    color: #fff !important;
+  }
 }
 
 .container {
