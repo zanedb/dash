@@ -27,7 +27,7 @@
       Events 
       <% if current_user.admin? %>
         <span class="muted" style="margin-left: 0.5rem;">(all)</span>
-        <%= link_to 'New Event', new_event_path, class: 'btn bg-success' %>
+        <%= link_to 'New Event', new_event_path, class: 'btn' %>
       <% end %>
     </h2>
     <% if @events.empty? %>
@@ -43,6 +43,6 @@
 <% else %>
   <h1>There’s more to see…</h1>
   <article>
-    <%= link_to 'Sign in', new_user_session_path, class: 'btn bg-success' %>
+    <%= link_to 'Sign in', new_user_session_path, class: 'btn' %>
   </article>
 <% end %>
