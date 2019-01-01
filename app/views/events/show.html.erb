@@ -1,24 +1,25 @@
 <% title @event.name %>
 
-<h1 class="heading">
-  <%= @event.name %>
-  <%= link_to 'Edit', edit_event_path(@event), class: 'btn' %>
-  <% if current_user.admin? %>
-    <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
-  <% end %>
-</h1>
+<h1 class="center mb0" style="font-weight: 900;"><%= @event.name %></h1>
+<p class="slate center h3 my0">
+  <%= @event.city %> — <%= event_length(@event).html_safe %>
+</p>
 
-<div class="slate" style="column-count: 2;">
-  <p class="no-margin" style="break-inside: avoid;">
-    Starts at: <%= format_time(@event.start_date) %>
-    <br />
-    Ends at: <%= format_time(@event.end_date) %>
-  </p>
-
-  <p class="no-margin" style="white-space: pre-line; break-inside: avoid;">
-    Takes place at:
-    <%= link_to @event.city, "https://www.google.com/maps?q=#{@event.city}", target: '_blank', rel: 'noopen noreferrer' %>
-  </p>
+<div class="flex justify-center">
+  <ul class="flex list-reset">
+    <% @invites.accepted.each do |invite| %>
+      <li>
+        <%= link_to "mailto:#{invite.user.email}" do %>
+          <img class="profile-img" style="margin-right: 0.5rem;" src=<%= avatar_url(invite.user.email, 48) %> />
+        <% end %>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to new_event_organizer_position_invite_path(@event), class: 'btn btn--icon' do %>
+        <%= inline_svg 'edit.svg', { width: 32 } %>
+      <% end %>
+    </li>
+  </ul>
 </div>
 
 <ul class="list list--row">
@@ -34,35 +35,10 @@
   <% end %>
 </ul>
 
-<div id="team-members" style="margin: 0 0 1rem;">
-  <h2 class="heading">
-    Team Members
-    <%= link_to 'Invite team member', new_event_organizer_position_invite_path(@event), class: 'btn' %>
-  </h2>
-  <% if @invites.empty? %>
-    <p class="muted">There are no team members.</p>
-  <% end %>
-  <% if @invites&.accepted %>
-    <ul class="list list--unlinked list--row">
-      <% @invites.accepted.each do |invite| %>
-        <li>
-          <img class="profile-img" style="margin-right: 0.5rem;" src=<%= avatar_url(invite.user.email, 32) %> />
-          <strong><%= invite.user.name %></strong>
-          <span class="muted">—<%= mail_to invite.user.email %></span>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-  <% if @invites.pending.any? %>
-    <details>
-      <summary style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">Pending Invitations</summary>
-      <ul>
-        <% @invites.pending.each do |invite| %>
-          <li>
-            <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy Invite', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %><% end %>
-          </li>
-        <% end %>
-      </ul>
-    </details>
+<br/>
+<div class="flex justify-center">
+  <%= link_to 'Settings', edit_event_path(@event), class: 'btn mr1' %>
+  <% if current_user.admin? %>
+    <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
   <% end %>
 </div>

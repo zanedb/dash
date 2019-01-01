@@ -28,3 +28,11 @@
   src: asset_url('Inter-UI-BoldItalic.woff2') format('woff2'),
     asset_url('Inter-UI-BoldItalic.woff') format('woff');
 }
+/* black */
+@font-face {
+  font-family: 'Inter UI';
+  font-style: normal;
+  font-weight: 900;
+  src: asset_url('Inter-UI-Black.woff2') format('woff2'),
+    asset_url('Inter-UI-Black.woff') format('woff');
+}
