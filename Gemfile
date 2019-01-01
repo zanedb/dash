@@ -78,3 +78,4 @@ gem 'validates_email_format_of' # email validation
 gem 'prawn' # PDFs
 gem 'cairo' # SVG/PNG rendering
 gem 'httparty' # HTTP requests
+gem 'nokogiri' # inline SVG
