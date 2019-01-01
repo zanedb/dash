@@ -6,8 +6,10 @@
     <img src="/logo.png">
     <span>Events</span>
   <% end %>
-  <%= link_to edit_user_registration_path, class: 'nav__tab nav__right' do %>
-    <img src=<%= avatar_url(current_user.email, 48) %> class="profile-img">
+  <% if user_signed_in? %>
+    <%= link_to edit_user_registration_path, class: 'nav__tab nav__right' do %>
+      <img src=<%= avatar_url(current_user.email, 48) %> class="profile-img">
+    <% end %>
   <% end %>
 </nav>
 
