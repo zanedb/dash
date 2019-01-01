@@ -11,7 +11,7 @@ class Event < ApplicationRecord
   has_many :hardwares, dependent: :destroy
   has_many :hardware_items, through: :hardwares, dependent: :destroy
 
-  validates :name, :start_date, :end_date, :location, :user_id, presence: true
+  validates :name, :start_date, :end_date, :city, :user_id, presence: true
   validate :permitted_domains_cannot_have_trailing_slash
 
   def permitted_domains_cannot_have_trailing_slash
@@ -27,7 +27,7 @@ class Event < ApplicationRecord
     [
       :name,
       [:name, :start_date],
-      [:name, :location]
+      [:name, :city]
     ]
   end
 end

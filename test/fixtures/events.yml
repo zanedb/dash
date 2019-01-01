@@ -4,10 +4,10 @@ one:
   name: MyString
   start_date: 2018-09-22 13:11:42
   end_date: 2018-09-22 13:11:42
-  location: MyText
+  city: MyText
 
 two:
   name: MyString
   start_date: 2018-09-22 13:11:42
   end_date: 2018-09-22 13:11:42
-  location: MyText
+  city: MyText

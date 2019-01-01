@@ -15,7 +15,7 @@ class EventsTest < ApplicationSystemTestCase
     click_on "New Event"
 
     fill_in "End Date", with: @event.end_date
-    fill_in "Location", with: @event.location
+    fill_in "City", with: @event.city
     fill_in "Name", with: @event.name
     fill_in "Start Date", with: @event.start_date
     click_on "Create Event"
@@ -29,7 +29,7 @@ class EventsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "End Date", with: @event.end_date
-    fill_in "Location", with: @event.location
+    fill_in "City", with: @event.city
     fill_in "Name", with: @event.name
     fill_in "Start Date", with: @event.start_date
     click_on "Update Event"

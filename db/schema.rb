@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_04_044905) do
+ActiveRecord::Schema.define(version: 2019_01_01_194657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,11 +74,38 @@ ActiveRecord::Schema.define(version: 2018_12_04_044905) do
     t.index ["event_id"], name: "index_attendees_on_event_id"
   end
 
+  create_table "email_configs", force: :cascade do |t|
+    t.string "smtp_url"
+    t.string "smtp_port"
+    t.string "authentication"
+    t.string "domain"
+    t.string "sender_email"
+    t.string "username"
+    t.string "password"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_email_configs_on_event_id"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.string "recipient"
+    t.string "sender_email"
+    t.text "subject"
+    t.text "body"
+    t.string "read_receipt_img_url"
+    t.string "read_receipt_stats_url"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_emails_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.text "location"
+    t.text "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
