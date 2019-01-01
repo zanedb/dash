@@ -7,9 +7,20 @@
     <span>Events</span>
   <% end %>
   <% if user_signed_in? %>
-    <%= link_to edit_user_registration_path, class: 'nav__tab nav__right' do %>
-      <img src=<%= avatar_url(current_user.email, 48) %> class="profile-img">
-    <% end %>
+    <div class="nav__right flex items-center">
+      <div class="dropdown">
+        <div class="nav__tab dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
+          <img src=<%= avatar_url(current_user.email, 48) %> class="profile-img">
+        </div>
+        <ul class="dropdown__content">
+          <li><%= link_to 'My account', edit_user_registration_path %></li>
+          <% if current_user.admin? %>
+            <li><%= link_to 'Admin dashboard', admin_path %></li>
+          <% end %>
+          <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </div>
+    </div>
   <% end %>
 </nav>
 
