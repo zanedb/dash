@@ -12,6 +12,7 @@ $(document).ready(function() {
       .parent()
       .fadeOut('fast')
   })
+
   // dropdown code
   $(document).on('click', '[data-behavior~=dropdown_trigger]', function() {
     // toggle dropdown on profile icon click

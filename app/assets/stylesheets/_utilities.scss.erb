@@ -54,15 +54,15 @@ $__palette: (
 );
 
 @each $name, $val in $__palette {
-  .#{$name} {
+  .#{'' + $name} {
     color: $val;
   }
 
-  .bg-#{$name} {
+  .bg-#{'' + $name} {
     background-color: $val;
   }
 
-  .b--#{$name} {
+  .b--#{'' + $name} {
     border-color: $val;
   }
 }
