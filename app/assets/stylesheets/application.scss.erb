@@ -286,6 +286,10 @@ h1 {
   font-size: 2.5rem;
   padding-bottom: 8px;
   margin-bottom: 1rem;
+
+  @media (max-width: 32em) {
+    font-size: 2rem;
+  }
 }
 h2 {
   font-size: 1.75rem;
@@ -301,6 +305,12 @@ h3 {
 }
 h4 {
   font-size: 1.25rem;
+}
+
+p.info {
+  @media (max-width: 32em) {
+    font-size: 1rem;
+  }
 }
 
 /* https://css-tricks.com/snippets/css/make-pre-text-wrap/ */
