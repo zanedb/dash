@@ -9,7 +9,15 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
 
-  def avatar_url(email, size)
+  def avatar_url(user, size = 48)
+    if user.avatar.attached?
+      user.avatar.variant(resize: "#{size}x#{size}!").processed.service_url
+    else
+      gravatar_url user.email, size
+    end
+  end
+
+  def gravatar_url(email, size = 48)
     hex = Digest::MD5.hexdigest(email.downcase.strip)
     "https://gravatar.com/avatar/#{hex}?s=#{size}&d=mp"
   end

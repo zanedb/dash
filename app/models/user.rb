@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :events, through: :organizer_positions
   has_many :hardwares, through: :events
 
+  has_one_attached :avatar
+
   after_create :check_for_invitations
 
   def check_for_invitations

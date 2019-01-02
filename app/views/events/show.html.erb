@@ -10,7 +10,7 @@
     <% @invites.accepted.each do |invite| %>
       <li>
         <%= link_to "mailto:#{invite.user.email}" do %>
-          <img class="profile-img" style="margin-right: 0.5rem;" title=<%= invite.user.name %> src=<%= avatar_url(invite.user.email, 48) %> />
+          <img class="profile-img" style="margin-right: 0.5rem;" title=<%= invite.user.name %> src=<%= avatar_url(invite.user, 48) %> />
         <% end %>
       </li>
     <% end %>

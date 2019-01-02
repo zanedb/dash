@@ -4,7 +4,7 @@
 </div>
 
 <h1 class="heading">
-  <img class="profile-img" style="margin-right: 1rem;" src=<%= avatar_url(@attendee.email, 36) %> />
+  <img class="profile-img" style="margin-right: 1rem;" src=<%= gravatar_url(@attendee.email, 36) %> />
   <%= @attendee.name %>
   <% if @attendee.checked_in? %>
     <%= 

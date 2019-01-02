@@ -1,9 +1,16 @@
 <% title 'My Account' %>
 <h1>My Account</h1>
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
+
+  <%= image_tag avatar_url(current_user, 128), class: 'profile-img' %>
+
+  <div class="field">
+    <%= f.label :avatar %>
+    <i>(square image)</i>
+    <%= f.file_field :avatar %>
+  </div>
 
   <div class="field">
     <%= f.label :name %>

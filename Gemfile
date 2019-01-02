@@ -84,6 +84,7 @@ gem 'validates_email_format_of' # email validation
 # Rendering
 gem 'barby' # barcodes
 gem 'cairo' # SVG/PNG rendering
+gem 'mini_magick' # image manipulation
 gem 'nokogiri' # inline SVG
 gem 'prawn' # PDFs
 
@@ -91,3 +92,7 @@ gem 'prawn' # PDFs
 gem 'devise' # authentication
 gem 'devise_invitable' # inviting users
 gem 'pundit' # authorization/permissions
+
+# Displaying Data
+gem 'chartkick' # charting data
+gem 'groupdate' # grouping data
