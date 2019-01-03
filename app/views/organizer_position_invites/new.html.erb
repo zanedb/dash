@@ -1,11 +1,42 @@
-<% title "Inviting Members on #{@event.name}" %>
+<% title "Team Members on #{@event.name}" %>
 <div class="breadcrumbs">
   <%= link_to @event.name, @event %>
 </div>
-<h1>Invite Another Member</h1>
 
+<h1>Team Members</h1>
+<% if @invites.empty? %>
+  <p class="muted">There are no team members.</p>
+<% end %>
+<% if @invites&.accepted %>
+  <ul class="list list--unlinked list--row">
+    <% @invites.accepted.each do |invite| %>
+      <li>
+        <%= avatar_for(invite.user, 48) %>
+        <div class="ml2">
+          <strong style="display: block;">
+            <%= invite.user.name %>
+          </strong>
+          <span class="muted">
+            <%= invite.user.email %>
+          </span>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<% if @invites.pending.any? %>
+  <h2>Pending Invitations</h2>
+  <ul class="list list--row list--unlinked">
+    <% @invites.pending.each do |invite| %>
+      <li>
+        <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy Invite', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %><% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2>Invite Another Member</h2>
 <p>This person will have full access to your event.</p>
-
 <%= form_with(model: @invite, local: true, url: event_organizer_position_invites_path) do |form| %>
   <% if @invite.errors.any? %>
     <div id="error_explanation">
