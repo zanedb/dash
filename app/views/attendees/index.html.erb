@@ -77,8 +77,8 @@
     <% @attendees.each do |attendee| %>
       <%= link_to event_attendee_path(@event, attendee) do %>
         <li>
-          <img class="profile-img mr2" style="width: 48px;" src=<%= gravatar_url(attendee.email, 96) %> />
-          <div>
+          <%= gravatar_for attendee.email, 48 %>
+          <div class="ml2">
             <strong style="display: block;">
               <%= attendee.name %>
               <% if attendee.checked_in? %>

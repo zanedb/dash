@@ -4,8 +4,8 @@
 </div>
 
 <h1 class="heading">
-  <img class="profile-img mr2" style="width: 36px;" src=<%= gravatar_url(@attendee.email, 72) %> />
-  <%= @attendee.name %>
+  <%= gravatar_for(@attendee.email, 36) %>
+  <span class="ml2"><%= @attendee.name %></span>
   <% if @attendee.checked_in? %>
     <%= 
       content_tag :span,

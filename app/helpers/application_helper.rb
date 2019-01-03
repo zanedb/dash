@@ -17,9 +17,17 @@ module ApplicationHelper
     end
   end
 
+  def avatar_for(user, size = 48)
+    image_tag avatar_url(user, size * 2), class: 'profile-img', width: "#{size}px"
+  end
+
   def gravatar_url(email, size = 48)
     hex = Digest::MD5.hexdigest(email.downcase.strip)
     "https://gravatar.com/avatar/#{hex}?s=#{size}&d=mp"
+  end
+
+  def gravatar_for(email, size = 48)
+    image_tag gravatar_url(email, size * 2), class: 'profile-img', width: "#{size}px"
   end
 
   def inline_svg(filename, options = {})

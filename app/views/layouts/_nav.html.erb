@@ -10,7 +10,7 @@
     <div class="nav__right flex items-center">
       <div class="dropdown">
         <div class="nav__tab dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
-          <img src=<%= avatar_url(current_user, 96) %> class="profile-img" style="width: 48px;">
+          <%= avatar_for(current_user, 48) %>
         </div>
         <ul class="dropdown__content">
           <li><%= link_to 'My account', edit_user_registration_path %></li>

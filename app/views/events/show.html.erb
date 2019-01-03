@@ -9,8 +9,8 @@
   <ul class="flex list-reset">
     <% @invites.accepted.each do |invite| %>
       <li>
-        <%= link_to "mailto:#{invite.user.email}" do %>
-          <img class="profile-img mr1" style="width: 48px;" title=<%= invite.user.name %> src=<%= avatar_url(invite.user, 96) %> />
+        <%= link_to "mailto:#{invite.user.email}", class: 'mr1' do %>
+          <%= avatar_for invite.user, 48 %>
         <% end %>
       </li>
     <% end %>
