@@ -4,6 +4,8 @@
 //= require_tree .
 //= require local-time
 //= require jquery3
+//= require Chart.bundle
+//= require chartkick
 
 $(document).ready(function() {
   // close flash message on click

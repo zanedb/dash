@@ -344,5 +344,52 @@ li .badge {
   text-decoration: none;
 }
 
+.stat-value {
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1;
+}
+.stat-label {
+  color: $gray6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1rem;
+}
+
+.attendee-stats-container {
+  display: flex;
+  flex-flow: column-reverse;
+
+  @media (min-width: 32em) {
+    flex-direction: row;
+    margin-top: 1rem;
+  }
+}
+.attendee-stats-graph {
+  height: 12rem;
+}
+.attendee-stats {
+  div:nth-child(2) {
+    margin: 1rem 0 0;
+  }
+
+  @media (max-width: 32em) {
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    div:nth-child(2) {
+      margin: 0 0 0 1rem;
+    }
+  }
+}
+.attendee-stats-btn {
+  margin: 1.5rem 0 0;
+
+  @media (max-width: 32em) {
+    margin: 1rem 0;
+  }
+}
+
 @import 'lists';
 @import 'utilities';

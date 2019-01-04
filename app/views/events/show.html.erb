@@ -22,14 +22,30 @@
   </ul>
 </div>
 
+
+<h3 class="m0">Attendees</h3>
+<div class="flex attendee-stats-container">
+  <div class="sm-col-6">
+    <%= line_chart @attendees.unscope(:order).group_by_week(:created_at).count, height: '14rem' %>
+  </div>
+  <div class="sm-col-6 attendee-stats">
+    <div>
+      <%= content_tag :p, @attendees.count, class: 'stat-value primary m0' %>
+      <%= content_tag :p, 'Total attendees', class: 'stat-label m0'%>
+    </div>
+    <div>
+      <%= content_tag :p, "+#{@attendees_new_week_count}", class: 'stat-value success m0' %>
+      <%= content_tag :p, 'This week', class: 'stat-label m0'%>
+    </div>
+    <div class="attendee-stats-btn">
+      <%= link_to 'See all »', event_attendees_path(@event), class: 'btn' %>
+    </div>
+  </div>
+</div>
+
 <ul class="list list--row">
-  <%= link_to event_attendees_path(@event) do %>
-    <li style="display: flex; align-items: center;">
-      Attendees<span class="badge"><%= @event.attendees.count %></span>
-    </li>
-  <% end %>
   <%= link_to event_hardwares_path(@event) do %>
-    <li style="display: flex; align-items: center;">
+    <li class="flex items-center mt2">
       Hardware<span class="badge"><%= @event.hardwares.count %></span>
     </li>
   <% end %>

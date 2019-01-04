@@ -13,6 +13,8 @@ class EventsController < ApplicationController
   # GET /events/1
   def show
     @invites = @event.organizer_position_invites
+    @attendees = @event.attendees
+    @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
   end
 
   # GET /events/new
