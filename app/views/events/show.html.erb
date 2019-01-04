@@ -34,7 +34,11 @@
       <%= content_tag :p, 'Total attendees', class: 'stat-label m0'%>
     </div>
     <div>
-      <%= content_tag :p, "+#{@attendees_new_week_count}", class: 'stat-value success m0' %>
+      <%=
+        content_tag :p,
+        "+#{@attendees_new_week_count}",
+        class: "stat-value m0 #{@attendees_new_week_count < 1 ? 'error' : 'success'}" 
+      %>
       <%= content_tag :p, 'This week', class: 'stat-label m0'%>
     </div>
     <div class="attendee-stats-btn">
