@@ -9,9 +9,9 @@
   <ul class="flex list-reset">
     <% @invites.accepted.each do |invite| %>
       <li>
-        <%= link_to "mailto:#{invite.user.email}", class: 'mr1' do %>
+        <div class="mr1">
           <%= avatar_for invite.user, 48 %>
-        <% end %>
+        </div>
       </li>
     <% end %>
     <li>
