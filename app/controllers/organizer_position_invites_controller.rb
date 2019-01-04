@@ -6,8 +6,6 @@ class OrganizerPositionInvitesController < ApplicationController
     @invite = OrganizerPositionInvite.new
     @invite.event = @event
     authorize @invite
-
-    @invites = @event.organizer_position_invites
   end
 
   def create

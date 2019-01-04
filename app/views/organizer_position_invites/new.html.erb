@@ -4,12 +4,12 @@
 </div>
 
 <h1>Team Members</h1>
-<% if @invites.empty? %>
+<% if @event.organizer_position_invites.empty? %>
   <p class="muted">There are no team members.</p>
 <% end %>
-<% if @invites&.accepted %>
+<% if @event.organizer_position_invites&.accepted %>
   <ul class="list list--unlinked list--row">
-    <% @invites.accepted.each do |invite| %>
+    <% @event.organizer_position_invites.accepted.each do |invite| %>
       <li>
         <%= avatar_for(invite.user, 48) %>
         <div class="ml2">
@@ -24,10 +24,10 @@
     <% end %>
   </ul>
 <% end %>
-<% if @invites.pending.any? %>
+<% if @event.organizer_position_invites.pending.any? %>
   <h2>Pending Invitations</h2>
   <ul class="list list--row list--unlinked">
-    <% @invites.pending.each do |invite| %>
+    <% @event.organizer_position_invites.pending.each do |invite| %>
       <li>
         <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy Invite', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %><% end %>
       </li>
