@@ -28,7 +28,7 @@
   <div class="sm-col-6">
     <%= line_chart @attendees.unscope(:order).group_by_week(:created_at).count, height: '14rem' %>
   </div>
-  <div class="sm-col-6 attendee-stats">
+  <div class="sm-col-6 ml2 attendee-stats">
     <div>
       <%= content_tag :p, @attendees.count, class: 'stat-value primary m0' %>
       <%= content_tag :p, 'Total attendees', class: 'stat-label m0'%>
