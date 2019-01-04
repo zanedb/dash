@@ -9,7 +9,7 @@
   <ul class="flex list-reset">
     <% @invites.accepted.each do |invite| %>
       <li>
-        <div class="mr1">
+        <div class="mr1" title=<%= invite.user.name %>>
           <%= avatar_for invite.user, 48 %>
         </div>
       </li>
