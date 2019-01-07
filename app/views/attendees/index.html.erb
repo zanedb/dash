@@ -5,7 +5,7 @@
 
 <h1 class="heading">
   Attendees <span class="badge"><%= @attendees.count %></span>
-  <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn' %>
+  <%= link_to '+', new_event_attendee_path, class: 'btn' %>
 </h1>
 <ul class="list">
   <li><%= link_to 'Edit Fields', event_attendee_fields_path(@event) %></li>
@@ -64,8 +64,8 @@
   <% else %>
     All attendees
   <% end %>
-  <%= link_to 'Import Attendees', import_event_attendees_path(@event), class: 'btn' %>
-  <%= link_to 'Export CSV', event_attendees_path(format: :csv), class: 'btn' %>
+  <%= link_to 'Import', import_event_attendees_path(@event), class: 'btn' %>
+  <%= link_to 'Export', event_attendees_path(format: :csv), class: 'btn' %>
 </h2>
 <% if @attendees.empty? %>
   <p class="muted">There are no attendees.</p>
