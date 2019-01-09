@@ -96,3 +96,6 @@ gem 'pundit' # authorization/permissions
 # Displaying Data
 gem 'chartkick' # charting data
 gem 'groupdate' # grouping data
+
+# Optimization
+gem 'skylight' # performance
