@@ -1,0 +1,29 @@
+<% title "Webhooks on #{@event.name}" %>
+<div class="breadcrumbs">
+ <%= link_to @event.name, @event %> › <%= link_to 'Settings', edit_event_path(@event) %>
+</div>
+
+<h1 class="heading">
+  Webhooks
+  <%= link_to 'Add webhook', new_event_webhook_path(@event), class: 'btn' %>
+</h1>
+<p class="muted">These webhooks will send whatever requests you setup whenever an attendee is created.</p>
+
+<% if @webhooks.empty? %>
+  <p class="muted">There are no webhooks.</p>
+<% else %>
+  <ul class="list">
+    <% @webhooks.each do |webhook| %>
+      <%= link_to event_webhook_path(@event, webhook) do %>
+        <li>
+          <strong style="display: block;">
+            <%= webhook.name %>
+          </strong>
+          <span class="muted">
+            <%= webhook.request_type %> request to <%= webhook.url %>
+          </span>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

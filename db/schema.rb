@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_01_194657) do
+ActiveRecord::Schema.define(version: 2019_01_09_025926) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -111,7 +112,6 @@ ActiveRecord::Schema.define(version: 2019_01_01_194657) do
     t.integer "user_id"
     t.string "slug"
     t.string "permitted_domains"
-    t.string "webhook_post_url"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -213,6 +213,16 @@ ActiveRecord::Schema.define(version: 2019_01_01_194657) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "webhooks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "request_type"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_webhooks_on_event_id"
+  end
+
   add_foreign_key "attendee_field_values", "attendee_fields"
   add_foreign_key "attendee_field_values", "attendees"
   add_foreign_key "attendees", "events"
@@ -229,4 +239,5 @@ ActiveRecord::Schema.define(version: 2019_01_01_194657) do
   add_foreign_key "organizer_position_invites", "users", column: "sender_id"
   add_foreign_key "organizer_positions", "events"
   add_foreign_key "organizer_positions", "users"
+  add_foreign_key "webhooks", "events"
 end

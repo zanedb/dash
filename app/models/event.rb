@@ -5,6 +5,7 @@ class Event < ApplicationRecord
 
   has_many :attendees, dependent: :destroy
   has_many :fields, class_name: 'AttendeeField', dependent: :destroy
+  has_many :webhooks, dependent: :destroy
   has_many :organizer_positions, dependent: :destroy
   has_many :organizer_position_invites, dependent: :destroy
   has_many :users, through: :organizer_positions

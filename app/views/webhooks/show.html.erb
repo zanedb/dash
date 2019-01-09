@@ -1,0 +1,21 @@
+<% title "Webhook #{@webhook.name} on #{@event.name}" %>
+<div class="breadcrumbs">
+  <%= link_to @event.name, @event %> › <%= link_to 'Settings', edit_event_path(@event) %> › <%= link_to 'Webhooks', event_webhooks_path(@event) %>
+</div>
+
+<h1 class="heading">
+  <%= @webhook.name %>
+  <%= link_to 'Edit', edit_event_webhook_path(@event, @webhook), class: 'btn' %>
+  <%= link_to 'Delete', event_webhook_path(@event, @webhook), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
+</h1>
+
+<article class="details">
+  <p>
+    <strong>URL</strong>
+    <%= link_to @webhook.url, @webhook.url %>
+  </p>
+  <p>
+    <strong>Request type</strong>
+    <%= @webhook.request_type %>
+  </p>
+</article>

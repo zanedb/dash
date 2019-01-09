@@ -50,12 +50,11 @@
   </div>
 
   <div class="field">
-    <%= form.label 'Webhook URL' %>
+    <%= form.label 'Configure webhooks' %>
     <p class="slate no-margin">
-      When an attendee is created, H&M will send a POST request to the following URL with all attendee data in JSON.
-      <br/>If you leave this field blank (default), nothing will happen.
+      When an attendee is created, H&M can send requests to URLs you choose with all attendee data in JSON.
+      <br/><strong>You can <%= link_to 'configure webhooks here', event_webhooks_path(@event) %>.</strong>
     </p>
-    <%= form.text_field :webhook_post_url %>
   </div>
 
   <div class="actions">

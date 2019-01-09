@@ -61,6 +61,6 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:name, :start_date, :end_date, :city, :permitted_domains, :webhook_post_url)
+    params.require(:event).permit(:name, :start_date, :end_date, :city, :permitted_domains)
   end
 end
