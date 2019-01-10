@@ -49,13 +49,15 @@
     <%= form.text_area :permitted_domains %>
   </div>
 
-  <div class="field">
-    <%= form.label 'Configure webhooks' %>
-    <p class="slate no-margin">
-      When an attendee is created, H&M can send requests to URLs you choose with all attendee data in JSON.
-      <br/><strong>You can <%= link_to 'configure webhooks here', event_webhooks_path(@event) %>.</strong>
-    </p>
-  </div>
+  <% if @event.persisted? %>
+    <div class="field">
+      <%= form.label 'Configure webhooks' %>
+      <p class="slate no-margin">
+        When an attendee is created, H&M can send requests to URLs you choose with all attendee data in JSON.
+        <br/><strong>You can <%= link_to 'configure webhooks here', event_webhooks_path(@event) %>.</strong>
+      </p>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>
