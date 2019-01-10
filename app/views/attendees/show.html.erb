@@ -4,7 +4,7 @@
 </div>
 
 <h1 class="heading">
-  <%= gravatar_for(@attendee.email, 36) %>
+  <%= avatar_for(@attendee, 36) %>
   <span class="ml2"><%= @attendee.name %></span>
   <% if @attendee.checked_in? %>
     <%= 

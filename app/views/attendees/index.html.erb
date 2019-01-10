@@ -77,7 +77,7 @@
     <% @attendees.each do |attendee| %>
       <%= link_to event_attendee_path(@event, attendee) do %>
         <li>
-          <%= gravatar_for attendee.email, 48 %>
+          <%= avatar_for attendee, 48 %>
           <div class="ml2">
             <strong style="display: block;">
               <%= attendee.name %>

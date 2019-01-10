@@ -9,25 +9,34 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
 
-  def avatar_url(user, size = 48)
-    if user.avatar.attached?
-      user.avatar.variant(resize: "#{size}x#{size}!").processed.service_url
-    else
-      gravatar_url user.email, size
-    end
-  end
-
-  def avatar_for(user, size = 48)
-    image_tag avatar_url(user, size * 2), class: 'profile-img', width: "#{size}px"
-  end
-
-  def gravatar_url(email, size = 48)
+  def gravatar_url(email, name, size = 48)
     hex = Digest::MD5.hexdigest(email.downcase.strip)
-    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=mp"
+    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(get_initials(name))}/#{size}/97a0ad/fff/2/0.4/false/true"
   end
 
-  def gravatar_for(email, size = 48)
-    image_tag gravatar_url(email, size * 2), class: 'profile-img', width: "#{size}px"
+  def avatar_for(user, size = 48, options = {})
+    image = if user.class != Attendee && user&.avatar&.attached?
+              user.avatar.variant(resize: "#{size}x#{size}!").processed.service_url
+            else
+              gravatar_url(user.email, user.name, size * 2)
+            end
+    image_tag image, options.merge(title: user.name, alt: user.name, width: size, height: size, class: "profile-img #{options[:class]}")
+  end
+  
+  def get_initials(name)
+    separated = name.split(' ')
+    if separated.length == 2
+      initials = "#{separated[0][0].upcase}#{separated[1][0].upcase}"
+    else
+      initials = name
+    end
+    initials
+  end
+
+  def user_mention(user)
+    avi = avatar_for user
+    name = content_tag :span, user.name
+    content_tag :span, avi + name, class: 'mention'
   end
 
   def inline_svg(filename, options = {})
