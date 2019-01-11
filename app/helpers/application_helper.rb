@@ -22,15 +22,10 @@ module ApplicationHelper
             end
     image_tag image, options.merge(title: user.name, alt: user.name, width: size, height: size, class: "profile-img #{options[:class]}")
   end
-  
+
   def get_initials(name)
     separated = name.split(' ')
-    if separated.length == 2
-      initials = "#{separated[0][0].upcase}#{separated[1][0].upcase}"
-    else
-      initials = name
-    end
-    initials
+    separated.length == 2 ? "#{separated[0][0].upcase}#{separated[1][0].upcase}" : name
   end
 
   def user_mention(user)
