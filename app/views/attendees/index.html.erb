@@ -57,7 +57,7 @@
   </p>
 </details>
 
-<h2 class="heading">
+<h2 class="heading" style="border-bottom: 0;">
   <% if params[:search] %>
     Attendees for “<%= params[:search] %>”
     <%= link_to 'X', event_attendees_path(@event), class: 'badge no-decoration' %>
