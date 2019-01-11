@@ -68,6 +68,10 @@ class AttendeesController < ApplicationController
           end
         end
       end
+      # emails (aaaaaaaah)
+      if @event.name == 'Hack Pennsylvania'
+        AttendeesMailer.with(attendee: @attendee).attendee_confirmation.deliver_now
+      end
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully created.'
     else
