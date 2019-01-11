@@ -22,6 +22,10 @@ class ApiController < ApplicationController
           end
         end
       end
+      # emails (aaaaaaaah)
+      if @event.name == 'Hack Pennsylvania'
+        AttendeesMailer.with(attendee: @attendee).attendee_confirmation.deliver_now
+      end
 
       render json: @attendee.attrs.as_json, status: status
     else
