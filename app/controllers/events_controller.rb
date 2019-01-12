@@ -57,10 +57,27 @@ class EventsController < ApplicationController
     flash[:success] = 'Event was successfully destroyed.'
   end
 
+  def settings
+    @registration_config = @event.registration_config
+  end
+
+  def configure
+    if @event.registration_config.update(registration_config_params)
+      redirect_to event_path(@event)
+      flash[:success] = 'Registration has been opened.'
+    else
+      render :edit
+    end
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:name, :start_date, :end_date, :city, :permitted_domains)
+  end
+
+  def registration_config_params
+    params.require(:registration_config).permit(:goal, :api_enabled)
   end
 end

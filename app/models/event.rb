@@ -3,6 +3,8 @@ class Event < ApplicationRecord
 
   default_scope { order(id: :asc) }
 
+  has_one :registration_config, dependent: :destroy
+
   has_many :attendees, dependent: :destroy
   has_many :fields, class_name: 'AttendeeField', dependent: :destroy
   has_many :webhooks, dependent: :destroy
@@ -14,6 +16,12 @@ class Event < ApplicationRecord
 
   validates :name, :start_date, :end_date, :city, :user_id, presence: true
   validate :permitted_domains_cannot_have_trailing_slash
+
+  after_create do
+    create_registration_config!
+  end
+
+  private
 
   def permitted_domains_cannot_have_trailing_slash
     permitted_domains.split(',').each do |domain|

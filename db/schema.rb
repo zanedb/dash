@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_09_025926) do
+ActiveRecord::Schema.define(version: 2019_01_12_083621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -180,6 +180,16 @@ ActiveRecord::Schema.define(version: 2019_01_09_025926) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_organizer_positions_on_event_id"
     t.index ["user_id"], name: "index_organizer_positions_on_user_id"
+  end
+
+  create_table "registration_configs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "goal"
+    t.datetime "open_at"
+    t.boolean "api_enabled"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_registration_configs_on_event_id"
   end
 
   create_table "users", force: :cascade do |t|
