@@ -9,7 +9,7 @@
     <br/>Please fill out the fields below to get started.
   </p>
 
-  <p><%= f.label :name %>
+  <p><%= f.label 'Full Name' %>
   <%= f.text_field :name, value: '' %></p>
 
   <% if f.object.class.require_password_on_accepting %>
