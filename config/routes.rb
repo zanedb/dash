@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, skip: [:registrations]
+  devise_for :users, skip: %i[registrations invitation]
   as :user do
     get 'users/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
     put 'users', to: 'devise/registrations#update', as: 'user_registration'
     delete 'users', to: 'devise/registrations#destroy', as: 'destroy_user_registration'
+    get '/users/invitation/accept', to: 'devise/invitations#edit', as: :accept_user_invitation
+    put '/users/invitation', to: 'devise/invitations#update', as: :user_invitation
   end
 
   resources :events do
