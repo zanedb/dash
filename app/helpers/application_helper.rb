@@ -16,7 +16,7 @@ module ApplicationHelper
 
   def avatar_for(user, size = 48, options = {})
     image = if user.class != Attendee && user&.avatar&.attached?
-              user.avatar.variant(resize: "#{size}x#{size}!").processed.service_url
+              user.avatar.service_url
             else
               gravatar_url(user.email, user.name, size * 2)
             end

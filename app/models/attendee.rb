@@ -16,7 +16,7 @@ class Attendee < ApplicationRecord
   scope :checked_in, -> { where.not(checked_in_at: nil) }
   scope :checked_in_and_out, -> { where.not(checked_in_at: nil, checked_out_at: nil) }
 
-  belongs_to :event
+  belongs_to :event, touch: true
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
 

@@ -1,7 +1,7 @@
 class AttendeeField < ApplicationRecord
   extend FriendlyId
 
-  belongs_to :event
+  belongs_to :event, touch: true
   has_many :values,
     class_name: 'AttendeeFieldValue',
     foreign_key: 'attendee_field_id',

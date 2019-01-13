@@ -1,37 +1,40 @@
 <% title @event.name %>
 
-<h1 class="center mb0" style="font-weight: 900;"><%= @event.name %></h1>
-<p class="slate center h3 my0 info">
-  <%= @event.city %> — <%= event_length(@event).html_safe %>
-</p>
+<% cache [@event, 'header'] do %>
+  <h1 class="center mb0" style="font-weight: 900;"><%= @event.name %></h1>
+  <p class="slate center h3 my0 info">
+    <%= @event.city %> — <%= event_length(@event).html_safe %>
+  </p>
 
-<div class="flex justify-center">
-  <ul class="flex flex-wrap list-reset">
-    <% @invites.accepted[0 ... 4].each do |invite| %>
-      <li>
-        <div class="mr1" title=<%= invite.user.name %>>
-          <%= avatar_for invite.user, 48 %>
-        </div>
-      </li>
-    <% end %>
-    <% if @invites.accepted.count > 3 %>
-      <li>
-        <%= link_to "+#{@invites.accepted.count - 4}", new_event_organizer_position_invite_path(@event), class: 'btn btn--icon mr1' %>
-      </li>
-    <% end %>
-    <li>
-      <%= link_to new_event_organizer_position_invite_path(@event), class: 'btn btn--icon' do %>
-        <%= inline_svg 'edit.svg', { width: 32 } %>
+  <div class="flex justify-center">
+    <ul class="flex flex-wrap list-reset">
+      <% @invites.accepted[0 ... 4].each do |invite| %>
+        <li>
+          <div class="mr1" title=<%= invite.user.name %>>
+            <%= avatar_for invite.user, 48 %>
+          </div>
+        </li>
       <% end %>
-    </li>
-  </ul>
-</div>
-
+      <% if @invites.accepted.count > 3 %>
+        <li>
+          <%= link_to "+#{@invites.accepted.count - 4}", new_event_organizer_position_invite_path(@event), class: 'btn btn--icon mr1' %>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to new_event_organizer_position_invite_path(@event), class: 'btn btn--icon' do %>
+          <%= inline_svg 'edit.svg', { width: 32 } %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+<% end %>
 
 <h3 class="m0">Attendees</h3>
 <div class="flex attendee-stats-container">
   <div class="sm-col-6">
-    <%= line_chart @attendees.unscope(:order).group_by_week(:created_at).count, height: '14rem' %>
+    <% cache [@event, 'attendees_chart'] do %>
+      <%= line_chart @attendees.unscope(:order).group_by_week(:created_at).count, height: '14rem' %>
+    <% end %>
   </div>
   <div class="sm-col-6 ml2 attendee-stats">
     <div>

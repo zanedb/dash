@@ -3,7 +3,7 @@
 class Hardware < ApplicationRecord
   extend FriendlyId
 
-  belongs_to :event
+  belongs_to :event, touch: true
   has_many :hardware_items, dependent: :destroy
 
   validates_presence_of :vendor, :model, :quantity

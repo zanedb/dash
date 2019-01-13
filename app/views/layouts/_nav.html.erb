@@ -9,11 +9,9 @@
   <% if user_signed_in? %>
     <div class="nav__right flex items-center">
       <div class="dropdown">
-        <% cache 'navbar_image' do %>
-          <div class="nav__tab dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
-            <%= avatar_for(current_user, 48) %>
-          </div>
-        <% end %>
+        <div class="nav__tab dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
+          <%= avatar_for(current_user, 48) %>
+        </div>
         <ul class="dropdown__content">
           <li><%= link_to 'My account', edit_user_registration_path %></li>
           <% if current_user.admin? %>

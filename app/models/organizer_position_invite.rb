@@ -25,11 +25,11 @@ class OrganizerPositionInvite < ApplicationRecord
   scope :accepted, -> { where.not(accepted_at: nil) }
   scope :rejected, -> { where.not(rejected_at: nil) }
 
-  belongs_to :event
-  belongs_to :user, required: false
-  belongs_to :sender, class_name: 'User'
+  belongs_to :event, touch: true
+  belongs_to :user, required: false, touch: true
+  belongs_to :sender, class_name: 'User', touch: true
 
-  belongs_to :organizer_position, required: false
+  belongs_to :organizer_position, required: false, touch: true
 
   validates_email_format_of :email
 

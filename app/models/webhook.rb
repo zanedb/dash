@@ -3,7 +3,7 @@
 class Webhook < ApplicationRecord
   extend FriendlyId
 
-  belongs_to :event
+  belongs_to :event, touch: true
 
   validates_presence_of :name, :url, :request_type
   validates :request_type, inclusion: { 

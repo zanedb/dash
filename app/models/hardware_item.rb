@@ -6,7 +6,7 @@ class HardwareItem < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
-  belongs_to :hardware
+  belongs_to :hardware, touch: true
   has_one_attached :checked_out_to_file
 
   self.primary_key = :barcode
