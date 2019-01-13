@@ -4,7 +4,9 @@
 </div>
 
 <h1 class="heading">
-  Attendees <span class="badge"><%= @attendees.count %></span>
+  <div class="flex items-center">
+    Attendees <span class="badge"><%= @attendees.count %></span>
+  </div>
   <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn' %>
 </h1>
 <ul class="list">
@@ -71,9 +73,9 @@
   <p class="muted">There are no attendees.</p>
 <% else %>
   <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
-    <%= text_field_tag :search, params[:search], placeholder: 'Search Attendees', class: 'full-width' %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search #{@attendees.count} attendees…", class: 'full-width' %>
   <% end %>
-  <ul class="list list--row">
+  <ul class="list list--row list--dual">
     <% @attendees.each do |attendee| %>
       <%= link_to event_attendee_path(@event, attendee) do %>
         <li>
