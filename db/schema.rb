@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_09_025926) do
+ActiveRecord::Schema.define(version: 2019_01_13_004029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_025926) do
     t.text "options", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["event_id"], name: "index_attendee_fields_on_event_id"
   end
 
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_025926) do
     t.bigint "checked_in_by_id"
     t.datetime "checked_out_at"
     t.bigint "checked_out_by_id"
+    t.string "slug"
     t.index ["checked_in_by_id"], name: "index_attendees_on_checked_in_by_id"
     t.index ["checked_out_by_id"], name: "index_attendees_on_checked_out_by_id"
     t.index ["event_id"], name: "index_attendees_on_event_id"
@@ -182,6 +184,16 @@ ActiveRecord::Schema.define(version: 2019_01_09_025926) do
     t.index ["user_id"], name: "index_organizer_positions_on_user_id"
   end
 
+  create_table "registration_configs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "goal"
+    t.datetime "open_at"
+    t.boolean "api_enabled"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_registration_configs_on_event_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -220,6 +232,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_025926) do
     t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["event_id"], name: "index_webhooks_on_event_id"
   end
 

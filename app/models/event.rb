@@ -27,8 +27,8 @@ class Event < ApplicationRecord
   def slug_candidates
     [
       :name,
-      [:name, :start_date],
-      [:name, :city]
+      [:name, :city],
+      [:name, :start_date]
     ]
   end
 end

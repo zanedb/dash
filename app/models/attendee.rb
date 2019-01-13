@@ -4,6 +4,7 @@ require 'csv'
 
 class Attendee < ApplicationRecord
   include SearchCop
+  extend FriendlyId
 
   search_scope :search do
     attributes %i[first_name last_name], :email
@@ -21,6 +22,13 @@ class Attendee < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
+
+  friendly_id :slug_candidates, use: :scoped, scope: :event
+  def slug_candidates
+    [
+      [:first_name, :last_name]
+    ]
+  end
 
   CORE_PARAMS = %i[first_name last_name email note created_at checked_in_at checked_out_at].freeze
 

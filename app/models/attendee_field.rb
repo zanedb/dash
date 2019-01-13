@@ -1,4 +1,6 @@
 class AttendeeField < ApplicationRecord
+  extend FriendlyId
+
   belongs_to :event
   has_many :values,
     class_name: 'AttendeeFieldValue',
@@ -16,6 +18,14 @@ class AttendeeField < ApplicationRecord
     without: /\s/,
     message: 'cannot contain spaces'
   }
+  
+  friendly_id :slug_candidates, use: :scoped, scope: :event
+  def slug_candidates
+    [
+      :name,
+      [:name, :kind]
+    ]
+  end
 
   after_create :create_values
 

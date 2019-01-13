@@ -140,7 +140,7 @@ class AttendeesController < ApplicationController
   private
 
   def set_attendee
-    @attendee = @event.attendees.find(params[:id])
+    @attendee = @event.attendees.friendly.find_by_friendly_id(params[:id])
   end
 
   def attendee_params

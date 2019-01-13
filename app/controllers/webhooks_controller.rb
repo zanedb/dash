@@ -54,7 +54,7 @@ class WebhooksController < ApplicationController
   private
 
   def set_webhook
-    @webhook = @event.webhooks.find_by_id(params[:id])
+    @webhook = @event.webhooks.friendly.find_by_friendly_id(params[:id])
   end
 
   def webhook_params

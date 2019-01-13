@@ -52,7 +52,7 @@ class AttendeeFieldsController < ApplicationController
   private
 
   def set_attendee_field
-    @attendee_field = @event.fields.find(params[:id])
+    @attendee_field = @event.fields.friendly.find_by_friendly_id(params[:id])
   end
 
   def attendee_field_params
