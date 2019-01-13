@@ -99,3 +99,4 @@ gem 'groupdate' # grouping data
 
 # Optimization
 gem 'skylight' # performance
+gem 'redis' # caching
