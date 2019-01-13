@@ -136,6 +136,13 @@ select[name$='i)]'] {
   width: 72px;
   display: inline-block;
 }
+// rails month & hour inputs should be wider
+select[id$='date_2i'] {
+  width: 8rem;
+}
+select[id$='date_4i'] {
+  width: 6rem;
+}
 
 .input--short {
   max-width: 16rem !important;
@@ -208,9 +215,11 @@ input[type='submit'],
   color: $white;
   background-color: $base;
   font-size: 0.875rem;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
   max-width: 32rem;
+  width: 100%;
+  line-height: 1.5;
 }
 
 .flash__close {
@@ -320,6 +329,25 @@ pre {
   white-space: -pre-wrap; /* Opera 4-6 */
   white-space: -o-pre-wrap; /* Opera 7 */
   word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th {
+  font-weight: bold;
+  text-align: left;
+  padding-bottom: 0.125rem;
+}
+td {
+  padding-left: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+thead,
+tr {
+  border-bottom: 1px solid $gray2;
 }
 
 .badge {

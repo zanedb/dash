@@ -11,7 +11,7 @@ $chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
   }
   > a > li,
   > li {
-    border-bottom: 1px solid $gray2;
+    border-bottom: 1px solid $gray1;
     padding: 12px;
     display: flex;
     flex-direction: column;
@@ -47,6 +47,11 @@ $chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
 }
 .list--border-top {
   border-top: 1px solid $gray2;
+}
+@media (min-width: 32em) {
+  .list--dual {
+    column-count: 2;
+  }
 }
 h1 + .list,
 h1 + .details {
