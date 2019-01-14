@@ -21,7 +21,7 @@ class HardwareItem < ApplicationRecord
   end
 
   def gen_barcode
-    10.times.map { rand(10) }.join
+    8.times.map { rand(8) }.join
   end
 
   def to_param
