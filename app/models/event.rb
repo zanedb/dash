@@ -14,9 +14,7 @@ class Event < ApplicationRecord
   has_many :hardwares, dependent: :destroy
   has_many :hardware_items, through: :hardwares, dependent: :destroy
 
-  after_create do
-    create_waiver!
-  end
+  after_create { build_waiver.save(validate: false) }
 
   validates :name, :start_date, :end_date, :city, :user_id, presence: true
   validate :permitted_domains_cannot_have_trailing_slash
