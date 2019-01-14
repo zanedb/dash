@@ -24,12 +24,6 @@ class WaiversController < ApplicationController
     end
   end
 
-  def destroy
-    @waiver.destroy
-    flash[:success] = 'Waiver was successfully destroyed.'
-    redirect_to event_waivers_path(@event)
-  end
-
   private
 
   def set_waiver
