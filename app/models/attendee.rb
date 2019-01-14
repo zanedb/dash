@@ -75,15 +75,14 @@ class Attendee < ApplicationRecord
   end
 
   def waiver_pdf
-    if event.waiver.file.attached?
-      info_pdf = Prawn::Document.new
-      info_pdf.text_box "ID: #{public_id}"
+    return unless event.waiver.file.attached?
+    info_pdf = Prawn::Document.new
+    info_pdf.text_box "ID: #{public_id}"
 
-      attendee_info = CombinePDF.parse(info_pdf.render).pages[0]
-      pdf = CombinePDF.parse Net::HTTP.get_response(URI.parse(event.waiver.file.service_url)).body
-      pdf.pages.each { |page| page << attendee_info }
-      pdf.to_pdf
-    end
+    attendee_info = CombinePDF.parse(info_pdf.render).pages[0]
+    pdf = CombinePDF.parse Net::HTTP.get_response(URI.parse(event.waiver.file.service_url)).body
+    pdf.pages.each { |page| page << attendee_info }
+    pdf.to_pdf
   end
 
   def checked_out?
