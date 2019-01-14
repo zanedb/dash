@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require 'barby'
+require 'barby/barcode/code_128'
+require 'barby/outputter/prawn_outputter'
+require 'prawn'
+
 class HardwareItem < ApplicationRecord
   scope :not_checked_out, -> { where(checked_out_at: nil) }
   scope :checked_out_and_in, -> { where.not(checked_out_at: nil, checked_in_at: nil) }
@@ -26,6 +31,18 @@ class HardwareItem < ApplicationRecord
 
   def to_param
     barcode
+  end
+
+  def barcode_object
+    Barby::Code128.new(barcode)
+  end
+
+  def barcode_svg
+    barcode_object.to_svg(height: 30, xdim: 2, margin: 0)
+  end
+
+  def pdf
+    barcode_object.to_pdf(y: 720)
   end
 
   def description

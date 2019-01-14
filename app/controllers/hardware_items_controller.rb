@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-require 'barby'
-require 'barby/barcode/code_128'
-require 'barby/outputter/cairo_outputter'
-require 'barby/outputter/prawn_outputter'
-require 'prawn'
-
 class HardwareItemsController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
@@ -14,16 +8,13 @@ class HardwareItemsController < ApplicationController
   before_action -> { authorize @hardware_item }
 
   def show
-    @barcode = Barby::Code128.new(@hardware_item.barcode)
-    @barcode_svg = @barcode.to_svg(height: 30, xdim: 2, margin: 0)
+    @barcode = @hardware_item.barcode
+    @barcode_svg = @hardware_item.barcode_svg
 
     respond_to do |format|
       format.html
       format.pdf do
-        @barcode_png = @barcode.to_png(height: 30, xdim: 2, margin: 0)
-        @barcode_pdf = @barcode.to_pdf(y: 720)
-
-        send_data @barcode_pdf
+        send_data @hardware_item.pdf
       end
     end
   end
