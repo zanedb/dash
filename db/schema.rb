@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_13_004029) do
+ActiveRecord::Schema.define(version: 2019_01_14_035043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_01_13_004029) do
     t.datetime "checked_out_at"
     t.bigint "checked_out_by_id"
     t.string "slug"
+    t.integer "public_id"
     t.index ["checked_in_by_id"], name: "index_attendees_on_checked_in_by_id"
     t.index ["checked_out_by_id"], name: "index_attendees_on_checked_out_by_id"
     t.index ["event_id"], name: "index_attendees_on_event_id"
@@ -225,6 +226,14 @@ ActiveRecord::Schema.define(version: 2019_01_13_004029) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "waivers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.boolean "require_signed_before_checkin"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_waivers_on_event_id"
+  end
+
   create_table "webhooks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "url"
@@ -252,5 +261,6 @@ ActiveRecord::Schema.define(version: 2019_01_13_004029) do
   add_foreign_key "organizer_position_invites", "users", column: "sender_id"
   add_foreign_key "organizer_positions", "events"
   add_foreign_key "organizer_positions", "users"
+  add_foreign_key "waivers", "events"
   add_foreign_key "webhooks", "events"
 end

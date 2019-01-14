@@ -57,6 +57,12 @@
       No
     </p>
   <% end %>
+  <% if @event.waiver.enabled? %>
+    <p>
+      <strong>Waiver</strong>
+      <span><%= link_to 'Download', event_attendee_path(@event, @attendee, format: :pdf) %></span>
+    </p>
+  <% end %>
   <p>
     <strong>Notes</strong>
     <span style="white-space: pre-wrap;"><%= @attendee.note %></span>

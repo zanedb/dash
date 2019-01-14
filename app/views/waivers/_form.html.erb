@@ -1,0 +1,27 @@
+<%= form_with(model: waiver, url: url, local: true) do |form| %>
+  <% if @waiver.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@waiver.errors.count, "error") %> prohibited this waiver from being saved:</h2>
+
+      <ul>
+      <% @waiver.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :file, 'Upload waiver PDF' %>
+    <%= form.file_field :file, required: true %>
+  </div>
+
+  <div class="field flex items-center">
+    <%= form.check_box :require_signed_before_checkin, class: 'mr1' %>
+    <%= form.label :require_signed_before_checkin, 'Require signed waiver before attendee check-in' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

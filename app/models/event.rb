@@ -3,6 +3,8 @@ class Event < ApplicationRecord
 
   default_scope { order(id: :asc) }
 
+  has_one :waiver, dependent: :destroy
+
   has_many :attendees, dependent: :destroy
   has_many :fields, class_name: 'AttendeeField', dependent: :destroy
   has_many :webhooks, dependent: :destroy
@@ -11,6 +13,10 @@ class Event < ApplicationRecord
   has_many :users, through: :organizer_positions
   has_many :hardwares, dependent: :destroy
   has_many :hardware_items, through: :hardwares, dependent: :destroy
+
+  after_create do
+    create_waiver!
+  end
 
   validates :name, :start_date, :end_date, :city, :user_id, presence: true
   validate :permitted_domains_cannot_have_trailing_slash

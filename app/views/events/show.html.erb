@@ -61,6 +61,11 @@
       Hardware<span class="badge"><%= @event.hardwares.count %></span>
     </li>
   <% end %>
+  <%= link_to event_waivers_path(@event) do %>
+    <li class="flex items-center">
+      <%= @event.waiver.enabled? ? 'Waiver' : 'Add a Waiver' %>
+    </li>
+  <% end %>
 </ul>
 
 <br/>

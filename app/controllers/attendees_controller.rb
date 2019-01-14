@@ -38,6 +38,13 @@ class AttendeesController < ApplicationController
 
   def show
     @attendee_fields = @event.fields
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        send_data @attendee.waiver_pdf
+      end
+    end
   end
 
   def new

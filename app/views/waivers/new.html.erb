@@ -1,0 +1,10 @@
+<% title "New waiver on #{@event.name}" %>
+<div class="breadcrumbs">
+ <%= link_to @event.name, @event %> › <%= link_to 'Waivers', event_waivers_path(@event) %>
+</div>
+
+<h1>
+  Add a waiver
+</h1>
+
+<%= render 'form', url: event_waivers_path(@event), waiver: @waiver %>

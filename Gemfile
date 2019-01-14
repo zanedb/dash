@@ -41,6 +41,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'tracer_bullets', github: 'Capitalytics/tracer_bullets'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -80,6 +81,7 @@ gem 'rack-cors' # CORS
 
 # Validation
 gem 'validates_email_format_of' # email validation
+gem 'file_validators' # file validation
 
 # Rendering
 gem 'barby' # barcodes
@@ -87,6 +89,7 @@ gem 'cairo' # SVG/PNG rendering
 gem 'mini_magick' # image manipulation
 gem 'nokogiri' # inline SVG
 gem 'prawn' # PDFs
+gem 'combine_pdf' # more PDFs
 
 # Auth
 gem 'devise' # authentication
