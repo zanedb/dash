@@ -47,12 +47,10 @@
   </thead>
   <tbody>
     <% @attendee_field.values.each do |value| %>
-      <%= link_to event_attendee_path(@event, value.attendee) do %>
-        <tr>
-          <td><%= value.attendee.name %></td>
-          <td><%= value.content %></td>
-        </tr>
-      <% end %>
+      <tr>
+        <td><%= link_to value.attendee.name, event_attendee_path(@event, value.attendee) %></td>
+        <td><%= value.content %></td>
+      </tr>
     <% end %>
     </tbody>
   </table>
