@@ -1,12 +1,14 @@
-<nav
-  role="navigation"
-  class="nav bg-blur"
-  data-behavior="nav">
-  <%= link_to root_path, class: 'nav__tab nav__left' do %>
-    <img src="/logo.png">
-    <span>H&M</span>
-  <% end %>
-  <% if user_signed_in? %>
+
+<% if user_signed_in? %>
+  <nav
+    role="navigation"
+    class="nav bg-blur"
+    data-behavior="nav"
+  >
+    <%= link_to root_path, class: 'nav__tab nav__left' do %>
+      <img src="/logo.png">
+      <span>H&M</span>
+    <% end %>
     <div class="nav__right flex items-center">
       <div class="dropdown">
         <div class="nav__tab dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
@@ -21,8 +23,8 @@
         </ul>
       </div>
     </div>
-  <% end %>
-</nav>
+  </nav>
+<% end %>
 
 <% flash.each do |key, value| %>
   <article role="alertdialog" class="flash bg-<%= key %> mx-auto mt2 w-100">

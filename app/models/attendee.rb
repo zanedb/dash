@@ -19,8 +19,10 @@ class Attendee < ApplicationRecord
   scope :checked_in_and_out, -> { where.not(checked_in_at: nil, checked_out_at: nil) }
 
   belongs_to :event, touch: true
+
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
+  has_one :attendee_waiver, dependent: :destroy
 
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
@@ -34,6 +36,13 @@ class Attendee < ApplicationRecord
   after_validation :regenerate_public_id,
                    on: :create,
                    if: proc { |object| object.errors.any? }
+
+  # todo: make good
+  after_create do
+    if event.waiver.file.attached? && attendee_waiver.nil?
+      build_attendee_waiver(waiver: event.waiver).save(validate: false)
+    end
+  end
 
   friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
@@ -55,7 +64,9 @@ class Attendee < ApplicationRecord
 
   # returns an object containing all attendee data
   def attrs
-    attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
+    attrs = attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
+    # ugh, todo fix
+    attrs.merge({ waiver_signing_url: "https://dash.hackpenn.com/events/#{event.slug}/waivers/#{attendee_waiver.id}?access_token=#{attendee_waiver.access_token}" }) if event.waiver.enabled?
   end
 
   def name
@@ -116,6 +127,7 @@ class Attendee < ApplicationRecord
   def self.as_csv
     CSV.generate do |csv|
       keys = CORE_PARAMS.map(&:to_s) + all.first.field_values.keys
+      keys.push 'waiver_signing_url' # UGH TODO FIX
       csv << keys
       all.each do |item|
         csv << item.attrs.values

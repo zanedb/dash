@@ -1,4 +1,4 @@
-<% title @event.name %>
+<% title "#{@event.name}" %>
 
 <% cache [@event, 'header'] do %>
   <h1 class="center mb0" style="font-weight: 900;"><%= @event.name %></h1>

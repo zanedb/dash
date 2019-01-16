@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end
     resources :attendee_fields, path: 'fields'
     resources :waivers, path: 'waiver'
+    resources :attendee_waivers, path: 'waivers'
 
     resources :organizer_position_invites, path: 'invites' do
       post 'accept'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_14_035043) do
+ActiveRecord::Schema.define(version: 2019_01_16_041507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 2019_01_14_035043) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.index ["event_id"], name: "index_attendee_fields_on_event_id"
+  end
+
+  create_table "attendee_waivers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "access_token"
+    t.uuid "waiver_id"
+    t.bigint "attendee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attendee_id"], name: "index_attendee_waivers_on_attendee_id"
+    t.index ["waiver_id"], name: "index_attendee_waivers_on_waiver_id"
   end
 
   create_table "attendees", force: :cascade do |t|
@@ -247,6 +257,8 @@ ActiveRecord::Schema.define(version: 2019_01_14_035043) do
 
   add_foreign_key "attendee_field_values", "attendee_fields"
   add_foreign_key "attendee_field_values", "attendees"
+  add_foreign_key "attendee_waivers", "attendees"
+  add_foreign_key "attendee_waivers", "waivers"
   add_foreign_key "attendees", "events"
   add_foreign_key "attendees", "users", column: "checked_in_by_id"
   add_foreign_key "attendees", "users", column: "checked_out_by_id"

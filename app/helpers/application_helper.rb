@@ -5,7 +5,9 @@ module ApplicationHelper
     local_time(time, '%B %e, %Y %l:%M%P %Z')
   end
 
-  def title(page_title)
+  def title(page_title, append_name = true)
+    page_title ||= 'H&M'
+    page_title.concat('—H&M') if append_name
     content_for(:title) { page_title }
   end
 
