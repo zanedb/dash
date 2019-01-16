@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'csv'
+require 'prawn'
+require 'net/http'
 
 class Attendee < ApplicationRecord
   include SearchCop
@@ -17,24 +19,54 @@ class Attendee < ApplicationRecord
   scope :checked_in_and_out, -> { where.not(checked_in_at: nil, checked_out_at: nil) }
 
   belongs_to :event, touch: true
+
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
+  has_one :attendee_waiver, dependent: :destroy
 
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
+  validates :public_id,
+            presence: true,
+            length: { minimum: 2 },
+            uniqueness: true
+
+  before_validation :generate_public_id,
+                    on: :create
+  after_validation :regenerate_public_id,
+                   on: :create,
+                   if: proc { |object| object.errors.any? }
+
+  # todo: make good
+  after_create do
+    if event.waiver.file.attached? && attendee_waiver.nil?
+      build_attendee_waiver(waiver: event.waiver).save(validate: false)
+    end
+  end
 
   friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
     [
-      [:first_name, :last_name]
+      %i[first_name last_name]
     ]
   end
 
   CORE_PARAMS = %i[first_name last_name email note created_at checked_in_at checked_out_at].freeze
 
+  def generate_public_id
+    update_attribute(:public_id, make_public_id)
+  end
+  alias regenerate_public_id generate_public_id
+
+  def make_public_id
+    6.times.map { rand(6) }.join
+  end
+
   # returns an object containing all attendee data
   def attrs
-    attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
+    attrs = attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
+    # ugh, todo fix
+    attrs.merge({ waiver_signing_url: "https://dash.hackpenn.com/events/#{event.slug}/waivers/#{attendee_waiver.id}?access_token=#{attendee_waiver.access_token}" }) if event.waiver.enabled?
   end
 
   def name
@@ -51,6 +83,17 @@ class Attendee < ApplicationRecord
 
   def field_for(name)
     fields.where(name: name)
+  end
+
+  def waiver_pdf
+    return unless event.waiver.file.attached?
+    info_pdf = Prawn::Document.new
+    info_pdf.text_box "ID: #{public_id}"
+
+    attendee_info = CombinePDF.parse(info_pdf.render).pages[0]
+    pdf = CombinePDF.parse Net::HTTP.get_response(URI.parse(event.waiver.file.service_url)).body
+    pdf.pages.each { |page| page << attendee_info }
+    pdf.to_pdf
   end
 
   def checked_out?
@@ -84,6 +127,7 @@ class Attendee < ApplicationRecord
   def self.as_csv
     CSV.generate do |csv|
       keys = CORE_PARAMS.map(&:to_s) + all.first.field_values.keys
+      keys.push 'waiver_signing_url' # UGH TODO FIX
       csv << keys
       all.each do |item|
         csv << item.attrs.values

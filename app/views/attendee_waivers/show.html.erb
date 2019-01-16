@@ -1,0 +1,33 @@
+<% if @waiver.signed? %>
+  <% title 'View Signed Waiver', false %>
+  <h1>You’ve signed the waiver!</h1>
+  <p class="slate">You’ve already uploaded a signed waiver — <%= link_to 'click here to view it', @waiver.file.service_url %>.</p>
+  <p class="slate">If you need to reupload a copy of the waiver, please email <%= link_to 'zane@hackpenn.com', 'mailto:zane@hackpenn.com' %>.</p>
+<% else %>
+  <% title 'Upload signed waiver', false %>
+  <h1>Upload signed waiver for <%= @waiver.attendee.name %></h1>
+  <h3><%= link_to 'Download an unsigned copy', @event.waiver.file.service_url, target: '_blank' %>. Please print & scan or digitally edit to fill in the green highlighted fields.</h3>
+
+  <%= form_with(model: @waiver, url: event_attendee_waiver_path(@event, @waiver, access_token: @waiver.access_token)) do |form| %>
+    <% if @waiver.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@waiver.errors.count, "error") %> prohibited this waiver from being saved:</h2>
+
+        <ul>
+        <% @waiver.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :file, 'Upload signed waiver PDF' %>
+      <%= form.file_field :file, required: true %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit 'Upload + confirm attendance' %>
+    </div>
+  <% end %>
+<% end %>

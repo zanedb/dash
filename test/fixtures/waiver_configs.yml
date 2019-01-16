@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enabled_at: 2019-01-12 17:11:26
+  require_signed_waiver_before_attendee_checkin: false
+
+two:
+  enabled_at: 2019-01-12 17:11:26
+  require_signed_waiver_before_attendee_checkin: false

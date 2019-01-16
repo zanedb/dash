@@ -1,4 +1,4 @@
-<% title @event.name %>
+<% title "#{@event.name}" %>
 
 <% cache [@event, 'header'] do %>
   <h1 class="center mb0" style="font-weight: 900;"><%= @event.name %></h1>
@@ -59,6 +59,11 @@
   <%= link_to event_hardwares_path(@event) do %>
     <li class="flex items-center mt2">
       Hardware<span class="badge"><%= @event.hardwares.count %></span>
+    </li>
+  <% end %>
+  <%= link_to event_waivers_path(@event) do %>
+    <li class="flex items-center">
+      <%= @event.waiver.enabled? ? 'Waiver' : 'Add a Waiver' %>
     </li>
   <% end %>
 </ul>

@@ -57,6 +57,20 @@
       No
     </p>
   <% end %>
+  <% if @event.waiver.enabled? %>
+    <p>
+      <strong>Waiver</strong>
+      <span>
+        <%= link_to 'Download', event_attendee_path(@event, @attendee, format: :pdf) %>
+        <% if @attendee&.attendee_waiver&.unsigned? %>
+          <br/><%= link_to 'Upload signed waiver', event_attendee_waiver_path(@event, @attendee.attendee_waiver, access_token: @attendee.attendee_waiver.access_token) %>
+        <% end %>
+        <% if @attendee&.attendee_waiver&.signed? %>
+          <br/><%= link_to 'View signed waiver', @attendee.attendee_waiver.file.service_url, target: '_blank' %>
+        <% end %>
+      </span>
+    </p>
+  <% end %>
   <p>
     <strong>Notes</strong>
     <span style="white-space: pre-wrap;"><%= @attendee.note %></span>
