@@ -31,6 +31,6 @@ class WaiversController < ApplicationController
   end
 
   def waiver_params
-    params.require(:waiver).permit(:file, :require_signed_before_checkin)
+    params.require(:waiver).permit(:file)
   end
 end

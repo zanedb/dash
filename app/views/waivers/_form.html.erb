@@ -16,11 +16,6 @@
     <%= form.file_field :file, required: true %>
   </div>
 
-  <div class="field flex items-center">
-    <%= form.check_box :require_signed_before_checkin, class: 'mr1' %>
-    <%= form.label :require_signed_before_checkin, 'Require signed waiver before attendee check-in' %>
-  </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>
