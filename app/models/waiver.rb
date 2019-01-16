@@ -4,7 +4,6 @@ class Waiver < ApplicationRecord
   belongs_to :event, touch: true
   has_one_attached :file
 
-  validates_presence_of :file
   validates :file, file_size: { less_than_or_equal_to: 20.megabytes, message: 'must be less than 20mb' },
                    file_content_type: { allow: 'application/pdf', message: 'must be a PDF' }
 
@@ -14,7 +13,7 @@ class Waiver < ApplicationRecord
     if file.attached? && attendee_waivers.empty?
       event.attendees.each do |attendee|
         if attendee.attendee_waiver.nil?
-          attendee.build_attendee_waiver(waiver: self).save(validate: false)
+          attendee.create_attendee_waiver!(waiver: self)
         end
       end
     end
