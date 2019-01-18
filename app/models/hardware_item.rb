@@ -3,7 +3,9 @@
 require 'barby'
 require 'barby/barcode/code_128'
 require 'barby/outputter/prawn_outputter'
+require 'barby/outputter/cairo_outputter'
 require 'prawn'
+require 'cairo'
 
 class HardwareItem < ApplicationRecord
   scope :not_checked_out, -> { where(checked_out_at: nil) }
