@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class AttendeeField < ApplicationRecord
   extend FriendlyId
 
   belongs_to :event, touch: true
   has_many :values,
-    class_name: 'AttendeeFieldValue',
-    foreign_key: 'attendee_field_id',
-    dependent: :destroy
+           class_name: 'AttendeeFieldValue',
+           foreign_key: 'attendee_field_id',
+           dependent: :destroy
 
   enum kinds: %i[text multiline email checkbox multiselect]
 
@@ -18,12 +20,12 @@ class AttendeeField < ApplicationRecord
     without: /\s/,
     message: 'cannot contain spaces'
   }
-  
+
   friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
     [
       :name,
-      [:name, :kind]
+      %i[name kind]
     ]
   end
 
