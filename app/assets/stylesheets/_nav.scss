@@ -77,7 +77,8 @@
   z-index: 1;
 
   a {
-    padding: 12px 16px;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid $gray1;
     text-decoration: none;
     display: block;
     transition: all 0.25s ease;
