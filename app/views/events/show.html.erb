@@ -15,7 +15,7 @@
           </div>
         </li>
       <% end %>
-      <% if @invites.accepted.count > 3 %>
+      <% if @invites.accepted.count > 4 %>
         <li>
           <%= link_to "+#{@invites.accepted.count - 4}", new_event_organizer_position_invite_path(@event), class: 'btn btn--icon mr1' %>
         </li>

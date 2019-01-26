@@ -17,10 +17,6 @@ class OrganizerPositionInvitePolicy < ApplicationPolicy
     end
   end
 
-  def new?
-    record.event&.users&.include?(user) || user.admin?
-  end
-
   def destroy?
     user.admin?
   end

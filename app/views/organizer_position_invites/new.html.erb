@@ -29,7 +29,7 @@
   <ul class="list list--row list--unlinked">
     <% @event.organizer_position_invites.pending.each do |invite| %>
       <li>
-        <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy Invite', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %><% end %>
+        <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %>/<%= link_to  'View', event_organizer_position_invite_path(@event, invite)  %><% end %>
       </li>
     <% end %>
   </ul>
