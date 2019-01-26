@@ -9,7 +9,7 @@
 <% end %>
 <% if @event.organizer_position_invites&.accepted %>
   <ul class="list list--unlinked list--row">
-    <% @event.organizer_position_invites.accepted.each do |invite| %>
+    <% @event.organizer_positions.each do |invite| %>
       <li>
         <%= avatar_for(invite.user, 48) %>
         <div class="ml2">
