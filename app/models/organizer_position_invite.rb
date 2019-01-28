@@ -39,7 +39,8 @@ class OrganizerPositionInvite < ApplicationRecord
   after_create :send_email
 
   def send_email
-    OrganizerPositionInvitesMailer.with(invite: self).notify.deliver_later
+    # TODO: change to send_later once job management is setup (Sidekiq, etc)
+    OrganizerPositionInvitesMailer.with(invite: self).notify.deliver_now
   end
 
   def accept
