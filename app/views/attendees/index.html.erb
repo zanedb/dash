@@ -73,7 +73,7 @@
   <p class="muted">There are no attendees.</p>
 <% else %>
   <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search #{@attendees.count} attendees…", class: 'full-width' %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search #{pluralize @attendees.count, 'attendee'}…", class: 'full-width' %>
   <% end %>
   <ul class="list list--row list--dual">
     <% @attendees.each do |attendee| %>
