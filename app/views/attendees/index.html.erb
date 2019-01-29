@@ -75,7 +75,7 @@
   <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
     <%= text_field_tag :search, params[:search], placeholder: "Search #{pluralize @attendees.count, 'attendee'}…", class: 'full-width' %>
   <% end %>
-  <ul class="list list--row list--dual">
+  <%= content_tag :ul, class: "list list--row list--border-always #{@attendees.count == 1 ? '' : 'list--dual'}" do %>
     <% @attendees.each do |attendee| %>
       <%= link_to event_attendee_path(@event, attendee) do %>
         <li>
@@ -98,5 +98,5 @@
         </li>
       <% end %>
     <% end %>
-  </ul>
+  <% end %>
 <% end %>

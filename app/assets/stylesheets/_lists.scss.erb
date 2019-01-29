@@ -23,6 +23,14 @@ $chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
   > li:not(:last-child) {
     border-bottom: 1px solid $gray1;
   }
+  &.list--border-always > a > li,
+  &.list--border-always > li {
+    border-bottom: 1px solid $gray1;
+  }
+  &.list--border-never > a > li,
+  &.list--border-never > li {
+    border-bottom: none;
+  }
   &.list--row > li,
   &.list--row > a > li {
     flex-direction: row;
