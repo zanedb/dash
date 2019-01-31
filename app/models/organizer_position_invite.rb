@@ -31,6 +31,7 @@ class OrganizerPositionInvite < ApplicationRecord
 
   belongs_to :organizer_position, required: false, touch: true
 
+  validates_presence_of :email
   validates_email_format_of :email
 
   validates :accepted_at, absence: true, if: -> { rejected_at.present? }
