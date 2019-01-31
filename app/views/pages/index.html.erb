@@ -5,7 +5,7 @@
   <h4 class="a-lil-bottom-margin">
     👋 Welcome, <%= current_user.name %>. Happy <%= local_time(Time.now, '%A') %>! You’re doing great.
   </h4>
-  <p class="slate">(Please note: <u>Dash</u> is in no way the final name. Consider it a codename.)</p>
+  <p class="slate">(Please note: <u>Dash</u> is in no way the final name. <strong><%= link_to 'Name suggestions welcome', 'https://goo.gl/forms/Rcq48KDHpexpZyyF2', target: '_blank' %></strong>.)</p>
 
   <% if @invites.any? %>
     <h2>
