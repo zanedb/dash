@@ -8,16 +8,16 @@
 
   <div class="flex justify-center">
     <ul class="flex flex-wrap list-reset">
-      <% @invites.accepted[0 ... 4].each do |invite| %>
+      <% @invites.accepted[0 ... 5].each do |invite| %>
         <li>
           <div class="mr1" title=<%= invite.user.name %>>
-            <%= avatar_for invite.user, 48 %>
+            <%= avatar_for invite.user, 40 %>
           </div>
         </li>
       <% end %>
-      <% if @invites.accepted.count > 4 %>
+      <% if @invites.accepted.count > 5 %>
         <li>
-          <%= link_to "+#{@invites.accepted.count - 4}", new_event_organizer_position_invite_path(@event), class: 'btn btn--icon mr1' %>
+          <%= link_to "+#{@invites.accepted.count - 5}", new_event_organizer_position_invite_path(@event), class: 'btn btn--icon mr1', style: 'width: 40px;height:40px;' %>
         </li>
       <% end %>
       <li>
