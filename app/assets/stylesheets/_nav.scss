@@ -58,33 +58,3 @@
     margin-left: 0.5rem;
   }
 }
-
-.dropdown__btn {
-  cursor: pointer;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-.dropdown__content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: #fff;
-  min-width: 12rem;
-  border-radius: 4px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-
-  a {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid $gray1;
-    text-decoration: none;
-    display: block;
-    transition: all 0.25s ease;
-
-    &:hover {
-      background-color: $gray1;
-    }
-  }
-}
