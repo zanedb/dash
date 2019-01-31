@@ -64,9 +64,7 @@ class Attendee < ApplicationRecord
 
   # returns an object containing all attendee data
   def attrs
-    attrs = attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
-    # ugh, todo fix
-    attrs.merge({ waiver_signing_url: "https://dash.hackpenn.com/events/#{event.slug}/waivers/#{attendee_waiver.id}?access_token=#{attendee_waiver.access_token}" }) if event.waiver.enabled?
+    attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
   end
 
   def name
@@ -127,7 +125,6 @@ class Attendee < ApplicationRecord
   def self.as_csv
     CSV.generate do |csv|
       keys = CORE_PARAMS.map(&:to_s) + all.first.field_values.keys
-      keys.push 'waiver_signing_url' # UGH TODO FIX
       csv << keys
       all.each do |item|
         csv << item.attrs.values
