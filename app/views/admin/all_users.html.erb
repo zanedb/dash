@@ -8,35 +8,46 @@
 <% if @users.empty? %>
   <h3>No users. Wait, how is that even possible? You’re here, right? Right?</h3>
 <% else %>
-  <p class="h2 bold m0">Total Users: <%= @users.count %></p>
-  <p class="h2 bold m0">New this week: <%= @users_new_week_count %></p>
-  <p class="h2 bold m0">All active users: <%= @users_active_count %></p>
+  <div class="flex flex-row">
+    <div class="mr3">
+      <%= content_tag :p, @users.count, class: 'stat-value primary m0' %>
+      <%= content_tag :p, "Total user#{@users.count == 1 ? '' : 's'}", class: 'stat-label m0'%>
+    </div>
+    <div class="mr3">
+      <%= content_tag :p, "+#{@users_new_week_count}", class: 'stat-value success m0' %>
+      <%= content_tag :p, 'New this week', class: 'stat-label m0'%>
+    </div>
+    <div class="mr3">
+      <%= content_tag :p, @users_active_count, class: 'stat-value success m0' %>
+      <%= content_tag :p, "Active user#{@users_active_count == 1 ? '' : 's'}", class: 'stat-label m0'%>
+    </div>
+  </div>
   <h2>Admins</h2>
   <ul class="list list--row">
     <% @users.admins.each do |user| %>
       <%= link_to user_path(user) do %>
-      <li>
-        <%= avatar_for user, 48 %>
-        <div class="ml2">
+        <li>
+          <%= avatar_for user, 48 %>
+          <div class="ml2">
             <strong style="display: block;"><%= user.name %></strong>
             <span class="muted"><%= user.email %></span>
-        </div>
-      </li>
-    <% end %>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   </ul>
   <h2>Users</h2>
   <ul class="list list--row">
     <% @users.organizers.each do |user| %>
       <%= link_to user_path(user) do %>
-      <li>
-        <%= avatar_for user, 48 %>
-        <div class="ml2">
+        <li>
+          <%= avatar_for user, 48 %>
+          <div class="ml2">
             <strong style="display: block;"><%= user.name %></strong>
             <span class="muted"><%= user.email %></span>
-        </div>
-      </li>
-    <% end %>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 <% end %>
