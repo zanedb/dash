@@ -14,25 +14,29 @@
   <h2>Admins</h2>
   <ul class="list list--row">
     <% @users.admins.each do |user| %>
+      <%= link_to user_path(user) do %>
       <li>
         <%= avatar_for user, 48 %>
         <div class="ml2">
-          <strong><%= user.name %></strong>—<%= link_to user.email, "mailto:#{user.email}" %>
-          <br/>Admin at: <%= format_time(user.admin_at) %>
+            <strong style="display: block;"><%= user.name %></strong>
+            <span class="muted"><%= user.email %></span>
         </div>
       </li>
+    <% end %>
     <% end %>
   </ul>
   <h2>Users</h2>
   <ul class="list list--row">
     <% @users.organizers.each do |user| %>
+      <%= link_to user_path(user) do %>
       <li>
         <%= avatar_for user, 48 %>
         <div class="ml2">
-          <strong><%= user.name %></strong>—<%= link_to user.email, "mailto:#{user.email}" %>
-          <br/>Signed up: <%= format_time(user.created_at) %>
+            <strong style="display: block;"><%= user.name %></strong>
+            <span class="muted"><%= user.email %></span>
         </div>
       </li>
+    <% end %>
     <% end %>
   </ul>
 <% end %>
