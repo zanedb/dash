@@ -461,6 +461,12 @@ li .badge {
 .action-sheet {
   position: absolute;
   right: 0;
+
+  @media (max-width: 32em) {
+    margin-right: 1rem;
+    width: 2rem;
+    height: 2rem;
+  }
 }
 .action-sheet .dropdown__content {
   padding: 0;
