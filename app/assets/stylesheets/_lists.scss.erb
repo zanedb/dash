@@ -20,7 +20,9 @@ $chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
     }
   }
   > a:not(:last-child) > li,
-  > li:not(:last-child) {
+  > li:not(:last-child),
+  > a:first-child > li,
+  > li:first-child {
     border-bottom: 1px solid $gray1;
   }
   &.list--border-always > a > li,
