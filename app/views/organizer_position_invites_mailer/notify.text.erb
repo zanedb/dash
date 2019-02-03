@@ -1,12 +1,12 @@
 <% if @invite.invite_url %>
-  Welcome to H&M!
+  Welcome to Dash!
 <% else %>
-  You’ve been invited to manage an event on H&M
+  You’ve been invited to manage an event on Dash
 <% end %>
 ===============================================
 
 <% if @invite.invite_url %>
-  Nice to meet you! H&M is the hackathon management system of your dreams. We think you’ll love it.
+  Nice to meet you! Dash is the hackathon management system of your dreams. We think you’ll love it.
 <% end %>
 
 You’ve been invited to manage <%= @invite.event.name %> by <%= @invite.sender.name %>!
@@ -14,4 +14,4 @@ You’ve been invited to manage <%= @invite.event.name %> by <%= @invite.sender.
 To <% if @invite.invite_url %>login to the site & <% end %>view your invitation, just follow this link: <%= @invite.invite_url || event_organizer_position_invite_url(@invite.event, @invite) %>
 
 Have a hack-tastic day,
-H&M Team
+Dash Team

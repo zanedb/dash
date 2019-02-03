@@ -27,16 +27,8 @@ class Attendee < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
-  validates :public_id,
-            presence: true,
-            length: { minimum: 2 },
-            uniqueness: true
 
-  before_validation :generate_public_id,
-                    on: :create
-  after_validation :regenerate_public_id,
-                   on: :create,
-                   if: proc { |object| object.errors.any? }
+  before_create :generate_public_id
 
   # todo: make good
   after_create do
@@ -56,9 +48,11 @@ class Attendee < ApplicationRecord
   CORE_PARAMS = %i[first_name last_name email note created_at checked_in_at checked_out_at].freeze
 
   def generate_public_id
-    update_attribute(:public_id, make_public_id)
+    self.public_id = loop do
+      random_id = make_public_id
+      break random_id unless Attendee.exists?(public_id: random_id)
+    end
   end
-  alias regenerate_public_id generate_public_id
 
   def make_public_id
     6.times.map { rand(6) }.join
@@ -66,9 +60,7 @@ class Attendee < ApplicationRecord
 
   # returns an object containing all attendee data
   def attrs
-    attrs = attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
-    # ugh, todo fix
-    attrs.merge({ waiver_signing_url: "https://dash.hackpenn.com/events/#{event.slug}/waivers/#{attendee_waiver.id}?access_token=#{attendee_waiver.access_token}" }) if event.waiver.enabled?
+    attributes.to_h.slice(*CORE_PARAMS.map(&:to_s)).merge(field_values)
   end
 
   def name
@@ -142,7 +134,6 @@ class Attendee < ApplicationRecord
   def self.as_csv
     CSV.generate do |csv|
       keys = CORE_PARAMS.map(&:to_s) + all.first.field_values.keys
-      keys.push 'waiver_signing_url' # UGH TODO FIX
       csv << keys
       all.each do |item|
         csv << item.attrs.values

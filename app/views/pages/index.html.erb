@@ -1,11 +1,11 @@
 <% if user_signed_in? %>
   <% title 'Home' %>
-  <h1>H&M</h1>
+  <h1>Dash</h1>
   <h3 class="a-lil-bottom-margin">✨ A next-gen hackathon management system</h3>
   <h4 class="a-lil-bottom-margin">
     👋 Welcome, <%= current_user.name %>. Happy <%= local_time(Time.now, '%A') %>! You’re doing great.
   </h4>
-  <p class="slate">(Please note: <u>H&M</u> is in no way the final name. Consider it a codename.)</p>
+  <p class="slate">(Please note: <u>Dash</u> is in no way the final name. <strong><%= link_to 'Name suggestions welcome', 'https://goo.gl/forms/Rcq48KDHpexpZyyF2', target: '_blank' %></strong>.)</p>
 
   <% if @invites.any? %>
     <h2>

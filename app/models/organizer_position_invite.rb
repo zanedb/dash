@@ -41,7 +41,8 @@ class OrganizerPositionInvite < ApplicationRecord
   after_destroy :destroy_empty_user
 
   def send_email
-    OrganizerPositionInvitesMailer.with(invite: self).notify.deliver_later
+    # TODO: change to send_later once job management is setup (Sidekiq, etc)
+    OrganizerPositionInvitesMailer.with(invite: self).notify.deliver_now
   end
 
   # if user hasn't configured their profile, delete them + invite
