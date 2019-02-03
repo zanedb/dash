@@ -8,13 +8,13 @@ require 'prawn'
 require 'cairo'
 
 class HardwareItem < ApplicationRecord
-  scope :not_checked_out, -> { where(checked_out_at: nil) }
-  scope :checked_out_and_in, -> { where.not(checked_out_at: nil, checked_in_at: nil) }
-
-  default_scope { order(created_at: :desc) }
-
   belongs_to :hardware, touch: true
   has_one_attached :checked_out_to_file
+  
+  default_scope { order(created_at: :desc) }
+
+  scope :not_checked_out, -> { where(checked_out_at: nil) }
+  scope :checked_out_and_in, -> { where.not(checked_out_at: nil, checked_in_at: nil) }
 
   self.primary_key = :barcode
 

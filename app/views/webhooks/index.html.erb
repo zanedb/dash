@@ -16,9 +16,9 @@
     <% @webhooks.each do |webhook| %>
       <%= link_to event_webhook_path(@event, webhook) do %>
         <li>
-          <strong style="display: block;">
+          <span class="bold block">
             <%= webhook.name %>
-          </strong>
+          </span>
           <span class="muted">
             <%= webhook.request_type %> request to <%= webhook.url %>
           </span>

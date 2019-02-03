@@ -23,6 +23,7 @@ class Attendee < ApplicationRecord
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
   has_one :attendee_waiver, dependent: :destroy
+  accepts_nested_attributes_for :values
 
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email
@@ -35,6 +36,7 @@ class Attendee < ApplicationRecord
       build_attendee_waiver(waiver: event.waiver).save(validate: false)
     end
   end
+  after_create :handle_webhooks
 
   friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
@@ -75,6 +77,19 @@ class Attendee < ApplicationRecord
 
   def field_for(name)
     fields.where(name: name)
+  end
+
+  def handle_webhooks
+    if event.webhooks.any?
+      event.webhooks.each do |webhook|
+        case webhook.request_type
+        when 'GET'
+          HTTParty.get(webhook.url)
+        when 'POST'
+          HTTParty.post(webhook.url, body: { attendee: attrs })
+        end
+      end
+    end
   end
 
   def waiver_pdf

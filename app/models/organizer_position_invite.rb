@@ -31,16 +31,23 @@ class OrganizerPositionInvite < ApplicationRecord
 
   belongs_to :organizer_position, required: false, touch: true
 
+  validates_presence_of :email
   validates_email_format_of :email
 
   validates :accepted_at, absence: true, if: -> { rejected_at.present? }
   validates :rejected_at, absence: true, if: -> { accepted_at.present? }
 
   after_create :send_email
+  after_destroy :destroy_empty_user
 
   def send_email
     # TODO: change to send_later once job management is setup (Sidekiq, etc)
     OrganizerPositionInvitesMailer.with(invite: self).notify.deliver_now
+  end
+
+  # if user hasn't configured their profile, delete them + invite
+  def destroy_empty_user
+    user.destroy! unless user.name.present?
   end
 
   def accept

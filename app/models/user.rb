@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
+  scope :admins, -> { where.not(admin_at: nil) }
+  scope :organizers, -> { where(admin_at: nil) }
+
   validates :name, presence: true
 
   has_many :organizer_position_invites, dependent: :destroy

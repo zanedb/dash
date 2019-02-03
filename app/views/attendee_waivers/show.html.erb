@@ -2,11 +2,11 @@
   <% title 'View Signed Waiver', false %>
   <h1>You’ve signed the waiver!</h1>
   <p class="slate">You’ve already uploaded a signed waiver — <%= link_to 'click here to view it', @waiver.file.service_url %>.</p>
-  <p class="slate">If you need to reupload a copy of the waiver, please email <%= link_to 'zane@hackpenn.com', 'mailto:zane@hackpenn.com' %>.</p>
+  <p class="slate">If you need to reupload a copy of the waiver, please email us.</p>
 <% else %>
   <% title 'Upload signed waiver', false %>
   <h1>Upload signed waiver for <%= @waiver.attendee.name %></h1>
-  <h3><%= link_to 'Download an unsigned copy', @event.waiver.file.service_url, target: '_blank' %>. Please print & scan or digitally edit to fill in the green highlighted fields.</h3>
+  <h3><%= link_to 'Download an unsigned copy', @event.waiver.file.service_url, target: '_blank' %>. Please print & scan or digitally edit to fill in the highlighted fields.</h3>
 
   <%= form_with(model: @waiver, url: event_attendee_waiver_path(@event, @waiver, access_token: @waiver.access_token)) do |form| %>
     <% if @waiver.errors.any? %>

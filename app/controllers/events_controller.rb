@@ -7,7 +7,11 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    redirect_to root_url
+    if current_user.admin?
+      @events = Event.all
+    else
+      redirect_to root_url
+    end
   end
 
   # GET /events/1

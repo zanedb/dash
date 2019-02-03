@@ -18,24 +18,34 @@
       <% end %>
     </ul>
   <% end %>
-
-  <% if @events.any? || @invites.empty? %>
-    <h2 class="heading">
-      Events 
-      <% if current_user.admin? %>
-        <span class="muted" style="margin-left: 0.5rem;">(all)</span>
-        <%= link_to 'New Event', new_event_path, class: 'btn' %>
-      <% end %>
+  <% if @events.any? %>
+    <h2>
+      My Events
     </h2>
-    <% if @events.empty? %>
-      <p class="muted">There are no events.</p>
-    <% else %>
-      <ul class="list">
-        <% @events.each do |event| %>
-          <li><%= link_to event.name, event %></h3></li>
+    <ul class="list">
+      <% @events.each do |event| %>
+        <%= link_to event do %>
+          <li>
+            <div>
+              <span class="bold block">
+                <%= event.name %>
+              </span>
+              <span class="muted">
+                <%= event.city %> — <%= event_length(event).html_safe %>
+              </span>
+            </div>
+          </li>
         <% end %>
-      </ul>
-    <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+  <% if current_user.admin? %>
+    <h2>Grand Admin Station</h2>
+    <ul class="list">
+      <li class="h3"><%= link_to 'All Events', events_path %></li>
+      <li class="h3"><%= link_to 'New Event', new_event_path %></li>
+      <li class="h3"><%= link_to 'All Users', all_users_path %></li>
+    </ul>
   <% end %>
 <% else %>
   <h1>There’s more to see…</h1>

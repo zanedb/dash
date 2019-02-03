@@ -13,7 +13,7 @@ module ApplicationHelper
 
   def gravatar_url(email, name, size = 48)
     hex = Digest::MD5.hexdigest(email.downcase.strip)
-    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(get_initials(name))}/#{size}/97a0ad/fff/2/0.4/false/true"
+    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(name.present? ? get_initials(name) : '?')}/#{size}/97a0ad/fff/2/0.4/false/true"
   end
 
   def avatar_for(user, size = 48, options = {})

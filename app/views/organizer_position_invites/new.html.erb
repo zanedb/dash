@@ -9,18 +9,34 @@
 <% end %>
 <% if @event.organizer_position_invites&.accepted %>
   <ul class="list list--unlinked list--row">
-    <% @event.organizer_position_invites.accepted.each do |invite| %>
-      <li>
-        <%= avatar_for(invite.user, 48) %>
-        <div class="ml2">
-          <strong style="display: block;">
-            <%= invite.user.name %>
-          </strong>
-          <span class="muted">
-            <%= invite.user.email %>
-          </span>
-        </div>
-      </li>
+    <% @event.organizer_positions.each do |invite| %>
+      <% if current_user.admin? %>
+        <%= link_to user_path(invite.user) do %>
+          <li>
+            <%= avatar_for(invite.user, 48) %>
+            <div class="ml2">
+              <span class="bold block">
+                <%= invite.user.name %>
+              </span>
+              <span class="muted">
+                <%= invite.user.email %> (added <%= local_time_ago invite.created_at %>)
+              </span>
+            </div>
+          </li>
+        <% end %>
+      <% else %>
+        <li>
+          <%= avatar_for(invite.user, 48) %>
+          <div class="ml2">
+            <span class="bold block">
+              <%= invite.user.name %>
+            </span>
+            <span class="muted">
+              <%= invite.user.email %> (added <%= local_time_ago invite.created_at %>)
+            </span>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 <% end %>
@@ -29,7 +45,7 @@
   <ul class="list list--row list--unlinked">
     <% @event.organizer_position_invites.pending.each do |invite| %>
       <li>
-        <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy Invite', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %><% end %>
+        <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %>/<%= link_to  'View', event_organizer_position_invite_path(@event, invite)  %><% end %>
       </li>
     <% end %>
   </ul>

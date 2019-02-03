@@ -1,8 +1,8 @@
-<% title 'Viewing Invitation' %>
+<% title "Invitation to manage #{@invite.event.name}" %>
 <h1>
   You’re invited to manage <%= @invite.event.name %><% unless @invite.sender.admin? %> by <%= @invite.sender.name %><% end %>.
 </h1>
-<p>
+<p class="mb3">
   Would you like to accept or decline?
   <span class="slate">(this is intended for <%= @invite.email %>)</span>
 </p>
@@ -11,8 +11,7 @@
   link_to 'Accept invitation', 
   event_organizer_position_invite_accept_path(@event, @invite), 
   method: :post, 
-  class: 'btn', 
-  style: 'margin-right: 0.5rem;' 
+  class: 'btn btn--lg mr1'
 %>
 <%=
   link_to 'Reject', 

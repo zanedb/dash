@@ -16,9 +16,6 @@
         </div>
         <ul class="dropdown__content">
           <li><%= link_to 'My account', edit_user_registration_path %></li>
-          <% if current_user.admin? %>
-            <li><%= link_to 'Admin dashboard', admin_path %></li>
-          <% end %>
           <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
         </ul>
       </div>

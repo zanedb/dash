@@ -1,0 +1,30 @@
+<% title 'All Events' %>
+<div class="breadcrumbs">
+  <%= link_to 'Grand Admin Station', root_url %>
+</div>
+
+<h1 class="heading">
+  All Events
+  <%= link_to 'New Event', new_event_path, class: 'btn' %>
+</h2>
+
+<% if @events.empty? %>
+  <p class="muted">There are no events.</p>
+<% else %>
+  <ul class="list list--row">
+    <% @events.each do |event| %>
+      <%= link_to event do %>
+        <li>
+          <div>
+            <span class="bold block">
+              <%= event.name %>
+            </span>
+            <span class="muted">
+              <%= event.city %> — <%= event_length(event).html_safe %>
+            </span>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

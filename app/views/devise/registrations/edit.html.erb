@@ -8,7 +8,7 @@
 
   <div class="field">
     <%= f.label :avatar %>
-    <i>(square image)</i>
+    <span class="muted">(square image)</span>
     <%= f.file_field :avatar %>
   </div>
 
@@ -27,7 +27,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+    <%= f.label :password %> <span class="muted">(leave blank if you don't want to change it)</span>
     <%= f.password_field :password, autocomplete: 'new-password' %>
     <% if @minimum_password_length %>
       <em><%= @minimum_password_length %> characters minimum</em>
@@ -40,7 +40,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+    <%= f.label :current_password, class: 'bold' %> <span class="muted">(we need your current password to confirm your changes)</span>
     <%= f.password_field :current_password, autocomplete: 'current-password' %>
   </div>
 

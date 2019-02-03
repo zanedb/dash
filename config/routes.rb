@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     delete 'users', to: 'devise/registrations#destroy', as: 'destroy_user_registration'
     get '/users/invitation/accept', to: 'devise/invitations#edit', as: :accept_user_invitation
     put '/users/invitation', to: 'devise/invitations#update', as: :user_invitation
+    get '/users/:id', to: 'all_users#show', as: :user
   end
 
   resources :events do

@@ -25,6 +25,7 @@ body {
 }
 main {
   line-height: 1.5;
+  position: relative;
 }
 
 a {
@@ -152,6 +153,7 @@ input[type='submit'],
 .btn {
   color: $primary;
   background-color: #fff;
+  fill: currentColor;
   border: 1px solid $primary;
   border-radius: 8px;
   font-size: 0.875rem;
@@ -194,12 +196,16 @@ input[type='submit'],
   }
 }
 .btn.btn--icon {
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   align-items: center;
+  justify-content: center;
   display: inline-flex;
-  padding: 0 1rem;
+  padding: 0;
   border-radius: 50%;
+}
+.btn.btn--lg {
+  padding: 1rem 1.25rem;
 }
 
 .container {
@@ -416,6 +422,58 @@ li .badge {
 
   @media (max-width: 32em) {
     margin: 1rem 0;
+  }
+}
+
+.dropdown__btn {
+  cursor: pointer;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown__content {
+  list-style: none;
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  min-width: 12rem;
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+  a {
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: block;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: $gray1;
+    }
+  }
+  li:not(:last-child) a {
+    border-bottom: 1px solid $gray1;
+  }
+}
+
+.action-sheet {
+  position: absolute;
+  right: 0;
+
+  @media (max-width: 32em) {
+    margin-right: 1rem;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+.action-sheet .dropdown__content {
+  padding: 0;
+  margin: 0;
+
+  a {
+    padding: 0.5rem 1rem;
   }
 }
 

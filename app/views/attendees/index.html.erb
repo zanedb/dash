@@ -73,7 +73,7 @@
   <p class="muted">There are no attendees.</p>
 <% else %>
   <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search #{@attendees.count} attendees…", class: 'full-width' %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search #{pluralize @attendees.count, 'attendee'}…", class: 'full-width' %>
   <% end %>
   <%= content_tag :ul, class: "list list--row list--border-always #{@attendees.count == 1 ? '' : 'list--dual'}" do %>
     <% @attendees.each do |attendee| %>
@@ -81,7 +81,7 @@
         <li>
           <%= avatar_for attendee, 48 %>
           <div class="ml2">
-            <strong style="display: block;">
+            <span class="bold block">
               <%= attendee.name %>
               <% if attendee.checked_in? %>
                 <%= 
@@ -90,7 +90,7 @@
                   class: attendee.both? ? 'badge bg-success' : 'badge bg-info' 
                 %>
               <% end %>
-            </strong>
+            </span>
             <span class="muted">
               <%= attendee.email %>
             </span>

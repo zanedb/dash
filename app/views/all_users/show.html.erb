@@ -1,0 +1,39 @@
+<% title "User #{@user.name}" %>
+<div class="breadcrumbs">
+  <%= link_to 'Grand Admin Station', root_url %> › <%= link_to 'All Users', all_users_path %>
+</div>
+
+<%= avatar_for @user, 128 %>
+<h1 class="m0 p0 flex">
+  <%= @user.name %>
+  <% if @user.admin? %>
+    <span class="badge bg-error h3 self-center ml1">Admin</span>
+  <% end %>
+</h1>
+<p class="muted h2 m0"><%= @user.email %></p>
+<p class="muted h3 m0">Joined <%= format_time(@user.created_at) %></p>
+<% if @user.admin? %>
+  <p class="muted h3 m0">Admin at <%= format_time(@user.admin_at) %></p>
+<% end %>
+
+<h2><%= @user.name %>’s Events</h2>
+<% if @user.events.any? %>
+  <ul class="list">
+    <% @user.events.each do |event| %>
+      <%= link_to event do %>
+        <li>
+          <div>
+            <span class="bold block">
+              <%= event.name %>
+            </span>
+            <span class="muted">
+              <%= event.city %> — <%= event_length(event).html_safe %>
+            </span>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="muted"><%= @user.name %> does not manage any events.</p>
+<% end %>
