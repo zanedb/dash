@@ -20,7 +20,7 @@ class OrganizerPositionInvitesController < ApplicationController
     if located_user
       @invite.user = located_user
     else
-      user = User.invite!(email: invite_params[:email], name: invite_params[:email]) do |u|
+      user = User.invite!(email: invite_params[:email]) do |u|
         u.skip_invitation = true
       end
       @invite.user = user

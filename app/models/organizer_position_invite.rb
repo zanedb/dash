@@ -38,9 +38,15 @@ class OrganizerPositionInvite < ApplicationRecord
   validates :rejected_at, absence: true, if: -> { accepted_at.present? }
 
   after_create :send_email
+  after_destroy :destroy_empty_user
 
   def send_email
     OrganizerPositionInvitesMailer.with(invite: self).notify.deliver_later
+  end
+
+  # if user hasn't configured their profile, delete them + invite
+  def destroy_empty_user
+    user.destroy! unless user.name.present?
   end
 
   def accept
