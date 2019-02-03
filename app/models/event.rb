@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   extend FriendlyId
 
-  default_scope { order(id: :asc) }
+  default_scope { order(start_date: :asc) }
 
   has_one :waiver, dependent: :destroy
 
