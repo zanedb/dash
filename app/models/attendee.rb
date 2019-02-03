@@ -23,6 +23,7 @@ class Attendee < ApplicationRecord
   has_many :fields, through: :values, class_name: 'AttendeeField'
   has_many :values, class_name: 'AttendeeFieldValue', dependent: :destroy
   has_one :attendee_waiver, dependent: :destroy
+  accepts_nested_attributes_for :values
 
   validates_presence_of :first_name, :last_name, :email
   validates_email_format_of :email

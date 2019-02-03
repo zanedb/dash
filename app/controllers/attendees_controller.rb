@@ -49,24 +49,11 @@ class AttendeesController < ApplicationController
   end
 
   def create
-    @attendee = @event.attendees.new(attendee_core_params)
+    # this generates a proper Hash with correct nested attributes
+    # see: "One to many" on https://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html
+    @attendee = @event.attendees.new(**attendee_core_params.symbolize_keys, values_attributes: @event.fields.map { |field| { field: field, content: attendee_field_params[field.name] } })
     authorize @attendee
     if @attendee.save
-      @fields = @event.fields
-      @fields.each do |field|
-        @attendee.values.create!(field: field, content: attendee_params[field.name])
-      end
-      # webhooks
-      if @event.webhooks.any?
-        @event.webhooks.each do |webhook|
-          case webhook.request_type
-          when 'GET'
-            HTTParty.get(webhook.url)
-          when 'POST'
-            HTTParty.post(webhook.url, body: { attendee: @attendee.attrs })
-          end
-        end
-      end
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully created.'
     else
@@ -75,11 +62,7 @@ class AttendeesController < ApplicationController
   end
 
   def update
-    @fields = @event.fields.includes(:values)
-    @fields.each do |field|
-      field.value_for(@attendee).update(content: attendee_params[field.name])
-    end
-    if @attendee.update(attendee_core_params)
+    if @attendee.update(**attendee_core_params.symbolize_keys, values_attributes: @event.fields.includes(:values).map { |field| { field: field, content: attendee_field_params[field.name] } })
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully updated.'
     else
@@ -154,5 +137,9 @@ class AttendeesController < ApplicationController
 
   def attendee_core_params
     attendee_params.to_h.slice(*CORE_PARAMS)
+  end
+
+  def attendee_field_params
+    attendee_params.to_h.slice(*@event.fields.collect(&:name).map(&:to_sym))
   end
 end
