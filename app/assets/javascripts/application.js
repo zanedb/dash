@@ -8,11 +8,19 @@
 //= require chartkick
 
 $(document).ready(function() {
-  // close flash message on click
+  // open & then close flash message a bit later
+  if ($('.flash').length) {
+    $('.flash')
+      .hide()
+      .delay(250)
+      .slideDown()
+      .delay(4000)
+      .slideUp('fast')
+  }
   $(document).on('click', '[data-behavior~=flash_close]', function() {
     $(this)
       .parent()
-      .fadeOut('fast')
+      .slideUp('fast')
   })
 
   /* BEGIN DROPDOWN CODE */
