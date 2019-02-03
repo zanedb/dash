@@ -43,7 +43,12 @@
         <li>
           <%= avatar_for user, 48 %>
           <div class="ml2">
-            <span class="bold block"><%= user.name %></span>
+            <span class="bold block flex">
+              <%= user.name %>
+              <% if user.last_sign_in_at && user.last_sign_in_at > 1.week.ago %>
+                <span class="badge bg-success self-center">Active</span>
+              <% end %>
+            </span>
             <span class="muted"><%= user.email %></span>
           </div>
         </li>
