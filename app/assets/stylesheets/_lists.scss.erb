@@ -62,6 +62,8 @@ $chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
 @media (min-width: 32em) {
   .list--dual {
     column-count: 2;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
 h1 + .list,
