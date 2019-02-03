@@ -74,7 +74,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = true
 
-  config.action_mailer.default_url_options = { host: 'h-and-m.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'dash.zane.sh' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.sendgrid.net',
