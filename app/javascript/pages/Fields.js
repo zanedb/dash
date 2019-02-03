@@ -1,6 +1,33 @@
-import React from 'react'
-import _ from 'lodash'
+import React, { Fragment } from 'react'
 import axios from 'axios'
+import styled from 'styled-components'
+
+const Field = ({ field }) => (
+  <Fragment>
+    <span className="bold h3">{field.label}</span> ({field.name})
+    <FieldInput {...field} />
+  </Fragment>
+)
+const FieldInput = ({ kind, options }) => {
+  switch (kind) {
+    case 'text':
+      return <input type="text" value={kind} readOnly />
+    case 'multiline':
+      return <textarea readOnly>{kind}</textarea>
+    case 'email':
+      return <input type="email" value={kind} readOnly />
+    case 'multiselect':
+      return (
+        <select readOnly>
+          {options.map(option => (
+            <option value={option} key={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      )
+  }
+}
 
 export default class Fields extends React.Component {
   state = {
@@ -18,17 +45,17 @@ export default class Fields extends React.Component {
   render() {
     const { fields } = this.state
     return (
-      <div>
-        {status == 'loading' ? (
+      <Fragment>
+        {status === 'loading' ? (
           <p className="muted">Loading…</p>
         ) : (
           <div>
             {fields.map(field => (
-              <h3>{field.name}</h3>
+              <Field field={field} key={field.name} />
             ))}
           </div>
         )}
-      </div>
+      </Fragment>
     )
   }
 }
