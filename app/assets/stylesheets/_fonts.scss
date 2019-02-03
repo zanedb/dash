@@ -6,13 +6,13 @@
   src: asset_url('Inter-UI-Regular.woff2') format('woff2'),
     asset_url('Inter-UI-Regular.woff') format('woff');
 }
-@font-face {
+/* @font-face {
   font-family: 'Inter UI';
   font-style: italic;
   font-weight: 400;
   src: asset_url('Inter-UI-Italic.woff2') format('woff2'),
     asset_url('Inter-UI-Italic.woff') format('woff');
-}
+} */
 /* bold */
 @font-face {
   font-family: 'Inter UI';
@@ -21,13 +21,13 @@
   src: asset_url('Inter-UI-Bold.woff2') format('woff2'),
     asset_url('Inter-UI-Bold.woff') format('woff');
 }
-@font-face {
+/* @font-face {
   font-family: 'Inter UI';
   font-style: italic;
   font-weight: 700;
   src: asset_url('Inter-UI-BoldItalic.woff2') format('woff2'),
     asset_url('Inter-UI-BoldItalic.woff') format('woff');
-}
+} */
 /* black */
 @font-face {
   font-family: 'Inter UI';

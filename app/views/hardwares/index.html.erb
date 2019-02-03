@@ -15,9 +15,9 @@
     <% @hardwares.each do |hardware| %>
       <%= link_to event_hardware_path(@event, hardware) do %>
         <li>
-          <strong style="display: block;">
+          <span class="bold block">
             <%= hardware.description %>
-          </strong>
+          </span>
           <span class="muted">
             —<%= "#{hardware.available} available, #{hardware.quantity} total" %>
           </span>

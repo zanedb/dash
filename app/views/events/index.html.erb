@@ -16,9 +16,9 @@
       <%= link_to event do %>
         <li>
           <div>
-            <strong style="display: block;">
+            <span class="bold block">
               <%= event.name %>
-            </strong>
+            </span>
             <span class="muted">
               <%= event.city %> — <%= event_length(event).html_safe %>
             </span>

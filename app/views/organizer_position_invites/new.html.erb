@@ -15,9 +15,9 @@
           <li>
             <%= avatar_for(invite.user, 48) %>
             <div class="ml2">
-              <strong style="display: block;">
+              <span class="bold block">
                 <%= invite.user.name %>
-              </strong>
+              </span>
               <span class="muted">
                 <%= invite.user.email %> (added <%= local_time_ago invite.created_at %>)
               </span>
@@ -28,9 +28,9 @@
         <li>
           <%= avatar_for(invite.user, 48) %>
           <div class="ml2">
-            <strong style="display: block;">
+            <span class="bold block">
               <%= invite.user.name %>
-            </strong>
+            </span>
             <span class="muted">
               <%= invite.user.email %> (added <%= local_time_ago invite.created_at %>)
             </span>

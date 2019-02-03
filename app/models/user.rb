@@ -1,11 +1,11 @@
 class User < ApplicationRecord
-  scope :admins, -> { where.not(admin_at: nil) }
-  scope :organizers, -> { where(admin_at: nil) }
-
   # Others available are:
   # :confirmable, :lockable, :timeoutable, and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
+
+  scope :admins, -> { where.not(admin_at: nil) }
+  scope :organizers, -> { where(admin_at: nil) }
 
   validates :name, presence: true
 

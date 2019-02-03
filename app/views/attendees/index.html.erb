@@ -81,7 +81,7 @@
         <li>
           <%= avatar_for attendee, 48 %>
           <div class="ml2">
-            <strong style="display: block;">
+            <span class="bold block">
               <%= attendee.name %>
               <% if attendee.checked_in? %>
                 <%= 
@@ -90,7 +90,7 @@
                   class: attendee.both? ? 'badge bg-success' : 'badge bg-info' 
                 %>
               <% end %>
-            </strong>
+            </span>
             <span class="muted">
               <%= attendee.email %>
             </span>
