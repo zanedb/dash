@@ -28,14 +28,6 @@ class AttendeesController < ApplicationController
     end
   end
 
-  def custom_authorization
-    skip_authorization
-    # manually authenticate certain methods, Pundit can't
-    unless @event.users.include?(current_user) || current_user.admin?
-      raise Pundit::NotAuthorizedError, 'not allowed to view this action'
-    end
-  end
-
   def show
     @attendee_fields = @event.fields
 
@@ -141,6 +133,14 @@ class AttendeesController < ApplicationController
   end
 
   private
+
+  def custom_authorization
+    skip_authorization
+    # manually authenticate certain methods, Pundit can't
+    unless @event.users.include?(current_user) || current_user.admin?
+      raise Pundit::NotAuthorizedError, 'not allowed to view this action'
+    end
+  end
 
   def set_attendee
     @attendee = @event.attendees.friendly.find_by_friendly_id(params[:id])
