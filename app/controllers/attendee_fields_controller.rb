@@ -9,6 +9,13 @@ class AttendeeFieldsController < ApplicationController
     unless @event.users.include?(current_user) || current_user.admin?
       raise Pundit::NotAuthorizedError, 'not allowed to view this action'
     end
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @event.fields.as_json
+      end
+    end
   end
 
   def show

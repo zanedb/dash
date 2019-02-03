@@ -8,6 +8,8 @@
   <%= link_to 'Add a field', new_event_attendee_field_path, class: 'btn' %>
 </h1>
 
+<%= react_component 'Fields', props: { event: @event.as_json } %>
+
 <% if @event.fields.any? %>
   <%= form_with do |form| %>
     <% @event.fields.each do |field| %>
