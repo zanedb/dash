@@ -7,7 +7,12 @@
     </div>
     <ul class="dropdown__content">
       <li><%= link_to 'Event settings', edit_event_path(@event) %></li>
+      <li><%= link_to 'Team members', new_event_organizer_position_invite_path(@event) %></li>
+      <li><%= link_to 'Attendee fields', event_attendee_fields_path(@event) %></li>
       <li><%= link_to 'Configure webhooks', event_webhooks_path(@event) %></li>
+      <% if current_user.admin? %>
+        <li><%= link_to 'Delete event', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'error' %></li>
+      <% end %>
     </ul>
   </div>
 
@@ -77,11 +82,3 @@
     </li>
   <% end %>
 </ul>
-
-<br/>
-<div class="flex justify-center">
-  <%= link_to 'Settings', edit_event_path(@event), class: 'btn mr1' %>
-  <% if current_user.admin? %>
-    <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
-  <% end %>
-</div>
