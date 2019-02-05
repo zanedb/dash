@@ -1,4 +1,3 @@
-
 <% if user_signed_in? %>
   <nav
     role="navigation"
@@ -16,7 +15,11 @@
         </div>
         <ul class="dropdown__content">
           <li><%= link_to 'My account', edit_user_registration_path %></li>
-          <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+          <% if current_user == true_user %>
+            <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %></li>
+          <% end %>
         </ul>
       </div>
     </div>

@@ -1,5 +1,8 @@
 <% if user_signed_in? %>
   <% title 'Home' %>
+  <% if current_user != true_user %>
+    <p class="center muted h3">You are currently impersonating <%= current_user.name %>. <%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %>.</p>
+  <% end %>
   <h1>Dash</h1>
   <h3 class="a-lil-bottom-margin">✨ A next-gen hackathon management system</h3>
   <h4 class="a-lil-bottom-margin">

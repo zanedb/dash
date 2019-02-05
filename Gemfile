@@ -96,6 +96,9 @@ gem 'devise' # authentication
 gem 'devise_invitable' # inviting users
 gem 'pundit' # authorization/permissions
 
+# Admin
+gem 'pretender' # login as other users
+
 # Displaying Data
 gem 'chartkick' # charting data
 gem 'groupdate' # grouping data

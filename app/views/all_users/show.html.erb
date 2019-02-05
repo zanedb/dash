@@ -15,6 +15,9 @@
 <% if @user.admin? %>
   <p class="muted h3 m0">Admin at <%= format_time(@user.admin_at) %></p>
 <% end %>
+<div class="mt2">
+  <%= link_to 'Impersonate', impersonate_user_path(@user), class: 'btn', method: :post %>
+</div>
 
 <h2><%= @user.name %>’s Events</h2>
 <% if @user.events.any? %>
@@ -37,3 +40,4 @@
 <% else %>
   <p class="muted"><%= @user.name %> does not manage any events.</p>
 <% end %>
+

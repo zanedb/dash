@@ -182,6 +182,8 @@ GEM
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
       ttfunk (~> 1.5)
+    pretender (0.3.4)
+      actionpack (>= 4.2)
     public_suffix (3.0.3)
     puma (3.12.0)
     pundit (2.0.0)
@@ -324,6 +326,7 @@ DEPENDENCIES
   nokogiri
   pg (>= 0.18, < 2.0)
   prawn
+  pretender
   puma (~> 3.11)
   pundit
   rack-cors

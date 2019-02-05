@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get '/users/invitation/accept', to: 'devise/invitations#edit', as: :accept_user_invitation
     put '/users/invitation', to: 'devise/invitations#update', as: :user_invitation
     get '/users/:id', to: 'all_users#show', as: :user
+    post '/users/:id/impersonate', to: 'all_users#impersonate', as: :impersonate_user
+    post '/users/stop_impersonating', to: 'all_users#stop_impersonating', as: :stop_impersonating_user
   end
 
   resources :events do
