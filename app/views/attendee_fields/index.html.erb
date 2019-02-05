@@ -9,22 +9,3 @@
 </h1>
 
 <%= react_component 'Fields', props: { event: @event.as_json } %>
-
-<% if @event.fields.any? %>
-  <%= form_with do |form| %>
-    <% @event.fields.each do |field| %>
-      <div class="a-lil-bottom-margin">
-        <label class="field">
-          <%= content_tag :strong, field.label, class: 'h3' %>
-          (<%= field.name %>)
-          <%= example_custom_field field, form %>
-        </label>
-        <%= link_to 'View field responses', event_attendee_field_path(@event, field) %>
-        <%= link_to 'Edit', edit_event_attendee_field_path(@event, field) %>
-        <%= link_to 'Delete field', event_attendee_field_path(@event, field), method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
-    <% end %>
-  <% end %>
-<% else %>
-  <p class="muted no-margin">There are no fields.</p>
-<% end %>
