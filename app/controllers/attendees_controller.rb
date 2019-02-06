@@ -51,9 +51,25 @@ class AttendeesController < ApplicationController
   def create
     # this generates a proper Hash with correct nested attributes
     # see: "One to many" on https://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html
-    @attendee = @event.attendees.new(**attendee_core_params.symbolize_keys, values_attributes: @event.fields.map { |field| { field: field, content: attendee_field_params[field.name] } })
+    # @attendee = @event.attendees.new(**attendee_core_params.symbolize_keys, values_attributes: @event.fields.map { |field| { field: field, content: attendee_field_params[field.name] } })
+    @attendee = @event.attendees.new(attendee_core_params)
     authorize @attendee
     if @attendee.save
+      @fields = @event.fields
+      @fields.each do |field|
+        @attendee.values.create!(field: field, content: attendee_params[field.name])
+      end
+      # webhooks
+      if @event.webhooks.any?
+        @event.webhooks.each do |webhook|
+          case webhook.request_type
+          when 'GET'
+            HTTParty.get(webhook.url)
+          when 'POST'
+            HTTParty.post(webhook.url, body: { attendee: @attendee.attrs })
+          end
+        end
+      end
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully created.'
     else
@@ -62,7 +78,12 @@ class AttendeesController < ApplicationController
   end
 
   def update
-    if @attendee.update(**attendee_core_params.symbolize_keys, values_attributes: @event.fields.includes(:values).map { |field| { field: field, content: attendee_field_params[field.name] } })
+    # if @attendee.update({ attendee: { **attendee_core_params.symbolize_keys, values_attributes: @event.fields.includes(:values).map { |field| { id: @attendee.values.find_by(field: field).id, field: field, content: attendee_field_params[field.name] } } } })
+    @fields = @event.fields.includes(:values)
+    @fields.each do |field|
+      field.value_for(@attendee).update(content: attendee_params[field.name])
+    end
+    if @attendee.update(attendee_core_params)
       redirect_to event_attendee_path(@event, @attendee)
       flash[:success] = 'Attendee was successfully updated.'
     else
