@@ -15,12 +15,12 @@ $(document).ready(function() {
       .delay(250)
       .slideDown()
       .delay(4000)
-      .slideUp('fast')
+      .slideUp()
   }
-  $(document).on('click', '[data-behavior~=flash_close]', function() {
-    $(this)
-      .parent()
-      .slideUp('fast')
+  $('.flash').click(function() {
+    $('.flash')
+      .clearQueue()
+      .slideUp()
   })
 
   /* BEGIN DROPDOWN CODE */
