@@ -126,10 +126,10 @@ class AttendeesController < ApplicationController
 
   def reset_status
     if @attendee.update(
-        checked_in_at: nil,
-        checked_in_by_id: nil,
-        checked_out_at: nil,
-        checked_out_by_id: nil
+      checked_in_at: nil,
+      checked_in_by_id: nil,
+      checked_out_at: nil,
+      checked_out_by_id: nil
     )
       flash[:success] = 'Successfully reset attendee status.'
       redirect_to request.referrer || event_attendees_path(@event)
@@ -138,7 +138,6 @@ class AttendeesController < ApplicationController
       redirect_to request.referrer || event_attendee_path(@event, @attendee)
     end
   end
-
 
   def import; end
 
