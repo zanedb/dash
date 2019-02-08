@@ -88,33 +88,6 @@ ActiveRecord::Schema.define(version: 2019_01_16_075120) do
     t.index ["event_id"], name: "index_attendees_on_event_id"
   end
 
-  create_table "email_configs", force: :cascade do |t|
-    t.string "smtp_url"
-    t.string "smtp_port"
-    t.string "authentication"
-    t.string "domain"
-    t.string "sender_email"
-    t.string "username"
-    t.string "password"
-    t.bigint "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_email_configs_on_event_id"
-  end
-
-  create_table "emails", force: :cascade do |t|
-    t.string "recipient"
-    t.string "sender_email"
-    t.text "subject"
-    t.text "body"
-    t.string "read_receipt_img_url"
-    t.string "read_receipt_stats_url"
-    t.bigint "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_emails_on_event_id"
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.datetime "start_date"
@@ -193,16 +166,6 @@ ActiveRecord::Schema.define(version: 2019_01_16_075120) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_organizer_positions_on_event_id"
     t.index ["user_id"], name: "index_organizer_positions_on_user_id"
-  end
-
-  create_table "registration_configs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "goal"
-    t.datetime "open_at"
-    t.boolean "api_enabled"
-    t.bigint "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_registration_configs_on_event_id"
   end
 
   create_table "users", force: :cascade do |t|
