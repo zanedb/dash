@@ -32,4 +32,8 @@ class AttendeePolicy < ApplicationPolicy
   def check_out?
     record.event.users.include?(user) || user.admin?
   end
+
+  def reset_status?
+    record.event.users.include?(user) || user.admin?
+  end
 end

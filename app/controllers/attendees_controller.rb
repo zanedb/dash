@@ -3,8 +3,8 @@
 class AttendeesController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
-  before_action :set_attendee, only: %i[show edit update destroy check_in check_out]
-  before_action -> { authorize @attendee }, only: %i[show edit update destroy check_in check_out]
+  before_action :set_attendee, only: %i[show edit update destroy check_in check_out reset_status]
+  before_action -> { authorize @attendee }, only: %i[show edit update destroy check_in check_out reset_status]
   before_action :custom_authorization, only: %i[index import import_csv]
 
   CORE_PARAMS = %i[first_name last_name email note].freeze
@@ -123,6 +123,22 @@ class AttendeesController < ApplicationController
       redirect_to request.referrer || event_attendee_path(@event, @attendee)
     end
   end
+
+  def reset_status
+    if @attendee.update(
+        checked_in_at: nil,
+        checked_in_by_id: nil,
+        checked_out_at: nil,
+        checked_out_by_id: nil
+    )
+      flash[:success] = 'Successfully reset attendee status.'
+      redirect_to request.referrer || event_attendees_path(@event)
+    else
+      flash[:error] = 'Failed to reset attendee status.'
+      redirect_to request.referrer || event_attendee_path(@event, @attendee)
+    end
+  end
+
 
   def import; end
 
