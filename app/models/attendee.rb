@@ -36,8 +36,7 @@ class Attendee < ApplicationRecord
       build_attendee_waiver(waiver: event.waiver).save(validate: false)
     end
   end
-  after_create :handle_webhooks
-
+  
   friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
     [
