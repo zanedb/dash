@@ -334,7 +334,6 @@ DEPENDENCIES
   pundit
   rack-cors
   rails (~> 5.2.1)
-  rake (~> 12.3.1)
   redis
   sass-rails (~> 5.0)
   search_cop
@@ -355,4 +354,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.6
+   1.15.2
