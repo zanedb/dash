@@ -31,11 +31,11 @@ class Attendee < ApplicationRecord
   before_create :generate_public_id
 
   # todo: make good
-  after_create do
-    if event.waiver.file.attached? && attendee_waiver.nil?
-      build_attendee_waiver(waiver: event.waiver).save(validate: false)
-    end
-  end
+  after_create :set_fields_create
+  after_create :make_waiver
+  after_create :handle_webhooks
+
+  after_update :set_fields_update
   
   friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
@@ -45,6 +45,10 @@ class Attendee < ApplicationRecord
   end
 
   CORE_PARAMS = %i[first_name last_name email note created_at checked_in_at checked_out_at].freeze
+
+  def set_attendee_params(attendee_params)
+    @attendee_params = attendee_params
+  end
 
   def generate_public_id
     self.public_id = loop do
@@ -78,6 +82,24 @@ class Attendee < ApplicationRecord
     fields.where(name: name)
   end
 
+  def set_fields_create
+    fields = self.event.fields
+
+    fields.each do |field|
+      self.values.create!(field: field, content: @attendee_params[field.name])
+    end
+  end
+
+  def set_fields_update
+    fields = self.event.fields
+
+    fields.each do |field|
+      if @attendee_params
+        field.value_for(self).update(content: @attendee_params[field.name])
+      end
+    end
+  end
+
   def handle_webhooks
     if event.webhooks.any?
       event.webhooks.each do |webhook|
@@ -88,6 +110,12 @@ class Attendee < ApplicationRecord
           HTTParty.post(webhook.url, body: { attendee: attrs })
         end
       end
+    end
+  end
+
+  def make_waiver
+    if event.waiver.file.attached? && attendee_waiver.nil?
+      build_attendee_waiver(waiver: event.waiver).save(validate: false)
     end
   end
 
