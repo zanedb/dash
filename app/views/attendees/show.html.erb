@@ -57,6 +57,7 @@
       No
     </p>
   <% end %>
+
   <% if @event.waiver.enabled? %>
     <p>
       <strong>Waiver</strong>
@@ -71,6 +72,7 @@
       </span>
     </p>
   <% end %>
+
   <p>
     <strong>Notes</strong>
     <span style="white-space: pre-wrap;"><%= @attendee.note %></span>
@@ -92,12 +94,13 @@
     <p class="muted">
       <% if @attendee.both? %>
         This attendee has already been checked in and out.
-        You can check them out again.
+        You can check them in again.
       <% else %>
         Checking in <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.
       <% end %>
     </p>
     <%= link_to 'Check in', check_in_event_attendees_path(@event, @attendee), method: :post, class: 'btn' %>
+    <%= link_to 'Reset attendee', reset_status_event_attendees_path(@event, @attendee), method: :post, data: { confirm: 'This will completely reset the check-in & check-out times of this attendee. Are you sure you want to do this?' }, class: 'btn btn--destroy' %>
   </div>
 <% end %>
 <% if (@attendee.checked_in? && !@attendee.checked_out?) %>
@@ -105,5 +108,6 @@
     <h2>Check out</h2>
     <p class="muted">Checking back out <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %><strong>.</p>
     <%= link_to 'Check out', check_out_event_attendees_path(@event, @attendee), method: :post, class: 'btn' %>
+    <%= link_to 'Reset attendee', reset_status_event_attendees_path(@event, @attendee), method: :post, data: { confirm: 'This will completely reset the check-in & check-out times of this attendee. Are you sure you want to do this?' }, class: 'btn btn--destroy' %>
   </div>
 <% end %>

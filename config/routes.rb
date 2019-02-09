@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       collection do
         post '/:id/check_in', to: 'attendees#check_in', as: :check_in
         post '/:id/check_out', to: 'attendees#check_out', as: :check_out
+        post '/:id/reset_status', to: 'attendees#reset_status', as: :reset_status
         get '/import', to: 'attendees#import', as: :import
         post '/import_csv', to: 'attendees#import_csv', as: :import_csv
       end
