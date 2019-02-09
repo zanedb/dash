@@ -88,8 +88,8 @@
   <% end %>
 </article>
 
-<% unless (@attendee.checked_in? && !@attendee.checked_out?) %>
-  <div class="mb3">
+<div class="mb3">
+  <% unless (@attendee.checked_in? && !@attendee.checked_out?) %>
     <h2>Check in <% if @attendee.both? %>again<% end %></h2>
     <p class="muted">
       <% if @attendee.both? %>
@@ -100,14 +100,13 @@
       <% end %>
     </p>
     <%= link_to 'Check in', check_in_event_attendees_path(@event, @attendee), method: :post, class: 'btn' %>
-    <%= link_to 'Reset attendee', reset_status_event_attendees_path(@event, @attendee), method: :post, data: { confirm: 'This will completely reset the check-in & check-out times of this attendee. Are you sure you want to do this?' }, class: 'btn btn--destroy' %>
-  </div>
-<% end %>
-<% if (@attendee.checked_in? && !@attendee.checked_out?) %>
-  <div class="mb3">
+  <% end %>
+  <% if (@attendee.checked_in? && !@attendee.checked_out?) %>
     <h2>Check out</h2>
     <p class="muted">Checking back out <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %><strong>.</p>
     <%= link_to 'Check out', check_out_event_attendees_path(@event, @attendee), method: :post, class: 'btn' %>
+  <% end %>
+  <% if @attendee.checked_in? %>
     <%= link_to 'Reset attendee', reset_status_event_attendees_path(@event, @attendee), method: :post, data: { confirm: 'This will completely reset the check-in & check-out times of this attendee. Are you sure you want to do this?' }, class: 'btn btn--destroy' %>
-  </div>
-<% end %>
+  <% end %>
+</div>
