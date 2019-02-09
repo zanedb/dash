@@ -163,7 +163,8 @@ class Attendee < ApplicationRecord
       keys = CORE_PARAMS.map(&:to_s) + all.first.field_values.keys
       csv << keys
       all.each do |item|
-        fixed = item.attrs.values.each { |value| value.sub! '', 'empty'}
+        fixed = item.attrs.values
+        fixed.each_with_index { |value, index| fixed[index] = "empty" if value.class == NilClass }
         csv << fixed
       end
     end
