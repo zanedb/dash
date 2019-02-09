@@ -6,10 +6,8 @@
 
 2. Build & configure the repo.
 ```
-$ docker-compose build
-$ docker-compose run web bundle
-$ docker-compose run web bundle exec rails db:create db:setup
-$ docker-compose run web yarn
+$ docker-compose build web
+$ docker-compose run web bundle && bundle exec rails db:create db:setup && yarn
 ```
 3. Start the development server.
 ```
