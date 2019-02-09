@@ -159,7 +159,7 @@ class Attendee < ApplicationRecord
   end
 
   def self.as_csv
-    CSV.generate do |csv|
+    CSV.generate(headers: true) do |csv|
       keys = CORE_PARAMS.map(&:to_s) + all.first.field_values.keys
       csv << keys
       all.each do |item|
