@@ -36,7 +36,7 @@ class Attendee < ApplicationRecord
   after_create :handle_webhooks
 
   after_update :set_fields_update
-
+  
   friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
     [
