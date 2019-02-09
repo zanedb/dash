@@ -164,7 +164,9 @@ class Attendee < ApplicationRecord
       csv << keys
       all.each do |item|
         fixed = item.attrs.values
+        # yes, these are separate lines for readability. a multiline block would look ugly.
         fixed.each_with_index { |value, index| fixed[index] = "empty" if value.class == NilClass }
+        fixed.each_with_index { |value, index| fixed[index] = "empty" if value == "" || value == " " }
         csv << fixed
       end
     end
