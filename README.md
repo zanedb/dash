@@ -1,3 +1,21 @@
+# Dash
+
+### Setup
+
+1. Install Docker on your machine.
+
+2. Build & configure the repo.
+```
+$ docker-compose build
+$ docker-compose run web bundle
+$ docker-compose run web bundle exec rails db:create db:setup
+$ docker-compose run web yarn
+```
+3. Start the development server.
+```
+$ docker-compose run --service-ports web
+```
+
 # README
 
 This README would normally document whatever steps are necessary to get the
