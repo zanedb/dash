@@ -14,9 +14,7 @@ class AttendeesController < ApplicationController
     @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
 
     respond_to do |format|
-      format.html do
-        render :index, layout: 'react'
-      end
+      format.html
       format.csv do
         if @attendees.present?
           send_data @attendees.as_csv
