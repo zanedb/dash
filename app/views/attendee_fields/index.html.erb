@@ -1,10 +1,12 @@
-<% title "Fields on #{@event.name}" %>
+<% title "Configuring Registration on #{@event.name}" %>
+<% page_md %>
+
 <div class="breadcrumbs">
   <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %>
 </div>
 
 <h1 class="heading">
-  Fields
+  Configure Registration
   <%= link_to 'Add a field', new_event_attendee_field_path, class: 'btn' %>
 </h1>
 
