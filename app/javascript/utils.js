@@ -16,9 +16,7 @@ export const getAvatarUrl = (name, email) => {
   const separated = name.split(' ')
   const initials =
     separated.length === 2
-      ? `${separated[0].charAt(0).toUpperCase()}${separated[1]
-          .charAt(0)
-          .toUpperCase()}`
+      ? separated.map(l => l.charAt(0).toUpperCase()).join('')
       : name
   return `https://gravatar.com/avatar/${md5(
     email

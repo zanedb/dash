@@ -3,30 +3,39 @@ import Fuse from 'fuse.js'
 import { isEmpty } from 'lodash'
 import { getAvatarUrl } from '../utils'
 
-const Attendee = ({ name, email, checked_in_at, checked_out_at }) => (
-  <Fragment>
-    <img
-      src={getAvatarUrl(name, email)}
-      className="profile-img"
-      width={48}
-      height={48}
-    />
-    <div className="ml2">
-      <span className="bold block">
-        {name}
-        {checked_in_at === null ? null : (
-          <span
-            className={
-              checked_out_at === null ? 'badge bg-info' : 'badge bg-success'
-            }
-          >
-            Checked in{checked_out_at === null ? null : ' & out'}
-          </span>
-        )}
-      </span>
-      <span className="muted">{email}</span>
-    </div>
-  </Fragment>
+const Attendee = ({
+  path,
+  slug,
+  name,
+  email,
+  checked_in_at,
+  checked_out_at
+}) => (
+  <a href={`${path}/${slug}`}>
+    <li>
+      <img
+        src={getAvatarUrl(name, email)}
+        className="profile-img"
+        width={48}
+        height={48}
+      />
+      <div className="ml2">
+        <span className="bold block">
+          {name}
+          {checked_in_at === null ? null : (
+            <span
+              className={
+                checked_out_at === null ? 'badge bg-info' : 'badge bg-success'
+              }
+            >
+              Checked in{checked_out_at === null ? null : ' & out'}
+            </span>
+          )}
+        </span>
+        <span className="muted">{email}</span>
+      </div>
+    </li>
+  </a>
 )
 
 export default class Attendees extends React.Component {
@@ -35,7 +44,7 @@ export default class Attendees extends React.Component {
     this.state = {
       value: ''
     }
-    const attendees = this.props.props.attendees
+    const { attendees } = this.props.props
     // make full name of attendee searchable
     for (const attendee of attendees) {
       attendee.name = `${attendee.first_name} ${attendee.last_name}`
@@ -49,11 +58,9 @@ export default class Attendees extends React.Component {
   }
 
   render() {
-    const { event } = this.props.props
+    const { value } = this.state
     const attendees =
-      this.state.value === ''
-        ? this.props.props.attendees
-        : this.fuse.search(this.state.value)
+      value === '' ? this.props.props.attendees : this.fuse.search(value)
     return (
       <Fragment>
         {isEmpty(this.props.props.attendees) ? (
@@ -61,13 +68,14 @@ export default class Attendees extends React.Component {
         ) : (
           <Fragment>
             <input
-              type="text"
+              type="search"
               id="search"
-              className="full-width"
+              aria-label="Search"
+              className="input full-width"
               placeholder={`Search ${attendees.length} attendee${
                 attendees.length === 1 ? '' : 's'
               }…`}
-              value={this.state.value}
+              value={value}
               onChange={e => this.setState({ value: e.target.value })}
             />
             {isEmpty(attendees) ? (
@@ -79,14 +87,11 @@ export default class Attendees extends React.Component {
                 }`}
               >
                 {attendees.map(attendee => (
-                  <a
-                    href={`/events/${event.slug}/attendees/${attendee.slug}`}
+                  <Attendee
                     key={attendee.slug}
-                  >
-                    <li>
-                      <Attendee {...attendee} />
-                    </li>
-                  </a>
+                    path={this.props.props.path}
+                    {...attendee}
+                  />
                 ))}
               </ul>
             )}

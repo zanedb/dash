@@ -11,9 +11,7 @@ class AttendeeFieldsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render :index, layout: 'react'
-      end
+      format.html
       format.json do
         render json: @event.fields.as_json
       end
