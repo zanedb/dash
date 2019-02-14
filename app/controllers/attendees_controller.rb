@@ -15,7 +15,7 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render 'attendees/index', layout: 'react'
+        render :index, layout: 'react'
       end
       format.csv do
         if @attendees.present?
