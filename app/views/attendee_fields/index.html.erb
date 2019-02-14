@@ -6,8 +6,9 @@
 </div>
 
 <h1 class="heading">
-  Configure Registration
+  Setup registration
   <%= link_to 'Add a field', new_event_attendee_field_path, class: 'btn' %>
 </h1>
 
+<h2 class="heading">Registration form</h2>
 <%= react_component 'Fields', props: { event: @event.as_json } %>
