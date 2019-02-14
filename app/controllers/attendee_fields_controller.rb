@@ -12,7 +12,7 @@ class AttendeeFieldsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render 'attendee_fields/index', layout: 'react'
+        render :index, layout: 'react'
       end
       format.json do
         render json: @event.fields.as_json

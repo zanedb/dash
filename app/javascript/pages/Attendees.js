@@ -36,11 +36,10 @@ export default class Attendees extends React.Component {
       value: ''
     }
     const attendees = this.props.props.attendees
-    // make full name of user searchable
+    // make full name of attendee searchable
     for (const attendee of attendees) {
       attendee.name = `${attendee.first_name} ${attendee.last_name}`
     }
-    //console.log(attendees)
     const options = {
       shouldSort: true,
       threshold: 0.2,
