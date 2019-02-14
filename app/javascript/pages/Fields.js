@@ -2,20 +2,34 @@ import React, { Fragment } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 
-const Field = ({ field }) => (
-  <Card>
-    <span className="bold h3">{field.label}</span> ({field.name})
+const Field = ({ field, disabled }) => (
+  <Fragment>
+    <div className="flex items-center">
+      <span>
+        <span className="bold h3">{field.label}</span> ({field.name})
+      </span>{' '}
+      {disabled && <span className="badge">Default</span>}
+    </div>
     <FieldInput {...field} />
-    <EditButton style={{ float: 'right', marginRight: '1rem' }} />
-  </Card>
+    {!disabled && (
+      <EditButton style={{ float: 'right', marginRight: '1rem' }} />
+    )}
+  </Fragment>
 )
-const Card = styled.article`
-  min-height: 6rem;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.063) 0px 8px 32px;
-`
+const DefaultFields = () => (
+  <Fragment>
+    {[
+      { label: 'First Name', name: 'first_name', kind: 'text' },
+      { label: 'Last Name', name: 'last_name', kind: 'text' },
+      { label: 'Email Address', name: 'email', kind: 'email' },
+      { label: 'Note', name: 'note', kind: 'multiline' }
+    ].map(defaultField => (
+      <li>
+        <Field field={defaultField} key={defaultField.name} disabled />
+      </li>
+    ))}
+  </Fragment>
+)
 const EditButton = () => (
   <a className="btn btn--icon">
     <svg
@@ -37,23 +51,41 @@ const EditButton = () => (
 const FieldInput = ({ kind, options }) => {
   switch (kind) {
     case 'text':
-      return <input type="text" value={kind} readOnly />
+      return (
+        <Input
+          type="text"
+          placeholder="Text input"
+          icon="/icons/type.svg"
+          readOnly
+        />
+      )
     case 'multiline':
-      return <textarea readOnly>{kind}</textarea>
+      return <textarea placeholder="Multi-line input" readOnly />
     case 'email':
-      return <input type="email" value={kind} readOnly />
+      return <input type="email" placeholder="Email input" readOnly />
     case 'multiselect':
       return (
         <select readOnly>
-          {options.map(option => (
-            <option value={option} key={option}>
-              {option}
+          <Fragment>
+            <option value="" disabled>
+              Select an option
             </option>
-          ))}
+            {options.map(option => (
+              <option value={option} key={option}>
+                {option}
+              </option>
+            ))}
+          </Fragment>
         </select>
       )
   }
 }
+const Input = styled.input`
+  padding-left: 2rem;
+  &:before {
+    content: url('${props => props.icon}') !important;
+  }
+`
 
 export default class Fields extends React.Component {
   state = {
@@ -79,11 +111,14 @@ export default class Fields extends React.Component {
         {status === 'loading' ? (
           <p className="muted">Loading…</p>
         ) : (
-          <div>
+          <ul className="list list--unlinked">
+            <DefaultFields />
             {fields.map(field => (
-              <Field field={field} key={field.name} />
+              <li>
+                <Field field={field} key={field.name} />
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </Fragment>
     )
