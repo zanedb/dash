@@ -10,13 +10,13 @@ class AttendeesController < ApplicationController
   CORE_PARAMS = %i[first_name last_name email note].freeze
 
   def index
-    @attendees = params[:search] ?
-      @event.attendees.search(params[:search])
-      : @event.attendees
+    @attendees = @event.attendees
     @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
 
     respond_to do |format|
-      format.html
+      format.html do
+        render 'attendees/index', layout: 'react'
+      end
       format.csv do
         if @attendees.present?
           send_data @attendees.as_csv

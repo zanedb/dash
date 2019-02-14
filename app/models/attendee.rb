@@ -5,13 +5,7 @@ require 'prawn'
 require 'net/http'
 
 class Attendee < ApplicationRecord
-  include SearchCop
   extend FriendlyId
-
-  search_scope :search do
-    attributes %i[first_name last_name], :email
-    # attributes :fields
-  end
 
   default_scope { order(created_at: :desc) }
 
