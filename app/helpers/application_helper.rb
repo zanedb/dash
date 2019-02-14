@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def page_md
+    content_for(:container_class) { 'container--md' }
+  end
+
+  def page_sm
+    content_for(:container_class) { 'container--sm' }
+  end
   def format_time(time)
     local_time(time, '%B %e, %Y %l:%M%P %Z')
   end
