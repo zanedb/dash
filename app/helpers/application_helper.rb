@@ -20,7 +20,13 @@ module ApplicationHelper
 
   def gravatar_url(email, name, size = 48)
     hex = Digest::MD5.hexdigest(email.downcase.strip)
-    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(name.present? ? get_initials(name) : '?')}/#{size}/97a0ad/fff/2/0.4/false/true"
+    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(name.present? ? get_initials(name) : '?')}/#{size}/#{name.present? ? color_for(name) : '97a0ad'}/fff/2/0.4/false/true"
+  end
+
+  def color_for(name)
+    alphabet = ('A'..'Z').to_a
+    colors = ['005fe6','1300e6','8600e6','e700d4','e70060','e61300','e68600','d4e700','60e700','00e713','00e787','00d3e7'] # TODO: find colors
+    colors[alphabet.index(name.first).to_i % alphabet.length] || colors.last
   end
 
   def avatar_for(user, size = 48, options = {})
