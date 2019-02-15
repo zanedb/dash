@@ -39,12 +39,28 @@ const Attendee = ({
 )
 
 export default class Attendees extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: ''
+  state = {
+    status: 'loading',
+    attendees: [],
+    searchValue: ''
+  }
+
+  componentDidMount() {
+    this.getAttendees()
+
+    this.refreshInterval = setInterval(() => {
+      this.getAttendees()
+    }, 4000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refreshInterval)
     }
-    const { attendees } = this.props.props
+
+  getAttendees() {
+    axios.get(`${this.props.props.path}.json`).then(res => {
+      const attendees = res.data
+      if (attendees !== this.state.attendees) {
     // make full name of attendee searchable
     for (const attendee of attendees) {
       attendee.name = `${attendee.first_name} ${attendee.last_name}`
@@ -55,14 +71,21 @@ export default class Attendees extends React.Component {
       keys: ['name', 'email', 'public_id']
     }
     this.fuse = new Fuse(attendees, options)
+        this.setState({ attendees, status: 'ready' })
+  }
+    })
   }
 
   render() {
-    const { value } = this.state
+    const { searchValue, status } = this.state
     const attendees =
-      value === '' ? this.props.props.attendees : this.fuse.search(value)
+      searchValue === '' ? this.state.attendees : this.fuse.search(searchValue)
     return (
       <Fragment>
+        {status === 'loading' ? (
+          <p className="muted">Loading…</p>
+        ) : (
+          <Fragment>
         {isEmpty(this.props.props.attendees) ? (
           <p className="muted">There are no attendees.</p>
         ) : (
@@ -75,8 +98,8 @@ export default class Attendees extends React.Component {
               placeholder={`Search ${attendees.length} attendee${
                 attendees.length === 1 ? '' : 's'
               }…`}
-              value={value}
-              onChange={e => this.setState({ value: e.target.value })}
+                  value={searchValue}
+                  onChange={e => this.setState({ searchValue: e.target.value })}
             />
             {isEmpty(attendees) ? (
               <p className="muted">No attendees found.</p>
