@@ -15,6 +15,9 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json do
+        render json: @attendees.json
+      end
       format.csv do
         if @attendees.present?
           send_data @attendees.as_csv
