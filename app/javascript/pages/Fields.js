@@ -3,7 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 
 const Field = ({ field, disabled }) => (
-  <Fragment>
+  <li>
     <div className="flex items-center">
       <span>
         <span className="bold h3">{field.label}</span> ({field.name})
@@ -14,7 +14,7 @@ const Field = ({ field, disabled }) => (
     {!disabled && (
       <EditButton style={{ float: 'right', marginRight: '1rem' }} />
     )}
-  </Fragment>
+  </li>
 )
 const DefaultFields = () => (
   <Fragment>
@@ -24,9 +24,7 @@ const DefaultFields = () => (
       { label: 'Email Address', name: 'email', kind: 'email' },
       { label: 'Note', name: 'note', kind: 'multiline' }
     ].map(defaultField => (
-      <li>
-        <Field field={defaultField} key={defaultField.name} disabled />
-      </li>
+      <Field field={defaultField} key={defaultField.name} disabled />
     ))}
   </Fragment>
 )
@@ -114,9 +112,7 @@ export default class Fields extends React.Component {
           <ul className="list list--unlinked">
             <DefaultFields />
             {fields.map(field => (
-              <li>
-                <Field field={field} key={field.name} />
-              </li>
+              <Field field={field} key={field.name} />
             ))}
           </ul>
         )}
