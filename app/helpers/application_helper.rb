@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def title(page_title, append_name = true)
     page_title ||= 'Dash'
-    page_title.concat('—Dash') if append_name
+    page_title.concat(' — Dash') if append_name
     content_for(:title) { page_title }
   end
 
