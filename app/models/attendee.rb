@@ -117,6 +117,15 @@ class Attendee < ApplicationRecord
     checked_out? && checked_in?
   end
 
+  def self.json
+    all.as_json.each do |attendee|
+      alphabet = ('A'..'Z').to_a
+      colors = ['005fe6','1300e6','8600e6','e700d4','e70060','e61300','e68600','d4e700','60e700','00e713','00e787','00d3e7']
+      color = colors[alphabet.index(attendee['first_name'].first).to_i % alphabet.length] || colors.last
+      attendee.merge!({ color: color })
+    end
+  end
+
   def self.checked_in_total
     all.checked_in.count
   end
