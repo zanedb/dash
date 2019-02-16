@@ -6,7 +6,7 @@
 
 <h1 class="heading">
   <div class="flex items-center">
-    Attendees <span class="badge"><%= @attendees.count %></span>
+    Attendees
   </div>
   <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn' %>
 </h1>
@@ -65,7 +65,7 @@
     Attendees for “<%= params[:search] %>”
     <%= link_to 'X', event_attendees_path(@event), class: 'badge no-decoration' %>
   <% else %>
-    All attendees
+    All attendees <span class="badge"><%= @attendees.count %></span>
   <% end %>
   <%= link_to 'Import', import_event_attendees_path(@event), class: 'btn' %>
   <%= link_to 'Export', event_attendees_path(format: :csv), class: 'btn' %>
