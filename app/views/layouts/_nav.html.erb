@@ -29,8 +29,8 @@
 <% flash.each do |key, value| %>
   <article role="alertdialog" class="flash bg-<%= key %> mx-auto mt2 w-100">
     <span class="flash__content">
-      <%= value %>
+      <%= inline_svg "#{key}.svg", { width: 16 } %>
+      <span class="ml1"><%= value %></span>
     </span>
-    <div class="flash__close" data-behavior="flash_close" role="button">X</div>
   </article>
 <% end %>

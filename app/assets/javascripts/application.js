@@ -14,7 +14,7 @@ $(document).ready(function() {
       .hide()
       .delay(250)
       .slideDown()
-      .delay(4000)
+      .delay(3000)
       .slideUp()
   }
   $('.flash').click(function() {

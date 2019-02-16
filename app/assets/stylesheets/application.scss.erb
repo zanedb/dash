@@ -250,21 +250,17 @@ input[type='submit'],
   color: $white;
   background-color: $base;
   font-size: 0.875rem;
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  max-width: 32rem;
-  width: 100%;
+  border-radius: 9999px;
+  padding: 0.25rem 1rem;
+  max-width: 24rem;
+  min-height: 2.25rem;
   line-height: 1.5;
   position: absolute;
   right: 0;
   left: 0;
-  top: 4rem;
+  top: 1rem;
   animation: scale-fade-in 0.2s linear;
-  z-index: 10;
-
-  @media (max-width: 32em) {
-    max-width: 31em;
-  }
+  z-index: 99999;
 }
 
 .flash__close {
@@ -281,12 +277,15 @@ input[type='submit'],
 }
 
 .flash__content {
-  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .breadcrumbs {
   text-align: center;
   font-size: 1.1rem;
+  margin-top: 0.25rem;
 
   :nth-child(1) {
     font-weight: 700;
