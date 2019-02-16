@@ -121,6 +121,8 @@ export default class Attendees extends React.Component {
           </Fragment>
         )}
       </Fragment>
+        )}
+      </Fragment>
     )
   }
 }
