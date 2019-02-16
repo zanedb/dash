@@ -1,15 +1,15 @@
 <% title "Configuring Registration on #{@event.name}" %>
 <% @include_react = true %>
-<% page_md %>
+<% page_sm %>
 
 <div class="breadcrumbs">
   <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %>
 </div>
 
 <h1 class="heading">
-  Setup registration
+  Edit signup form
   <%= link_to 'Add a field', new_event_attendee_field_path, class: 'btn' %>
 </h1>
 
-<h2 class="heading">Registration form</h2>
+<!--<h2 class="heading">Registration form</h2>-->
 <%= react_component 'Fields', props: { event: @event.as_json } %>
