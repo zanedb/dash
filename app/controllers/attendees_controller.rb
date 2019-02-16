@@ -59,7 +59,7 @@ class AttendeesController < ApplicationController
 
     if @attendee.save
       redirect_to event_attendee_path(@event, @attendee)
-      flash[:success] = 'Attendee was successfully created.'
+      flash[:success] = 'Attendee created.'
     else
       render :new
     end
@@ -71,7 +71,7 @@ class AttendeesController < ApplicationController
 
     if @attendee.update(attendee_core_params)
       redirect_to event_attendee_path(@event, @attendee)
-      flash[:success] = 'Attendee was successfully updated.'
+      flash[:success] = 'Attendee updated.'
     else
       render :edit
     end
@@ -80,7 +80,7 @@ class AttendeesController < ApplicationController
   def destroy
     @attendee.destroy
     redirect_to event_attendees_path(@event)
-    flash[:success] = 'Attendee was successfully destroyed.'
+    flash[:success] = 'Attendee destroyed.'
   end
 
   def check_in
@@ -90,7 +90,7 @@ class AttendeesController < ApplicationController
       checked_out_at: nil,
       checked_out_by_id: nil
     )
-      flash[:success] = 'Successfully checked-in attendee.'
+      flash[:success] = 'Attendee checked-in.'
       redirect_to request.referrer || event_attendees_path(@event)
     else
       flash[:error] = 'Failed to check-in attendee.'
@@ -102,7 +102,7 @@ class AttendeesController < ApplicationController
     return false if @attendee.checked_out?
 
     if @attendee.update(checked_out_at: Time.current, checked_out_by_id: current_user_id)
-      flash[:success] = 'Successfully checked-out attendee.'
+      flash[:success] = 'Attendee checked-out.'
       redirect_to request.referrer || event_attendees_path(@event)
     else
       flash[:error] = 'Failed to check-out attendee.'
@@ -117,10 +117,10 @@ class AttendeesController < ApplicationController
       checked_out_at: nil,
       checked_out_by_id: nil
     )
-      flash[:success] = 'Successfully reset attendee status.'
+      flash[:success] = 'Attendee status cleared.'
       redirect_to request.referrer || event_attendees_path(@event)
     else
-      flash[:error] = 'Failed to reset attendee status.'
+      flash[:error] = 'Failed to clear attendee status.'
       redirect_to request.referrer || event_attendee_path(@event, @attendee)
     end
   end
@@ -130,9 +130,9 @@ class AttendeesController < ApplicationController
   def import_csv
     begin
       Attendee.import_csv(params[:file], @event)
-      flash[:success] = 'Imported CSV of attendees.'
+      flash[:success] = 'Attendee CSV imported.'
     rescue StandardError
-      flash[:error] = 'Invalid CSV.'
+      flash[:error] = 'CSV is invalid.'
     end
     redirect_to event_attendees_path(@event)
   end

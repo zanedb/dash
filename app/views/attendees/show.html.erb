@@ -107,6 +107,6 @@
     <%= link_to 'Check out', check_out_event_attendees_path(@event, @attendee), method: :post, class: 'btn' %>
   <% end %>
   <% if @attendee.checked_in? %>
-    <%= link_to 'Reset status', reset_status_event_attendees_path(@event, @attendee), method: :post, data: { confirm: 'This will completely reset the check-in & check-out times of this attendee. Are you sure you want to do this?' }, class: 'btn btn--destroy' %>
+    <%= link_to 'Clear status', reset_status_event_attendees_path(@event, @attendee), method: :post, data: { confirm: 'This will completely reset the check-in & check-out times of this attendee. Are you sure you want to do this?' }, class: 'btn btn--destroy' %>
   <% end %>
 </div>

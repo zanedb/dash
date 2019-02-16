@@ -23,7 +23,7 @@ class HardwareItemsController < ApplicationController
 
   def update
     if @hardware_item.update(hardware_item_params)
-      flash[:success] = 'Hardware was successfully updated.'
+      flash[:success] = 'Hardware updated.'
       redirect_to event_hardware_hardware_item_path(@event, @hardware, @hardware_item)
     else
       render :edit
@@ -42,7 +42,7 @@ class HardwareItemsController < ApplicationController
       if params[:hardware_item][:checked_out_to_file]
         @hardware_item.update(checked_out_to_file: params[:hardware_item][:checked_out_to_file])
       end
-      flash[:success] = "Checked out #{@hardware_item.description}."
+      flash[:success] = "#{@hardware_item.description} checked out."
     else
       flash[:error] = "Failed to check out #{@hardware_item.description}."
     end
@@ -57,7 +57,7 @@ class HardwareItemsController < ApplicationController
         checked_in_by_id: current_user_id,
         checked_in_at: Time.now
       )
-        flash[:success] = "Checked in #{@hardware_item.description}"
+        flash[:success] = "#{@hardware_item.description} checked in."
       else
         flash[:error] = "Failed to check in #{@hardware_item.description}."
       end

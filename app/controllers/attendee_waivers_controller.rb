@@ -8,7 +8,7 @@ class AttendeeWaiversController < ApplicationController
 
   def update
     if @waiver.update(waiver_params)
-      flash[:success] = 'Signed waiver has been uploaded!'
+      flash[:success] = 'Signed waiver uploaded!'
       redirect_to request.referrer || event_attendee_waiver_path(@event, @waiver, access_token: @waiver.access_token)
     else
       render :show

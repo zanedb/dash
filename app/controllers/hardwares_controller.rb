@@ -31,7 +31,7 @@ class HardwaresController < ApplicationController
     authorize @hardware
 
     if @hardware.save
-      flash[:success] = 'Hardware was successfully created.'
+      flash[:success] = 'Hardware created.'
       redirect_to event_hardware_path(@event, @hardware)
     else
       render :new
@@ -40,7 +40,7 @@ class HardwaresController < ApplicationController
 
   def update
     if @hardware.update(hardware_params)
-      flash[:success] = 'Hardware was successfully updated.'
+      flash[:success] = 'Hardware updated.'
       redirect_to event_hardware_path(@event, @hardware)
     else
       render :edit
@@ -49,7 +49,7 @@ class HardwaresController < ApplicationController
 
   def destroy
     @hardware.destroy
-    flash[:success] = 'Hardware was successfully destroyed.'
+    flash[:success] = 'Hardware destroyed.'
     redirect_to event_hardwares_path(@event)
   end
 

@@ -38,7 +38,7 @@ class EventsController < ApplicationController
 
     if @event.save
       redirect_to @event
-      flash[:success] = 'Event was successfully created.'
+      flash[:success] = 'Event created.'
     else
       render :new
     end
@@ -48,7 +48,7 @@ class EventsController < ApplicationController
   def update
     if @event.update(event_params)
       redirect_to @event
-      flash[:success] = 'Event was successfully updated.'
+      flash[:success] = 'Event settings updated.'
     else
       render :edit
     end
@@ -58,7 +58,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     redirect_to events_url
-    flash[:success] = 'Event was successfully destroyed.'
+    flash[:success] = 'Event destroyed.'
   end
 
   private

@@ -35,7 +35,7 @@ class AttendeeFieldsController < ApplicationController
 
     if @attendee_field.save
       redirect_to event_attendee_fields_path(@event)
-      flash[:success] = 'Field was successfully created.'
+      flash[:success] = 'Field created.'
     else
       render :new
     end
@@ -44,7 +44,7 @@ class AttendeeFieldsController < ApplicationController
   def update
     if @attendee_field.update(attendee_field_params)
       redirect_to event_attendee_fields_path(@event)
-      flash[:success] = 'Field was successfully updated.'
+      flash[:success] = 'Field updated.'
     else
       render :edit
     end
@@ -53,7 +53,7 @@ class AttendeeFieldsController < ApplicationController
   def destroy
     @attendee_field.destroy
     redirect_to event_attendee_fields_path(@event)
-    flash[:success] = 'Field was successfully destroyed.'
+    flash[:success] = 'Field destroyed.'
   end
 
   private

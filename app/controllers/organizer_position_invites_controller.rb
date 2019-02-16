@@ -28,7 +28,7 @@ class OrganizerPositionInvitesController < ApplicationController
     end
 
     if @invite.save
-      flash[:success] = 'Invite successfully sent'
+      flash[:success] = 'Invite sent.'
       redirect_to @invite.event
     else
       render :new
@@ -46,7 +46,7 @@ class OrganizerPositionInvitesController < ApplicationController
 
     @invite.destroy
     redirect_to @invite.event
-    flash[:success] = 'Invite was successfully destroyed.'
+    flash[:success] = 'Invite destroyed.'
   end
 
   def accept

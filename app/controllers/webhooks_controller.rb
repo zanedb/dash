@@ -29,7 +29,7 @@ class WebhooksController < ApplicationController
     authorize @webhook
 
     if @webhook.save
-      flash[:success] = 'Webhook was successfully created.'
+      flash[:success] = 'Webhook created.'
       redirect_to event_webhooks_path(@event)
     else
       render :new
@@ -38,7 +38,7 @@ class WebhooksController < ApplicationController
 
   def update
     if @webhook.update(webhook_params)
-      flash[:success] = 'Webhook was successfully updated.'
+      flash[:success] = 'Webhook updated.'
       redirect_to event_webhook_path(@event, @webhook)
     else
       render :edit
@@ -47,7 +47,7 @@ class WebhooksController < ApplicationController
 
   def destroy
     @webhook.destroy
-    flash[:success] = 'Webhook was successfully destroyed.'
+    flash[:success] = 'Webhook destroyed.'
     redirect_to event_webhooks_path(@event)
   end
 

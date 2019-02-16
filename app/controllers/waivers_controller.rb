@@ -17,7 +17,7 @@ class WaiversController < ApplicationController
 
   def update
     if @waiver.update(waiver_params)
-      flash[:success] = 'Waiver was successfully configured.'
+      flash[:success] = 'Waiver configured.'
       redirect_to event_waivers_path(@event)
     else
       render :edit
