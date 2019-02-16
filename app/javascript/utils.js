@@ -22,5 +22,5 @@ export const getAvatarUrl = (name, email, color) => {
     email
   )}?s=96&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${encodeURIComponent(
     initials
-  )}/96/${color ? color : '97a0ad'}/fff/2/0.4/false/true`
+  )}/96/${color || '97a0ad'}/fff/2/0.4/false/true`
 }
