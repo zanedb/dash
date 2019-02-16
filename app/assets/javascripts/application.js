@@ -30,13 +30,13 @@ $(document).ready(function() {
       .parents('.dropdown')
       .children('.dropdown__content')
       .is(':hidden')
-    $('.dropdown__content').hide()
+    $('.dropdown__content').slideUp('fast')
     $('.dropdown__btn').attr('aria-expanded', 'false')
     if (wasHidden) {
       $(this)
         .parents('.dropdown')
         .children('.dropdown__content')
-        .show()
+        .slideDown('fast')
       $(this).attr('aria-expanded', 'true')
     }
   })
@@ -47,14 +47,14 @@ $(document).ready(function() {
         .parents()
         .hasClass('dropdown__btn')
     ) {
-      $('.dropdown__content').hide()
+      $('.dropdown__content').slideUp('fast')
       $('.dropdown__btn').attr('aria-expanded', 'false')
     }
   })
   $(document).keydown(e => {
     // close dropdown on esc key press
     if (e.keyCode === 27) {
-      $('.dropdown__content').hide()
+      $('.dropdown__content').slideUp('fast')
       $('.dropdown__btn').attr('aria-expanded', 'false')
     }
   })
