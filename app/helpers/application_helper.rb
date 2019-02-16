@@ -25,7 +25,7 @@ module ApplicationHelper
 
   def color_for(name)
     alphabet = ('A'..'Z').to_a
-    colors = ['005fe6','1300e6','8600e6','e700d4','e70060','e61300','e68600','d4e700','60e700','00e713','00e787','00d3e7'] # TODO: find colors
+    colors = ['005fe6','1300e6','8600e6','e700d4','e70060','e61300','e68600','d4e700','60e700','00e713','00e787','00d3e7']
     colors[alphabet.index(name.first).to_i % alphabet.length] || colors.last
   end
 

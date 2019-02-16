@@ -12,7 +12,7 @@ export const getTimeString = time =>
     .tz(moment.tz.guess())
     .format('MMMM Do YYYY, h:mm:ss a z')
 
-export const getAvatarUrl = (name, email) => {
+export const getAvatarUrl = (name, email, color) => {
   const separated = name.split(' ')
   const initials =
     separated.length === 2
@@ -22,5 +22,5 @@ export const getAvatarUrl = (name, email) => {
     email
   )}?s=96&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/${encodeURIComponent(
     initials
-  )}/96/97a0ad/fff/2/0.4/false/true`
+  )}/96/${color ? color : '97a0ad'}/fff/2/0.4/false/true`
 }
