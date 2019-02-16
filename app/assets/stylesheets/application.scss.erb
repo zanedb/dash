@@ -375,16 +375,31 @@ tr {
 }
 
 .badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
+  background-color: $gray6;
   border-radius: 999px;
   color: $white;
-  background-color: $gray6;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 1.25;
+  min-width: 16px;
+  padding: 0.125rem 0.5rem;
+
+  &.bg-success {
+    color: $teal9;
+    background-color: $teal1;
+  }
+  &.bg-info {
+    color: $blue9;
+    background-color: $blue1;
+  }
+}
+label .badge {
+  height: 16px;
+  line-height: 1;
+  padding: 0.125rem 0.5rem;
 }
 .heading .badge {
-  font-size: 1rem;
   margin-left: 1rem;
 }
 li .badge {
