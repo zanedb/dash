@@ -22,7 +22,7 @@ const Attendee = ({
         height={48}
       />
       <div className="ml2">
-        <span className="bold block">
+        <span className="bold block flex items-center">
           {name}
           {checked_in_at === null ? null : (
             <span
