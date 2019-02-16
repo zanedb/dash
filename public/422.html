@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Change Rejected—Dash</title>
+    <title>Change Rejected — Dash</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/proxima.css" />
     <style>
       * {
         box-sizing: border-box;
@@ -12,8 +13,8 @@
         -webkit-font-smoothing: antialiased;
       }
       body {
-        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-          'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+        font-family: 'ProximaNova', system-ui, -apple-system, BlinkMacSystemFont,
+          Roboto, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
           'Segoe UI Emoji', 'Segoe UI Symbol';
         display: flex;
         flex-direction: column;
@@ -45,6 +46,13 @@
         font-size: 1.5rem;
         margin: 0;
       }
+      a {
+        color: #0069ff;
+      }
+      p {
+        font-size: 1.2rem;
+        color: #616d7c;
+      }
       .container {
         width: 100%;
         max-width: 64rem;
@@ -56,11 +64,30 @@
 
   <body>
     <main class="container">
-      <h1>Change Rejected</h1>
+      <h1>Change rejected! (422)</h1>
       <h3>
         The change you wanted was rejected. Maybe you tried to change something
         you didn't have access to.
       </h3>
+      <p>
+        <a href="javascript:window.history.back()">Go back</a> or
+        <a
+          href="mailto:zane@dash.zane.sh?subject=I%20got%20a%20422%20error"
+          id="emailLink"
+          >report an error</a
+        >.
+      </p>
     </main>
+
+    <script>
+      const emailLink = document.getElementById('emailLink')
+      const time = new Date()
+      const body = `${
+        window.location
+      } on ${time.toDateString()} at ${time.toTimeString()}`
+      const link =
+        emailLink.getAttribute('href') + '&body=' + encodeURIComponent(body)
+      emailLink.setAttribute('href', link)
+    </script>
   </body>
 </html>
