@@ -5,7 +5,11 @@ import styled from 'styled-components'
 const Field = ({ field, disabled }) => (
   <div className="flex items-end col-12 mb2">
     <div className="flex-auto">
-      <label htmlFor={field.name} className="flex items-center">
+      <label
+        htmlFor={field.name}
+        className="flex items-center"
+        style={{ marginBottom: '2px' }}
+      >
         <strong className="bold">{field.label}</strong>
         <code className="ml1">{field.name}</code>
         {disabled && <span className="badge ml-auto">Default</span>}
@@ -30,8 +34,7 @@ const FieldInput = ({ name, kind, options }) => {
       )
     case 'multiline':
       return (
-        <Input
-          as="textarea"
+        <Textarea
           placeholder="Multi-line input"
           icon="/icons/multiline.svg"
           id={name}
@@ -69,6 +72,13 @@ const Input = styled.input`
   background-image: url('${props => props.icon}');
   background-position: 0.5rem center;
   background-size: auto 50%;
+  background-repeat: no-repeat;
+  padding-left: 2rem !important;
+`
+const Textarea = styled.textarea`
+  background-image: url('${props => props.icon}');
+  background-position: 0.5rem 0.4rem;
+  background-size: auto 30%;
   background-repeat: no-repeat;
   padding-left: 2rem !important;
 `
