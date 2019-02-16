@@ -94,16 +94,16 @@
     <p class="muted">
       <% if @attendee.both? %>
         This attendee has already been checked in and out.
-        You can check them in again.
+        You’re about to check them in again.
       <% else %>
-        Checking in <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.
+        You’re about to check in in <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.
       <% end %>
     </p>
     <%= link_to 'Check in', check_in_event_attendees_path(@event, @attendee), method: :post, class: 'btn' %>
   <% end %>
   <% if (@attendee.checked_in? && !@attendee.checked_out?) %>
     <h2>Check out</h2>
-    <p class="muted">Checking back out <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %><strong>.</p>
+    <p class="muted">You’re about to check back out <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %><strong>.</p>
     <%= link_to 'Check out', check_out_event_attendees_path(@event, @attendee), method: :post, class: 'btn' %>
   <% end %>
   <% if @attendee.checked_in? %>
