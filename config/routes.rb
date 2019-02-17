@@ -23,7 +23,7 @@ Rails.application.routes.draw do
         post '/import_csv', to: 'attendees#import_csv', as: :import_csv
       end
     end
-    resources :attendee_fields, path: 'fields'
+    resources :attendee_fields, path: 'registration'
     resources :waivers, path: 'waiver'
     resources :attendee_waivers, path: 'waivers'
 
