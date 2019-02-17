@@ -1,13 +1,17 @@
 import React, { Fragment } from 'react'
 import axios from 'axios'
+import IdleTimer from 'react-idle-timer'
+import qs from 'qs'
 import Field from 'components/Field'
+import { isEmpty, difference, differenceBy } from 'lodash'
 import { getAuthenticityToken } from 'utils'
 
 export default class Fields extends React.Component {
   state = {
     status: 'loading',
     fields: [],
-    focusedField: ''
+    focusedField: '',
+    hasChanged: false
   }
 
   componentDidMount() {
@@ -17,35 +21,49 @@ export default class Fields extends React.Component {
   getFields() {
     const { event } = this.props.props
     axios.get(`/events/${event.slug}/registration.json`).then(res => {
-      this.setState({ fields: res.data, status: 'ready' })
+      const fields = res.data
+      let i = 1
+      fields.forEach(a => {
+        a.position = i
+        a.options = a.options
+          ? JSON.parse(a.options)
+            ? JSON.parse(a.options)
+            : a.options
+          : a.options
+        i++
+      })
+      this.setState({ fields, status: 'ready' })
     })
   }
-  updateField = (id, object) => {
+
+  updateField = (position, object) => {
     const { fields } = this.state
-    const field = fields.find(o => o.id === id)
+    const field = fields.find(o => o.position === position)
     const newField = Object.assign(field, object)
+    newField.updated = true
+    newField.position = position
     fields[fields.indexOf(field)] = newField
-    this.setState({ fields, focusedField: newField.name })
+    this.setState({ fields, focusedField: newField.position, hasChanged: true })
   }
 
-  setFocused = fieldName => {
-    this.setState({ focusedField: fieldName })
+  setFocused = position => {
+    this.setState({ focusedField: position })
   }
-  deleteField = fieldName => {
+
+  deleteField = position => {
     const check = confirm(
       'Are you sure you want to delete this field and all responses? You cannot undo this.'
     )
     if (check) {
       this.setState(state => ({
-        fields: state.fields.filter(e => e.name !== fieldName),
-        focusedField: ''
+        fields: state.fields.filter(e => e.position !== position),
+        focusedField: '',
+        hasChanged: true
       }))
     }
   }
 
   addField = () => {
-    // TODO: use 'position' to handle case of multiple empty fields
-    // search for field.name and change to field.position
     const { fields } = this.state
     let label = ['New field', 0]
     while (
@@ -64,42 +82,125 @@ export default class Fields extends React.Component {
       .replace(/[^\w\s]/gi, '')
       .toLowerCase()
       .replace(/ /g, '_')
-    this.setState(state => ({
-      fields: state.fields.concat([{ name, label: newLabel, kind: 'text' }])
-    }))
+
+    if (isEmpty(fields)) {
+      this.setState(state => ({
+        fields: state.fields.concat([
+          { name, label: newLabel, kind: 'text', position: '1' }
+        ]),
+        hasChanged: true
+      }))
+    } else {
+      let position = fields[fields.length - 1].position
+      while (fields.some(e => e.position === position)) position++
+
+      this.setState(state => ({
+        fields: state.fields.concat([
+          { name, label: newLabel, kind: 'text', position }
+        ]),
+        hasChanged: true
+      }))
+    }
   }
 
   save = () => {
-    const method = 'POST'
-    // fake HTTP requests, Rails thing
-    let browserHTTPMethod = 'POST'
-    let fakedHTTPMethod = null
-    if (method.toLowerCase() === 'get') {
-      browserHTTPMethod = 'GET'
-    } else if (method.toLowerCase() !== 'post') {
-      fakedHTTPMethod = method
+    const { hasChanged, fields } = this.state
+    const { event } = this.props.props
+    if (hasChanged) {
+      axios.get(`/events/${event.slug}/registration.json`).then(res => {
+        const oldFields = res.data
+        const deletionDiff = differenceBy(oldFields, fields, 'id')
+
+        fields.forEach(f => {
+          if (f.id === undefined) {
+            // create field
+            console.log('creating', f)
+            const csrfToken = getAuthenticityToken()
+            axios({
+              method: 'post',
+              url: `/events/${event.slug}/registration`,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              data: qs.stringify({
+                authenticity_token: csrfToken,
+                _method: 'post',
+                attendee_field: {
+                  name: f.name,
+                  label: f.label,
+                  kind: f.kind,
+                  options: JSON.stringify(f.options)
+                }
+              })
+            })
+          } else if (f.updated !== undefined) {
+            // edited field
+            console.log('edited', f)
+            const csrfToken = getAuthenticityToken()
+            axios({
+              method: 'post',
+              url: `/events/${event.slug}/registration/${f.slug}`,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              data: qs.stringify({
+                authenticity_token: csrfToken,
+                _method: 'patch',
+                attendee_field: {
+                  name: f.name,
+                  label: f.label,
+                  kind: f.kind,
+                  options: JSON.stringify(f.options)
+                }
+              })
+            }).then(() => {
+              const { fields } = this.state
+              const field = fields.find(o => o.position === f.position)
+              const newField = field
+              newField.updated = undefined
+              fields[fields.indexOf(field)] = newField
+              this.setState({ fields })
+            })
+          }
+        })
+        deletionDiff.forEach(f => {
+          console.log('deleting', f)
+          const csrfToken = getAuthenticityToken()
+          axios({
+            method: 'post',
+            url: `/events/${event.slug}/registration/${f.slug}`,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: qs.stringify({
+              authenticity_token: csrfToken,
+              _method: 'delete'
+            })
+          }).catch(e => console.log(e))
+        })
+      })
+      this.setState({ hasChanged: false })
     }
-    const csrfToken = getAuthenticityToken()
-    axios({
-      method: browserHTTPMethod,
-      url: `/events/${event.slug}/registration/${this.props.field.slug}`,
-      data: {
-        authenticity_token: csrfToken,
-        _method: fakedHTTPMethod,
-        attendee_field: {
-          name: field.name,
-          label: field.label,
-          kind: field.kind,
-          value: field.value
-        }
-      }
-    })
   }
 
   render() {
-    const { fields, focusedField } = this.state
+    const { fields, focusedField, hasChanged } = this.state
+    /*if (hasChanged) {
+      window.addEventListener('beforeunload', event => {
+        event.returnValue = 'Your changes haven’t yet been saved!'
+      })
+    }*/
     return (
       <Fragment>
+        <IdleTimer
+          ref={ref => {
+            this.idleTimer = ref
+          }}
+          element={document}
+          onIdle={this.save}
+          debounce={250}
+          timeout={5000}
+        />
         <h2 className="heading" style={{ marginBottom: '1rem' }}>
           Edit signup form
           <span className="btn" onClick={this.addField}>
@@ -127,13 +228,26 @@ export default class Fields extends React.Component {
             {fields.map(field => (
               <Field
                 {...field}
-                focused={focusedField === field.name}
+                focused={focusedField === field.position}
                 setFocused={this.setFocused}
                 deleteField={this.deleteField}
                 updateField={this.updateField}
-                key={field.name}
+                key={field.position}
               />
             ))}
+            <div className="flex justify-center h3 muted">
+              {hasChanged ? (
+                <span>
+                  Unsaved changes —{' '}
+                  <a onClick={() => this.save()} style={{ cursor: 'pointer' }}>
+                    save now
+                  </a>
+                  .
+                </span>
+              ) : (
+                <span>All changes saved.</span>
+              )}
+            </div>
           </Fragment>
         )}
       </Fragment>

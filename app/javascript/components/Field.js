@@ -2,13 +2,14 @@ import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import { isEmpty, sortBy } from 'lodash'
 
-// TODO: editing name broke
+// TODO: fix issue with adding two options
 export default ({
   id,
   name,
   label,
   kind,
   options,
+  position,
   focused,
   setFocused,
   updateField,
@@ -22,29 +23,34 @@ export default ({
       .replace(/[^\w\s]/gi, '')
       .toLowerCase()
       .replace(/ /g, '_')
-    updateField(id, { label, name })
+    updateField(position, { label, name })
   }
+
   const addOption = () => {
     if (isEmpty(options)) {
-      updateField(id, { options: [{ position: 1, value: '' }] })
+      updateField(position, { options: [{ position: 1, value: '' }] })
     } else {
       let position = options[options.length - 1].position
       while (options.some(e => e.position === position)) position++
 
-      updateField(id, {
+      updateField(position, {
         options: options.concat([{ position, value: '' }])
       })
     }
   }
+
   const updateOption = (position, value) => {
     const option = options.find(o => o.position === position)
     const newOption = option
     newOption.value = value
     options[options.indexOf(option)] = newOption
-    updateField(id, { options })
+    updateField(position, { options })
   }
+
   const deleteOption = position => {
-    updateField(id, { options: options.filter(o => o.position !== position) })
+    updateField(position, {
+      options: options.filter(o => o.position !== position)
+    })
   }
 
   return (
@@ -61,6 +67,7 @@ export default ({
                 placeholder="Field name"
                 value={label}
                 onChange={updateLabel}
+                autoFocus
               />
               <code className="ml1">{name === '' ? '…' : name}</code>
             </Fragment>
@@ -74,7 +81,7 @@ export default ({
             <span className="badge ml-auto">Default</span>
           ) : focused ? (
             <div className="ml-auto flex items-center">
-              <Action onClick={() => deleteField(name)}>
+              <Action onClick={() => deleteField(position)}>
                 <Icon icon="trash" />
               </Action>
               <Action onClick={() => setFocused('')}>
@@ -82,7 +89,7 @@ export default ({
               </Action>
             </div>
           ) : (
-            <Actions onClick={() => setFocused(name)}>
+            <Actions onClick={() => setFocused(position)}>
               <span style={{ marginRight: '0.25rem' }}>Edit</span>
               <Icon icon="edit" />
             </Actions>
@@ -93,7 +100,7 @@ export default ({
             <select
               value={kind}
               icon={`/icons/${kind}.svg`}
-              onChange={e => updateField(id, { kind: e.target.value })}
+              onChange={e => updateField(position, { kind: e.target.value })}
               className="mb1"
             >
               <option value="text">Text input</option>
@@ -225,6 +232,8 @@ const FieldInput = ({ name, kind, options }) => {
           </Fragment>
         </select>
       )
+    default:
+      null
   }
 }
 const Input = styled.input`
