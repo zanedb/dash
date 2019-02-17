@@ -51,7 +51,6 @@ class AttendeesController < ApplicationController
 
   def create
     @attendee = @event.attendees.new(attendee_core_params)
-
     authorize @attendee
 
     # this passes parameters through to some internal model methods, it is very important -me@tmb.sh

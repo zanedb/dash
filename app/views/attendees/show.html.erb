@@ -96,7 +96,7 @@
         This attendee has already been checked in and out.
         You’re about to check them in again.
       <% else %>
-        You’re about to check in in <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.
+        You’re about to check in <strong><%= @attendee.name %></strong> at <strong><%= format_time Time.now %></strong> by <strong><%= current_user.name %></strong>.
       <% end %>
     </p>
     <%= link_to 'Check in', check_in_event_attendees_path(@event, @attendee), method: :post, class: 'btn' %>
