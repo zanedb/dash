@@ -44,6 +44,7 @@ end
 group :development do
   gem 'tracer_bullets', github: 'Capitalytics/tracer_bullets'
   gem 'better_errors'
+  gem 'foreman'
   gem 'binding_of_caller'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'

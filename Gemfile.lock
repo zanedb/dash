@@ -122,12 +122,16 @@ GEM
     devise_invitable (1.7.5)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
+    dotenv (0.7.0)
     erubi (1.8.0)
     execjs (2.7.0)
     ffi (1.10.0)
     file_validators (2.3.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
+    foreman (0.64.0)
+      dotenv (~> 0.7.0)
+      thor (>= 0.13.6)
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
     globalid (0.4.2)
@@ -318,6 +322,7 @@ DEPENDENCIES
   devise
   devise_invitable
   file_validators
+  foreman
   friendly_id
   groupdate
   httparty
