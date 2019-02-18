@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import { isEmpty, sortBy } from 'lodash'
 
-// TODO: fix issue with adding two options
 export default ({
   id,
   name,
@@ -30,26 +29,26 @@ export default ({
     if (isEmpty(options)) {
       updateField(position, { options: [{ position: 1, value: '' }] })
     } else {
-      let position = options[options.length - 1].position
-      while (options.some(e => e.position === position)) position++
+      let optionPosition = options[options.length - 1].position
+      while (options.some(e => e.position === optionPosition)) optionPosition++
 
       updateField(position, {
-        options: options.concat([{ position, value: '' }])
+        options: options.concat([{ position: optionPosition, value: '' }])
       })
     }
   }
 
-  const updateOption = (position, value) => {
-    const option = options.find(o => o.position === position)
+  const updateOption = (optionPosition, value) => {
+    const option = options.find(o => o.position === optionPosition)
     const newOption = option
     newOption.value = value
     options[options.indexOf(option)] = newOption
     updateField(position, { options })
   }
 
-  const deleteOption = position => {
+  const deleteOption = optionPosition => {
     updateField(position, {
-      options: options.filter(o => o.position !== position)
+      options: options.filter(o => o.position !== optionPosition)
     })
   }
 
