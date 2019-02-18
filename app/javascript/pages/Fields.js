@@ -114,7 +114,6 @@ export default class Fields extends React.Component {
         fields.forEach(f => {
           if (f.id === undefined) {
             // create field
-            console.log('creating', f)
             const csrfToken = getAuthenticityToken()
             axios({
               method: 'post',
@@ -135,7 +134,6 @@ export default class Fields extends React.Component {
             })
           } else if (f.updated !== undefined) {
             // edited field
-            console.log('edited', f)
             const csrfToken = getAuthenticityToken()
             axios({
               method: 'post',
@@ -164,7 +162,6 @@ export default class Fields extends React.Component {
           }
         })
         deletionDiff.forEach(f => {
-          console.log('deleting', f)
           const csrfToken = getAuthenticityToken()
           axios({
             method: 'post',
