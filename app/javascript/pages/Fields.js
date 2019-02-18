@@ -3,7 +3,7 @@ import axios from 'axios'
 import IdleTimer from 'react-idle-timer'
 import qs from 'qs'
 import Field from 'components/Field'
-import { isEmpty, difference, differenceBy } from 'lodash'
+import { isEmpty, differenceBy } from 'lodash'
 import { getAuthenticityToken } from 'utils'
 
 export default class Fields extends React.Component {
@@ -88,6 +88,7 @@ export default class Fields extends React.Component {
         fields: state.fields.concat([
           { name, label: newLabel, kind: 'text', position: '1' }
         ]),
+        focusedField: '1',
         hasChanged: true
       }))
     } else {
@@ -98,6 +99,7 @@ export default class Fields extends React.Component {
         fields: state.fields.concat([
           { name, label: newLabel, kind: 'text', position }
         ]),
+        focusedField: position,
         hasChanged: true
       }))
     }
@@ -173,7 +175,7 @@ export default class Fields extends React.Component {
               authenticity_token: csrfToken,
               _method: 'delete'
             })
-          }).catch(e => console.log(e))
+          })
         })
       })
       this.setState({ hasChanged: false })
