@@ -51,9 +51,17 @@ export default class Fields extends React.Component {
   }
 
   deleteField = position => {
-    const check = confirm(
-      'Are you sure you want to delete this field and all responses? You cannot undo this.'
-    )
+    // include more serious prompt for preexisting fields
+    const { fields } = this.state
+    const field = fields.find(o => o.position === position)
+    let check = true
+    if (field.id) {
+      check = confirm(
+        'Are you sure you want to delete this field and all responses? You cannot undo this.'
+      )
+    } else {
+      check = confirm('Are you sure you want to delete this field?')
+    }
     if (check) {
       this.setState(state => ({
         fields: state.fields.filter(e => e.position !== position),
@@ -65,6 +73,8 @@ export default class Fields extends React.Component {
 
   addField = () => {
     const { fields } = this.state
+
+    // generate "New field x" label & name
     let label = ['New field', 0]
     while (
       fields.some(
@@ -75,7 +85,6 @@ export default class Fields extends React.Component {
     ) {
       label[1]++
     }
-
     const newLabel = label[1] === 0 ? label[0] : label.join(' ')
     const name = newLabel
       .trim()
@@ -83,6 +92,7 @@ export default class Fields extends React.Component {
       .toLowerCase()
       .replace(/ /g, '_')
 
+    // handle position of new field
     if (isEmpty(fields)) {
       this.setState(state => ({
         fields: state.fields.concat([
@@ -102,6 +112,7 @@ export default class Fields extends React.Component {
         focusedField: position,
         hasChanged: true
       }))
+      window.scrollTo(0, document.body.scrollHeight)
     }
   }
 
@@ -109,6 +120,7 @@ export default class Fields extends React.Component {
     const { hasChanged, fields } = this.state
     const { event } = this.props.props
     if (hasChanged) {
+      // get old fields from endpoint, compare, update server-side data
       axios.get(`/events/${event.slug}/registration.json`).then(res => {
         const oldFields = res.data
         const deletionDiff = differenceBy(oldFields, fields, 'id')
@@ -135,7 +147,7 @@ export default class Fields extends React.Component {
               })
             })
           } else if (f.updated !== undefined) {
-            // edited field
+            // edit field
             const csrfToken = getAuthenticityToken()
             axios({
               method: 'post',
@@ -154,6 +166,7 @@ export default class Fields extends React.Component {
                 }
               })
             }).then(() => {
+              // reset field's "updated" state
               const { fields } = this.state
               const field = fields.find(o => o.position === f.position)
               const newField = field
@@ -164,6 +177,7 @@ export default class Fields extends React.Component {
           }
         })
         deletionDiff.forEach(f => {
+          // delete field
           const csrfToken = getAuthenticityToken()
           axios({
             method: 'post',
