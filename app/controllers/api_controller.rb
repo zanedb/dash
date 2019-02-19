@@ -6,23 +6,10 @@ class ApiController < ApplicationController
   CORE_PARAMS = %i[first_name last_name email note]
 
   def new_attendee
-    # @attendee = @event.attendees.new(**attendee_core_params.symbolize_keys, values_attributes: @event.fields.map { |field| { field: field, content: attendee_field_params[field.name] } })
     @attendee = @event.attendees.new(attendee_core_params)
+	  @attendee.set_attendee_params(attendee_params)
+    
     if @attendee.save
-      @fields = @event.fields
-      @fields.each do |field|
-        @attendee.values.create!(field: field, content: attendee_params[field.name])
-      end
-      if @event.webhooks.any?
-        @event.webhooks.each do |webhook|
-          case webhook.request_type
-          when 'GET'
-            HTTParty.get(webhook.url)
-          when 'POST'
-            HTTParty.post(webhook.url, body: { attendee: @attendee.attrs })
-          end
-        end
-      end
       render json: @attendee.attrs.as_json, status: status
     else
       render json: { errors: @attendee.errors }, status: 400
