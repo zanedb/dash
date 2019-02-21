@@ -35,8 +35,7 @@
     <div class="a-lil-bottom-margin">
       <label class="field">
         <%= field.label %>
-        <% field.kind == 'multiselect' ? value = field.options : value = @values ? @values[field.name] : '' %>
-        <%= custom_field field, form, value %>
+        <%= custom_field field, form, field.kind == 'multiselect' ? field.options : @values ? @values[field.name] : '' %>
       </label>
     </div>
   <% end %>
