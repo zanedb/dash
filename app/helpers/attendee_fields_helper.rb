@@ -24,7 +24,7 @@ module AttendeeFieldsHelper
     when 'email'
       form.email_field field.name, value: value
     when 'multiselect'
-      form.select field.name, value
+      form.select field.name, JSON.parse(value).map { |o| o.values[1] }
     end
   end
 end

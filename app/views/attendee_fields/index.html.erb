@@ -6,10 +6,7 @@
   <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %>
 </div>
 
-<h1 class="heading">
-  Edit signup form
-  <%= link_to 'Add a field', new_event_attendee_field_path, class: 'btn' %>
-</h1>
+<h1>Set up registration</h1>
+<%# react_component 'Registration', props: { event: @event.as_json } %> 
 
-<!--<h2 class="heading">Registration form</h2>-->
 <%= react_component 'Fields', props: { event: @event.as_json } %>
