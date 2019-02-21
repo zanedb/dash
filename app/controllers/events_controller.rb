@@ -2,8 +2,9 @@
 
 class EventsController < ApplicationController
   before_action :please_sign_in
-  before_action :set_event, only: %i[show edit update destroy]
-  before_action -> { authorize @event }, only: %i[show edit update destroy]
+  before_action :set_event, only: %i[show edit update destroy embed_js]
+  before_action lambda {  authorize @event }, only: %i[show edit update destroy]
+  protect_from_forgery except: :embed_js
 
   # GET /events
   def index
@@ -18,7 +19,8 @@ class EventsController < ApplicationController
   def show
     @invites = @event.organizer_position_invites
     @attendees = @event.attendees
-    @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
+    @attendees_new_week_count =
+      @attendees.where('created_at > ?', 1.week.ago).count
   end
 
   # GET /events/new
@@ -28,8 +30,7 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /events
   def create
@@ -61,10 +62,30 @@ class EventsController < ApplicationController
     flash[:success] = 'Event destroyed.'
   end
 
+  def embed_js
+    @attendee = @event.attendees.new
+    render :embed, layout: false
+  end
+
+  def configure
+    if @event.registration_config.update(registration_config_params)
+      redirect_to request.referrer || event_path(@event)
+      flash[:success] = 'Registration configured.'
+    else
+      render :edit
+    end
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:name, :start_date, :end_date, :city, :permitted_domains)
+    params.require(:event).permit(
+      :name,
+      :start_date,
+      :end_date,
+      :city,
+      :permitted_domains
+    )
   end
 end

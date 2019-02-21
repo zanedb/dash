@@ -16,6 +16,7 @@ module HM
       allow do
         origins '*'
         resource '/api/*', headers: :any, methods: [:get, :post, :options]
+        resource '/embed/*', headers: :any, methods: [:get, :post, :options]
       end
     end
 
