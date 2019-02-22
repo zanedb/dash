@@ -1,8 +1,7 @@
 {
-  "name": "h-m",
+  "name": "dash",
   "description": "",
-  "scripts": {
-  },
+  "scripts": {},
   "env": {
     "LANG": {
       "required": true
@@ -24,6 +23,9 @@
     },
     "SECRET_KEY_BASE": {
       "required": true
+    },
+    "DATABASE_URL": {
+      "required": true
     }
   },
   "formation": {
@@ -31,9 +33,7 @@
       "quantity": 1
     }
   },
-  "addons": [
-    "heroku-postgresql"
-  ],
+  "addons": ["heroku-postgresql"],
   "stack": "heroku-18",
   "buildpacks": [
     {
