@@ -1,0 +1,16 @@
+<% title "Export attendees on #{@event.name}" %>
+<% page_sm %>
+<div class="breadcrumbs">
+  <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path(@event) %>
+</div>
+
+<h1 class="heading">
+  Export attendees
+</h1>
+
+<h2>Export a CSV file</h2>
+<p class="muted my2">
+  This will export your attendees as a CSV (comma-separated values) file,
+  which you can use in Numbers, Google Sheets, Excel, and more.
+</p>
+<%= link_to 'Export', event_attendees_path(format: :csv), class: 'btn' %>

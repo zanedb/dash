@@ -5,7 +5,7 @@ class AttendeesController < ApplicationController
   before_action :set_event
   before_action :set_attendee, only: %i[show edit update destroy check_in check_out reset_status]
   before_action -> { authorize @attendee }, only: %i[show edit update destroy check_in check_out reset_status]
-  before_action :custom_authorization, only: %i[index import import_csv]
+  before_action :custom_authorization, only: %i[index import import_csv export]
 
   CORE_PARAMS = %i[first_name last_name email note].freeze
 
@@ -135,6 +135,8 @@ class AttendeesController < ApplicationController
     end
     redirect_to event_attendees_path(@event)
   end
+
+  def export; end
 
   private
 
