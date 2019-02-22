@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root 'pages#index'
+
+  scope '/embed' do
+    get '/:event_id', to: 'events#embed_js', as: :embed
+  end
+
+  scope '/api/v1' do
+    post '/events/:event_id/attendees',
+         to: 'api#new_attendee', as: :api_new_attendee
+  end
+
   devise_for :users, skip: %i[registrations invitation]
   as :user do
     get 'users/edit',
@@ -19,7 +30,17 @@ Rails.application.routes.draw do
          to: 'all_users#stop_impersonating', as: :stop_impersonating_user
   end
 
-  resources :events do
+  scope '/admin' do
+    get '/', to: 'admin#index', as: :admin
+    get '/all_users', to: 'admin#all_users', as: :all_users
+  end
+
+  get '/events', to: 'events#index', as: :events
+  post '/events', to: 'events#create'
+
+  resources :events, path: '/', except: %w[index create] do
+    get '/team', to: 'events#team', as: :team
+
     resources :attendees do
       collection do
         post '/:id/check_in', to: 'attendees#check_in', as: :check_in
@@ -28,9 +49,14 @@ Rails.application.routes.draw do
              to: 'attendees#reset_status', as: :reset_status
         get '/import', to: 'attendees#import', as: :import
         post '/import_csv', to: 'attendees#import_csv', as: :import_csv
+        get '/export', to: 'attendees#export', as: :export
       end
     end
-    resources :attendee_fields, path: 'registration'
+    resources :attendee_fields, path: 'registration' do
+      collection do
+        get '/api', to: 'attendee_fields#api', as: :api
+      end
+    end
     resources :waivers, path: 'waiver'
     resources :attendee_waivers, path: 'waivers'
 
@@ -47,20 +73,4 @@ Rails.application.routes.draw do
 
     resources :webhooks
   end
-
-  scope 'embed' do
-    get '/:event_id', to: 'events#embed_js', as: :embed
-  end
-
-  scope '/api/v1' do
-    post '/events/:event_id/attendees',
-         to: 'api#new_attendee', as: :api_new_attendee
-  end
-
-  scope '/admin' do
-    get '/', to: 'admin#index', as: :admin
-    get '/all_users', to: 'admin#all_users', as: :all_users
-  end
-
-  root 'pages#index'
 end
