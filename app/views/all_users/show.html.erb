@@ -1,4 +1,5 @@
 <% title "User #{@user.name}" %>
+<% page_sm %>
 <div class="breadcrumbs">
   <%= link_to 'Grand Admin Station', root_url %> › <%= link_to 'All Users', all_users_path %>
 </div>
@@ -19,7 +20,7 @@
   <%= link_to 'Impersonate', impersonate_user_path(@user), class: 'btn', method: :post %>
 </div>
 
-<h2><%= @user.name %>’s Events</h2>
+<h2 class="m0 mt3"><%= @user.name %>’s Events</h2>
 <% if @user.events.any? %>
   <ul class="list">
     <% @user.events.each do |event| %>
@@ -40,4 +41,3 @@
 <% else %>
   <p class="muted"><%= @user.name %> does not manage any events.</p>
 <% end %>
-

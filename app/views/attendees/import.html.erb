@@ -1,18 +1,18 @@
-<% title "Import Attendees on #{@event.name}" %>
+<% title "Import attendees on #{@event.name}" %>
+<% page_sm %>
 <div class="breadcrumbs">
   <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path(@event) %>
 </div>
 
 <h1 class="heading">
-  Import Attendees
+  Import attendees
 </h1>
 
-<h2>Import a CSV File</h2>
+<h2>Import a CSV file</h2>
 <%= form_tag import_csv_event_attendees_path, method: :post, multipart: true do %>
   <p class="muted">
-    If you’d like to import custom field values, ensure their
-    column names in the CSV header are written exactly as defined in your
-    <%= link_to 'event’s custom fields', event_attendee_fields_path(@event) %>.
+    Ensure that all column names in the CSV headings are the correct names from the
+    <%= link_to 'form builder', event_attendee_fields_path(@event) %> (i.e. <code>first_name</code>).
   </p>
 
   <div class="field">
