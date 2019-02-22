@@ -1,0 +1,31 @@
+<%= content_tag :section, id: "dash--#{@event.slug}-registration", class: "dash--form" do %>
+  <h1>Register for <%= @event.name %></h1>
+  <%= form_with(model: @attendee, url: api_new_attendee_url(@event)) do |form| %>
+    <div class="dash--field">
+      <%= form.label :first_name %>
+      <%= form.text_field :first_name %>
+    </div>
+
+    <div class="dash--field">
+      <%= form.label :last_name %>
+      <%= form.text_field :last_name %>
+    </div>
+
+    <div class="dash--field">
+      <%= form.label :email %>
+      <%= form.text_field :email %>
+    </div>
+
+    <% @event.fields.each do |field| %>
+      <div class="dash--field">
+        <%= content_tag :label, field.name, for: field.name %>
+        <%= custom_field field, form, field.kind == 'multiselect' ? field.options : @values ? @values[field.name] : '' %>
+      </div>
+    <% end %>
+
+    <div class="dash--actions">
+      <%= form.submit 'Register' %>
+    </div>
+  <% end %>
+<% end %>
+<%= stylesheet_link_tag 'embed', media: 'all' %>
