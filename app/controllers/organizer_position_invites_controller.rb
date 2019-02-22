@@ -2,12 +2,6 @@ class OrganizerPositionInvitesController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
 
-  def new
-    @invite = OrganizerPositionInvite.new
-    @invite.event = @event
-    authorize @invite
-  end
-
   def create
     @invite = OrganizerPositionInvite.new(invite_params)
     @invite.event = @event

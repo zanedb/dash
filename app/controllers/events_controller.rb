@@ -2,8 +2,8 @@
 
 class EventsController < ApplicationController
   before_action :please_sign_in
-  before_action :set_event, only: %i[show edit update destroy embed_js]
-  before_action lambda {  authorize @event }, only: %i[show edit update destroy]
+  before_action :set_event, except: %i[index new create]
+  before_action lambda {  authorize @event }, except: %i[index new create embed_js]
   protect_from_forgery except: :embed_js
 
   # GET /events
@@ -60,6 +60,11 @@ class EventsController < ApplicationController
     @event.destroy
     redirect_to events_url
     flash[:success] = 'Event destroyed.'
+  end
+  
+  def team
+    @invite = OrganizerPositionInvite.new
+    @invite.event = @event
   end
 
   def embed_js

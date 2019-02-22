@@ -13,6 +13,14 @@ class EventPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def team?
+    record.users.include?(user) || user.admin?
+  end
+
+  def configure?
+    record.users.include?(user) || user.admin?
+  end
+
   def show?
     record.users.include?(user) || user.admin?
   end

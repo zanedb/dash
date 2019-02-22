@@ -40,16 +40,6 @@
     <% end %>
   </ul>
 <% end %>
-<% if @event.organizer_position_invites.pending.any? %>
-  <h2>Pending Invitations</h2>
-  <ul class="list list--row list--unlinked">
-    <% @event.organizer_position_invites.pending.each do |invite| %>
-      <li>
-        <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %>/<%= link_to  'View', event_organizer_position_invite_path(@event, invite)  %><% end %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
 
 <h2>Invite Another Member</h2>
 <p>This person will have full access to your event.</p>
@@ -74,4 +64,15 @@
   <div class="actions">
     <%= form.submit 'Send Invitation' %>
   </div>
+<% end %>
+
+<% if @event.organizer_position_invites.pending.any? %>
+  <h2>Pending Invitations</h2>
+  <ul class="list list--row list--unlinked">
+    <% @event.organizer_position_invites.pending.each do |invite| %>
+      <li>
+        <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %>/<%= link_to  'View', event_organizer_position_invite_path(@event, invite)  %><% end %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>

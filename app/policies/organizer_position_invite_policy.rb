@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class OrganizerPositionInvitePolicy < ApplicationPolicy
-  def new?
-    user.admin? || record.event&.users&.include?(user)
-  end
-
   def create?
     user.admin? || record.event.users.include?(user)
   end
