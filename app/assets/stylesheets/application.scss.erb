@@ -237,8 +237,10 @@ input[type='submit'],
 .container--sm {
   max-width: 32rem;
 }
-.container--md {
-  max-width: 48rem;
+.container--none {
+  padding: 0 !important;
+  margin: 0;
+  max-width: none;
 }
 
 .turbolinks-progress-bar {
@@ -543,6 +545,46 @@ li .badge {
   a {
     padding: 0.5rem 1rem;
   }
+}
+
+.title {
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 900;
+  color: #0069ff;
+}
+
+@media (min-width: 32em) {
+  .two-column {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+  }
+  .two-column > .left-column {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .two-column > .left-column > .left--inside {
+    align-self: center;
+    min-width: 24rem;
+  }
+  .two-column > .right-column {
+    width: 50%;
+  }
+}
+@media (max-width: 32em) {
+  .two-column {
+    padding: 1rem;
+  }
+}
+
+.pattern {
+  background-image: url('https://hackclub.com/pattern.svg');
+  background-color: $primary;
 }
 
 @import 'lists';
