@@ -23,22 +23,21 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
 
-  def gravatar_url(email, name, size = 48)
+  def gravatar_url(email, name, id, size = 48)
     hex = Digest::MD5.hexdigest(email.downcase.strip)
-    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(name.present? ? get_initials(name) : '?')}/#{size}/#{name.present? ? color_for(name) : '97a0ad'}/fff/2/0.4/false/true"
+    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(name.present? ? get_initials(name) : '?')}/#{size}/#{id.present? ? user_color(id) : '97a0ad'}/fff/2/0.4/false/true"
   end
 
-  def color_for(name)
-    alphabet = ('A'..'Z').to_a
+  def user_color(id)
     colors = ['005fe6','1300e6','8600e6','e700d4','e70060','e61300','e68600','d4e700','60e700','00e713','00e787','00d3e7']
-    colors[alphabet.index(name.first).to_i % alphabet.length] || colors.last
+    colors[id.to_i % colors.length] || colors.last
   end
 
   def avatar_for(user, size = 48, options = {})
     image = if user.class != Attendee && user&.avatar&.attached?
               user.avatar
             else
-              gravatar_url(user.email, user.name, size * 2)
+              gravatar_url(user.email, user.name, user.id, size * 2)
             end
     image_tag image, options.merge(title: user.name, alt: user.name, width: size, height: size, class: "profile-img #{options[:class]}")
   end
