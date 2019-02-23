@@ -1,5 +1,5 @@
 <% title "Attendees on #{@event.name}" %>
-<% @include_react = true %>
+<%# @include_react = true %>
 <div class="breadcrumbs">
   <%= link_to @event.name, @event %>
 </div>
@@ -16,7 +16,7 @@
 </ul>
 
 <details>
-  <summary class="h3 my2 bold">Check-in Stats</summary>
+  <summary class="h3 my2 bold">Check-in stats</summary>
   <p class="muted no-margin">
     <%= pluralize @attendees.checked_in_total, 'attendee' %> checked in, <%= pluralize @attendees.checked_in_and_out_total, 'attendee' %> checked in and out.
   </p>
@@ -27,4 +27,36 @@
   <%= link_to 'Import', import_event_attendees_path(@event), class: 'btn' %>
   <%= link_to 'Export', export_event_attendees_path(@event), class: 'btn' %>
 </h2>
-<%= react_component 'Attendees', props: { attendees: @attendees.json, path: event_attendees_path(@event) } %>
+
+<% if @attendees.empty? %>
+  <p class="muted">There are no attendees.</p>
+<% else %>
+  <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
+    <%= search_field_tag :search, params[:search], placeholder: "Search #{pluralize @attendees.count, 'attendee'}…", class: 'full-width' %>
+  <% end %>
+  <%= content_tag :ul, class: "list list--row list--border-always #{@attendees.count == 1 ? '' : 'list--dual'}" do %>
+    <% @attendees.each do |attendee| %>
+      <%= link_to event_attendee_path(@event, attendee) do %>
+        <li>
+          <%= avatar_for attendee, 48 %>
+          <div class="ml2">
+            <span class="bold block">
+              <%= attendee.name %>
+              <% if attendee.checked_in? %>
+                <%= 
+                  content_tag :span,
+                  "Checked in#{attendee.both? ? ' & out' : ''}",
+                  class: attendee.both? ? 'badge bg-success' : 'badge bg-info' 
+                %>
+              <% end %>
+            </span>
+            <span class="muted">
+              <%= attendee.email %>
+            </span>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<%# react_component 'Attendees', props: { attendees: @attendees.json, path: event_attendees_path(@event) } %>
