@@ -25,7 +25,7 @@ class OrganizerPositionInvitesController < ApplicationController
       flash[:success] = 'Invite sent.'
       redirect_to @invite.event
     else
-      render :new
+      render 'events/team'
     end
   end
 
