@@ -91,9 +91,8 @@ $(document).on('turbolinks:load', function() {
   // pass in function for each record
   const filterRecords = valid => {
     const records = selectByBehavior('filterbar__row').hide()
-    console.log(records)
-    records.each(record => {
-      if (valid(record)) $(record).show()
+    records.each(function() {
+      if (valid(this)) $(this).show()
     })
   }
 
@@ -102,20 +101,18 @@ $(document).on('turbolinks:load', function() {
     if (e.keyCode === 13) $(e.target).click()
   })
 
-  $(document).on('click', '[data-behavior~=filterbar__item]', () => {
-    const name = $(this).data('name') || 'exists'
+  $(document).on('click', '[data-behavior~=filterbar__item]', e => {
+    const name = $(e.target).data('name') || 'exists'
     activateFilterItem(name)
     filterRecords(record => {
       const data = $(record).data('filter')
-      console.log(data) // returns undefined, should return json
-      console.log(record) // returns 0, should return record
-      return data[name] // returns undefined, should return true/false from currentFilter record in data-filter
+      return data[name] // returns true/false from currentFilter record in data-filter
     })
   })
 
-  $(document).on('input', '[data-behavior~=filterbar__search]', () => {
+  $(document).on('input', '[data-behavior~=filterbar__search]', e => {
     if (currentFilter() !== 'exists') activateFilterItem('exists')
-    const value = $(this)
+    const value = $(e.target)
       .val()
       .toLowerCase()
     filterRecords(
