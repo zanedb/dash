@@ -73,7 +73,9 @@ $(document).ready(function() {
       $('.dropdown__btn').attr('aria-expanded', 'false')
     }
   })
+})
 
+$(document).on('turbolinks:load', () => {
   // filter/search helpers & code
   const currentFilter = () =>
     selectByBehavior('filterbar__item', '[aria-selected=true]').data('name')
@@ -125,12 +127,12 @@ $(document).ready(function() {
   })
 
   // remember login email
-  $(document).on('submit', '[data-behavior~=login]', () => {
+  $(document).on('submit', '[data-behavior~=remember_email]', () => {
     localStorage.setItem('login_email', $('input[type=email]').val())
   })
-  elementIsThere('login') &&
+  elementIsThere('remember_email') &&
     (loginEmail = localStorage.getItem('login_email')) &&
-    selectByBehavior('login')
+    selectByBehavior('remember_email')
       .find('input[type=email]')
       .val(loginEmail)
 })
