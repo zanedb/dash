@@ -19,6 +19,20 @@ class Event < ApplicationRecord
   validates :name, :start_date, :end_date, :city, :user_id, presence: true
   validate :permitted_domains_cannot_have_trailing_slash
 
+  def past?
+    end_date.past?
+  end
+
+  def future?
+    start_date.future?
+  end
+
+  def filter_data
+    { exists: true, past: past?, future: future? }
+  end
+
+  private
+
   def permitted_domains_cannot_have_trailing_slash
     permitted_domains.split(',').each do |domain|
       if domain[-1] == '/'
