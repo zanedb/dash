@@ -47,6 +47,12 @@ module ApplicationHelper
     separated.length == 2 ? "#{separated[0][0].upcase}#{separated[1][0].upcase}" : name
   end
 
+  def filterbar_item(label, name, selected = false)
+    content_tag :a, label, class: 'filterbar__item',
+    tabindex: 0, role: 'tab', 'aria-selected': selected,
+    data: { name: name.to_s, behavior: 'filterbar__item' }
+  end
+
   def user_mention(user)
     avi = avatar_for user
     name = content_tag :span, user.name

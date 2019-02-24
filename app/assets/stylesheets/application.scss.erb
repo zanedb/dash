@@ -587,5 +587,30 @@ li .badge {
   background-color: $primary;
 }
 
+.filterbar {
+  padding: 1rem 0;
+  width: 100%;
+}
+.filterbar__search {
+  @media screen and (min-width: 32em), all {
+    margin-right: 1rem !important;
+  }
+}
+.filterbar__item {
+  border-radius: 1rem;
+  cursor: pointer;
+  display: inline-block;
+  flex-shrink: 0;
+  font-weight: 500;
+  line-height: 1.75;
+  outline: 0;
+  padding: 0.125rem 0.75rem;
+  text-decoration: none;
+}
+.filterbar__item[aria-selected='true'] {
+  background-color: $primary;
+  color: #fff;
+}
+
 @import 'lists';
 @import 'utilities';

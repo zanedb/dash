@@ -34,9 +34,25 @@
   <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
     <%= search_field_tag :search, params[:search], placeholder: "Search #{pluralize @attendees.count, 'attendee'}…", class: 'full-width' %>
   <% end %>
+  <div class="filterbar flex flex-wrap items-center width-100">
+    <input
+      type="search"
+      autofocus
+      data-behavior="filterbar__search"
+      placeholder="Search…"
+      aria-label="Filter attendees"
+      class="filterbar__search flex-auto md-mr22"
+      style="width: auto; max-width: none;"
+    >
+    <div data-behavior="filterbar" role="tablist" class="filterbar__filters flex mt1 lg-mt0">
+      <%= filterbar_item 'All', :exists, true %>
+      <%= filterbar_item 'Checked-in', :checked_in %>
+      <%= filterbar_item 'Checked-out', :checked_out %>
+    </div>
+  </div>
   <%= content_tag :ul, class: "list list--row list--border-always #{@attendees.count == 1 ? '' : 'list--dual'}" do %>
     <% @attendees.each do |attendee| %>
-      <%= link_to event_attendee_path(@event, attendee) do %>
+      <%= link_to event_attendee_path(@event, attendee), data: { behavior: 'filterbar__row', filter: attendee.filter_data.to_json } do %>
         <li>
           <%= avatar_for attendee, 48 %>
           <div class="ml2">

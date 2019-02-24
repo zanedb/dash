@@ -155,6 +155,10 @@ class Attendee < ApplicationRecord
     checked_out? && checked_in?
   end
 
+  def filter_data
+    { exists: true, checked_in: checked_in?, checked_out: checked_out? }
+  end
+
   def self.checked_in_total
     all.checked_in.count
   end
