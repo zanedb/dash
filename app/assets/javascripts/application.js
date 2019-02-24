@@ -22,7 +22,7 @@ const deselectElement = (selector, filter = '[aria-selected=true]') =>
 const selectElement = (selector, filter) =>
   selectByBehavior(selector, filter).attr('aria-selected', true)
 
-$(document).on('turbolinks:load', function() {
+$(document).ready(function() {
   // open & then close flash message a bit later
   if ($('.flash').length) {
     $('.flash')
