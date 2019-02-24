@@ -118,7 +118,7 @@ $(document).on('turbolinks:load', function() {
     filterRecords(
       record =>
         $(record)
-          .text()
+          .data('name')
           .toLowerCase()
           .indexOf(value) > -1
     )
