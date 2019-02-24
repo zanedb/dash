@@ -58,5 +58,13 @@ $(document).ready(function() {
       $('.dropdown__btn').attr('aria-expanded', 'false')
     }
   })
-  /* END DROPDOWN CODE */
+  // remember login email
+  $(document).on('submit', '[data-behavior~=login]', () => {
+    localStorage.setItem('login_email', $('input[type=email]').val())
+  })
+  elementIsThere('login') &&
+    (loginEmail = localStorage.getItem('login_email')) &&
+    selectByBehavior('login')
+      .find('input[type=email]')
+      .val(loginEmail)
 })

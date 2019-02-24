@@ -6,7 +6,7 @@
     <div class="left--inside">
       <h1>Sign in to Dash</h1>
 
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { behavior: 'login' }) do |f| %>
         <div class="field">
           <%= f.label :email %>
           <%= f.email_field :email, autofocus: true, autocomplete: 'email' %>
