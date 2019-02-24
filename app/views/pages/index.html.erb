@@ -1,58 +1,50 @@
-<% if user_signed_in? %>
-  <% title 'Home' %>
+<% title 'Home' %>
+<% page_sm %>
+<div class="center">
   <% if current_user != true_user %>
-    <p class="center muted h3">You are currently impersonating <%= current_user.name %>. <%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %>.</p>
+    <p class="center muted h4">You are currently impersonating <%= current_user.name %>. <%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %>.</p>
   <% end %>
-  <h1>Dash</h1>
-  <h3 class="a-lil-bottom-margin">✨ A next-gen hackathon management system</h3>
-  <h4 class="a-lil-bottom-margin">
-    👋 Welcome, <%= current_user.name %>. Happy <%= local_time(Time.now, '%A') %>! You’re doing great.
-  </h4>
-  <p class="slate">(Please note: <u>Dash</u> is in no way the final name. <strong><%= link_to 'Name suggestions welcome', 'https://goo.gl/forms/Rcq48KDHpexpZyyF2', target: '_blank' %></strong>.)</p>
+  <h1 class="title heading">Dash</h1>
+  <p class="slate">(<u>Dash</u> is in no way the final name. <strong><%= link_to 'Name suggestions welcome', 'https://goo.gl/forms/Rcq48KDHpexpZyyF2', target: '_blank' %></strong>.)</p>
+</div>
 
-  <% if @invites.any? %>
-    <h2>
-      Invitations
-    </h2>
-    <p class="a-lil-bottom-margin slate">You have <%= pluralize @invites.count, 'pending invitation' %>.</p>
-    <ul class="list list--border-top">
-      <% @invites.each do |invite| %>
-        <li><%= link_to invite.event.name, event_organizer_position_invite_path(invite.event, invite) %></li>
+<% if @invites.any? %>
+  <h2>
+    Invitations
+  </h2>
+  <p class="a-lil-bottom-margin slate">You have <%= pluralize @invites.count, 'pending invitation' %>.</p>
+  <ul class="list list--border-top">
+    <% @invites.each do |invite| %>
+      <li><%= link_to invite.event.name, event_organizer_position_invite_path(invite.event, invite) %></li>
+    <% end %>
+  </ul>
+<% end %>
+<% if @events.any? %>
+  <h2>
+    Your events
+  </h2>
+  <ul class="list">
+    <% @events.each do |event| %>
+      <%= link_to event do %>
+        <li>
+          <div>
+            <span class="bold block">
+              <%= event.name %>
+            </span>
+            <span class="muted">
+              <%= event.city %> — <%= event_length(event).html_safe %>
+            </span>
+          </div>
+        </li>
       <% end %>
-    </ul>
-  <% end %>
-  <% if @events.any? %>
-    <h2>
-      My Events
-    </h2>
-    <ul class="list">
-      <% @events.each do |event| %>
-        <%= link_to event do %>
-          <li>
-            <div>
-              <span class="bold block">
-                <%= event.name %>
-              </span>
-              <span class="muted">
-                <%= event.city %> — <%= event_length(event).html_safe %>
-              </span>
-            </div>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  <% end %>
-  <% if current_user.admin? %>
-    <h2>Grand Admin Station</h2>
-    <ul class="list">
-      <li class="h3"><%= link_to 'All Events', events_path %></li>
-      <li class="h3"><%= link_to 'New Event', new_event_path %></li>
-      <li class="h3"><%= link_to 'All Users', all_users_path %></li>
-    </ul>
-  <% end %>
-<% else %>
-  <h1>There’s more to see…</h1>
-  <article>
-    <%= link_to 'Sign in', new_user_session_path, class: 'btn' %>
-  </article>
+    <% end %>
+  </ul>
+<% end %>
+<% if current_user.admin? %>
+  <h2>Grand Admin Station</h2>
+  <ul class="list">
+    <li class="h3"><%= link_to 'All events', events_path %></li>
+    <li class="h3"><%= link_to 'New event', new_event_path %></li>
+    <li class="h3"><%= link_to 'All users', all_users_path %></li>
+  </ul>
 <% end %>
