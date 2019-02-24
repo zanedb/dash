@@ -15,6 +15,5 @@ Turbolinks.start()
 
 import WebpackerReact from 'webpacker-react'
 import Fields from '../pages/Fields'
-import Attendees from '../pages/Attendees'
 
-WebpackerReact.setup({ Fields, Attendees })
+WebpackerReact.setup({ Fields })
