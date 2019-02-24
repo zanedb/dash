@@ -31,19 +31,16 @@
 <% if @attendees.empty? %>
   <p class="muted">There are no attendees.</p>
 <% else %>
-  <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
-    <%= search_field_tag :search, params[:search], placeholder: "Search #{pluralize @attendees.count, 'attendee'}…", class: 'full-width' %>
-  <% end %>
   <div class="filterbar flex flex-wrap items-center width-100">
-    <input
-      type="search"
-      autofocus
-      data-behavior="filterbar__search"
-      placeholder="Search…"
-      aria-label="Filter attendees"
-      class="filterbar__search flex-auto md-mr22"
-      style="width: auto; max-width: none;"
-    >
+    <%= search_field_tag :search,
+      '',
+      autofocus: true,
+      data: { behavior: 'filterbar__search' },
+      aria: { label: 'Filter attendees' },
+      placeholder: "Search #{pluralize @attendees.count, 'attendee'}…",
+      class: 'filterbar__search flex-auto',
+      style: 'width: auto; max-width: none;'
+    %>
     <div data-behavior="filterbar" role="tablist" class="filterbar__filters flex mt1 lg-mt0">
       <%= filterbar_item 'All', :exists, true %>
       <%= filterbar_item 'Checked-in', :checked_in %>
