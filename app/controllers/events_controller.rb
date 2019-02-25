@@ -35,7 +35,7 @@ class EventsController < ApplicationController
   # POST /events
   def create
     authorize Event
-    @event = Event.new(event_params.merge(user_id: current_user_id))
+    @event = Event.new(event_params)
 
     if @event.save
       redirect_to @event
