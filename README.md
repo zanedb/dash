@@ -9,17 +9,10 @@ $ git clone https://github.com/zanedb/dash.git
 $ cd dash
 ```
 
-2. Install dependencies.
+2. Install dependencies, setup the db & add test data — make sure to respond to & read the prompts.
 
 ```sh
-$ bundle install
-$ yarn
-```
-
-3. Create & setup the db with test data.
-
-```sh
-$ rails db:create db:setup
+$ ./bin/setup
 ```
 
 3. Start the development server.
