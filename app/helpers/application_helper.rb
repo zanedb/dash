@@ -29,7 +29,7 @@ module ApplicationHelper
   end
 
   def user_color(id)
-    colors = ['005fe6','1300e6','8600e6','e700d4','e70060','e61300','e68600','d4e700','60e700','00e713','00e787','00d3e7']
+    colors = ['006aff','7a6fff','bf66ff','ff70f3','ff6daa','ff7467','ff9500','54cb00','00cb10','00bacb']
     colors[id.to_i % colors.length] || colors.last
   end
 
