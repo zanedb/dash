@@ -41,5 +41,32 @@
 }</pre>
   The <strong>note</strong> field<% if @event.fields.any? %>, along with all custom fields (highlighted) are optional.<% else %> is optional. Remember that you can customize these fields via the <%= link_to 'form builder', event_attendee_fields_path(@event) %>, which are accepted in the API as well.<% end %>
   Additionally, if your request is invalid, errors will be sent back in a JSON <code>errors</code> object.
-  <br/>Finally, ensure that all requests are sent from permitted domains, which can be configured on the <%= link_to 'event management page', edit_event_path(@event) %>.
+  <br/>Finally, ensure that all requests are sent from permitted domains, which can be configured below.
 </div>
+
+<h2>Configure API options</h2>
+<%= form_with(model: @event, local: true) do |form| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :permitted_domains %>
+    <p class="slate no-margin">
+      You can choose which domains are allowed to submit attendees. If you leave this field blank (default), requests from any domain are accepted. Separate multiple domains with commas and no space. Do not include trailing slashes.
+    </p>
+    <%= form.text_area :permitted_domains %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
