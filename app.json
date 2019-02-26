@@ -23,9 +23,6 @@
     },
     "SECRET_KEY_BASE": {
       "required": true
-    },
-    "DATABASE_URL": {
-      "required": true
     }
   },
   "formation": {
