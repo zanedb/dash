@@ -22,7 +22,7 @@ end
 puts "Created #{event.attendees.count} attendees for #{event.name}"
 
 puts "Enter admin email address: "
-email = STDIN.gets.strip.downcase
+email = STDIN.gets.strip.downcase || 'dash@zane.sh'
 
 user = User.invite!(email: email) do |u|
   u.skip_invitation = true
