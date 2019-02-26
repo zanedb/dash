@@ -1,6 +1,6 @@
 <% title 'Welcome' %>
 <% page_sm %>
-<h1 class="center">Welcome to Dash!</h1>
+<h1>Welcome to Dash!</h1>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
   <%= devise_error_messages! %>
@@ -10,7 +10,7 @@
     <br/>Please fill out the fields below to get started.
   </p>
 
-  <p><%= f.label 'Full Name' %>
+  <p><%= f.label 'Full name' %>
   <%= f.text_field :name, value: '' %></p>
 
   <% if f.object.class.require_password_on_accepting %>

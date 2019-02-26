@@ -1,22 +1,12 @@
 <% title "#{@event.name}" %>
 
 <% cache [@event, 'header'] do %>
-  <div class="dropdown action-sheet">
-    <div class="dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
-      <div class="btn btn--icon"><%= inline_svg 'action-sheet.svg', { width: 24 } %></div>
-    </div>
-    <ul class="dropdown__content">
-      <li><%= link_to 'Event settings', edit_event_path(@event) %></li>
-      <li><%= link_to 'Team members', event_team_path(@event) %></li>
-      <li><%= link_to 'Set up registration', event_attendee_fields_path(@event) %></li>
-      <li><%= link_to 'Configure webhooks', event_webhooks_path(@event) %></li>
-      <% if current_user.admin? %>
-        <li><%= link_to 'Delete event', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'error' %></li>
-      <% end %>
-    </ul>
-  </div>
-
-  <h1 class="center mb0" style="font-weight: 900;"><%= @event.name %></h1>
+  <h1 class="center mb0" style="font-weight: 900;">
+    <%= @event.name %>
+    <%= link_to edit_event_path(@event), class: 'btn btn--icon', style: 'width:2.5rem;height:2.5rem;' do %>
+      <%= inline_svg 'edit.svg', { width: 18 } %>
+    <% end %>
+  </h1>
   <p class="slate center h3 my0 info">
     <%= @event.city %> — <%= event_length(@event).html_safe %>
   </p>
@@ -37,7 +27,7 @@
       <% end %>
       <li>
         <%= link_to event_team_path(@event), class: 'btn btn--icon' do %>
-          <%= inline_svg 'edit.svg', { width: 16 } %>
+          <%= inline_svg 'chevron-right.svg', { width: 20 } %>
         <% end %>
       </li>
     </ul>

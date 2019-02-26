@@ -43,7 +43,7 @@
 <% end %>
 
 <h2>Invite another member</h2>
-<p>This person will have full access to your entire event.</p>
+<p class="muted">This person will have full access to your entire event.</p>
 <%= form_with(model: @invite, local: true, url: event_organizer_position_invites_path) do |form| %>
   <% if @invite.errors.any? %>
     <div id="error_explanation">

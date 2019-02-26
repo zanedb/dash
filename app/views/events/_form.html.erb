@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
@@ -34,30 +34,6 @@
     <%= form.label :city %>
     <%= form.text_field :city %>
   </div>
-
-  <div class="field">
-    <%= form.label :permitted_domains %>
-    <p class="slate no-margin">
-      For the 
-      <%= @event.persisted? ? 
-        (link_to 'attendee API access', "#{event_attendees_path(@event)}#api-access")
-        : 'attendee API access'
-      %>, you can choose which domains are allowed to submit attendees.
-      <br/>If you leave this field blank (default), requests from any domain are accepted.
-      <br/>Separate multiple domains with commas and no space. Do not include trailing slashes.
-    </p>
-    <%= form.text_area :permitted_domains %>
-  </div>
-
-  <% if @event.persisted? %>
-    <div class="field">
-      <%= form.label 'Configure webhooks' %>
-      <p class="slate no-margin">
-        When an attendee is created, Dash can send requests to chosen URLs containing that attendee’s data as JSON.
-        <br/><strong>You can <%= link_to 'configure webhooks here', event_webhooks_path(@event) %>.</strong>
-      </p>
-    </div>
-  <% end %>
 
   <div class="actions">
     <%= form.submit %>

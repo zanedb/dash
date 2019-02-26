@@ -34,13 +34,13 @@ class Event < ApplicationRecord
   private
 
   def permitted_domains_cannot_have_trailing_slash
-    if permitted_domains.present?
+    domains = permitted_domains
+    domains ||= ''
     permitted_domains.split(',').each do |domain|
       if domain[-1] == '/'
         errors.add(:permitted_domains, 'cannot contain trailing slashes')
       end
     end
-  end
   end
 
   friendly_id :slug_candidates, use: :slugged

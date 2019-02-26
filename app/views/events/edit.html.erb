@@ -1,7 +1,19 @@
 <% title "Editing #{@event.name}" %>
+<% page_sm %>
 <div class="breadcrumbs">
   <%= link_to @event.name, @event %>
 </div>
 <h1>Edit event settings</h1>
 
 <%= render 'form', event: @event %>
+
+<h2>More settings</h2>
+<ul class="list">
+  <li><%= link_to 'Team members', event_team_path(@event) %></li>
+  <li><%= link_to 'Set up registration', event_attendee_fields_path(@event) %></li>
+  <li><%= link_to 'API documentation & setup', api_event_attendee_fields_path(@event) %></li>
+  <li><%= link_to 'Configure webhooks', event_webhooks_path(@event) %></li>
+  <% if current_user.admin? %>
+    <li class="error"><%= link_to 'Delete event', @event, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  <% end %>
+</ul>
