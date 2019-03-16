@@ -62,6 +62,7 @@ export default ({
         >
           {focused ? (
             <Fragment>
+              <span className="bold">Name</span>
               <FieldNameInput
                 placeholder="Field name"
                 value={label}
@@ -96,6 +97,7 @@ export default ({
         </label>
         {focused ? (
           <Fragment>
+            <span className="bold">Type</span>
             <select
               value={kind}
               icon={`/icons/${kind}.svg`}
@@ -151,7 +153,7 @@ export default ({
   )
 }
 const FieldWrapper = styled.div.attrs({
-  className: 'flex items-end col-12 mb2 px2'
+  className: 'flex items-end col-12 mb2'
 })`
   ${props =>
     props.focused &&

@@ -20,7 +20,7 @@ export default class Fields extends React.Component {
 
   getFields() {
     const { event } = this.props.props
-    axios.get(`/events/${event.slug}/registration.json`).then(res => {
+    axios.get(`/${event.slug}/registration.json`).then(res => {
       const fields = res.data
       let i = 1
       fields.forEach(a => {
@@ -121,7 +121,7 @@ export default class Fields extends React.Component {
     const { event } = this.props.props
     if (hasChanged) {
       // get old fields from endpoint, compare, update server-side data
-      axios.get(`/events/${event.slug}/registration.json`).then(res => {
+      axios.get(`/${event.slug}/registration.json`).then(res => {
         const oldFields = res.data
         const deletionDiff = differenceBy(oldFields, fields, 'id')
 
@@ -131,7 +131,7 @@ export default class Fields extends React.Component {
             const csrfToken = getAuthenticityToken()
             axios({
               method: 'post',
-              url: `/events/${event.slug}/registration`,
+              url: `/${event.slug}/registration`,
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               },
@@ -151,7 +151,7 @@ export default class Fields extends React.Component {
             const csrfToken = getAuthenticityToken()
             axios({
               method: 'post',
-              url: `/events/${event.slug}/registration/${f.slug}`,
+              url: `/${event.slug}/registration/${f.slug}`,
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               },
@@ -181,7 +181,7 @@ export default class Fields extends React.Component {
           const csrfToken = getAuthenticityToken()
           axios({
             method: 'post',
-            url: `/events/${event.slug}/registration/${f.slug}`,
+            url: `/${event.slug}/registration/${f.slug}`,
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
             },
