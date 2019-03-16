@@ -17,7 +17,6 @@ class Event < ApplicationRecord
   after_create { create_waiver! }
 
   validates :name, :start_date, :end_date, :city, presence: true
-  validate :permitted_domains_cannot_have_trailing_slash
 
   def past?
     end_date.past?
@@ -31,20 +30,8 @@ class Event < ApplicationRecord
     { exists: true, past: past?, future: future? }
   end
 
-  private
-
-  def permitted_domains_cannot_have_trailing_slash
-    domains = permitted_domains
-    domains ||= ''
-    permitted_domains.split(',').each do |domain|
-      if domain[-1] == '/'
-        errors.add(:permitted_domains, 'cannot contain trailing slashes')
-      end
-    end
-  end
-
   friendly_id :slug_candidates, use: :slugged
   def slug_candidates
-    [:name, %i[name city], %i[name start_date]]
+    [:name, [:name, :city], [:name, :start_date]]
   end
 end
