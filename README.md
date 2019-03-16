@@ -12,7 +12,7 @@ $ cd dash
 2. Install dependencies, setup the db & add test data — make sure to respond to & read the prompts.
 
 ```sh
-$ ./bin/setup
+$ bin/setup
 ```
 
 3. Start the development server.
@@ -21,9 +21,19 @@ $ ./bin/setup
 # only run Rails
 $ bin/rails server
 # run Rails & Webpacker for React hot reload
-$ ./bin/server
+$ bin/server
 ```
 
 ### Testing
 
-todo, lol
+```
+$ rails test
+```
+
+### Counting lines of code
+
+lol
+
+```
+[cloc](https://github.com/AlDanial/cloc) --exclude-dir=node_modules,tmp .
+```

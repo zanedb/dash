@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+  - 2.5.1
+before_install:
+  - bin/setup
+script:
+  - rails test
