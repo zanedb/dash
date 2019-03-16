@@ -74,10 +74,6 @@
     </p>
   <% end %>
 
-  <p>
-    <strong>Notes</strong>
-    <span style="white-space: pre-wrap;"><%= @attendee.note %></span>
-  </p>
   <% @attendee_fields.each do |field| %>
     <p>
       <%= content_tag :strong, field.label %>

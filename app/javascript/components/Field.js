@@ -62,7 +62,6 @@ export default ({
         >
           {focused ? (
             <Fragment>
-              <span className="bold">Name</span>
               <FieldNameInput
                 placeholder="Field name"
                 value={label}

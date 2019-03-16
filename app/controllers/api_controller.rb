@@ -3,7 +3,7 @@ class ApiController < ApplicationController
   before_action :block_unpermitted_requests
   skip_before_action :verify_authenticity_token
 
-  CORE_PARAMS = %i[first_name last_name email note]
+  CORE_PARAMS = %i[first_name last_name email]
 
   def new_attendee
     @attendee = @event.attendees.new(attendee_core_params)

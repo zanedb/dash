@@ -41,7 +41,6 @@ class Attendee < ApplicationRecord
     first_name
     last_name
     email
-    note
     created_at
     checked_in_at
     checked_out_at

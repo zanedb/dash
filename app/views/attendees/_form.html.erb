@@ -26,13 +26,6 @@
     <%= form.text_field :email %>
   </div>
 
-  <div class="field">
-    <%= form.label :note do %>
-      Note <span class="muted">(optional)</span>
-    <% end %>
-    <%= form.text_area :note %>
-  </div>
-
   <% @event.fields.each do |field| %>
     <div class="a-lil-bottom-margin">
       <label class="field">

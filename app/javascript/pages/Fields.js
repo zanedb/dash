@@ -227,8 +227,7 @@ export default class Fields extends React.Component {
             {[
               { label: 'First Name', name: 'first_name', kind: 'text' },
               { label: 'Last Name', name: 'last_name', kind: 'text' },
-              { label: 'Email Address', name: 'email', kind: 'email' },
-              { label: 'Note', name: 'note', kind: 'multiline' }
+              { label: 'Email Address', name: 'email', kind: 'email' }
             ].map(defaultField => (
               <Field
                 {...defaultField}
