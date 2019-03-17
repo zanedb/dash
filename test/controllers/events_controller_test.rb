@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class EventsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::ControllerHelpers
+
   setup do
+    sign_in users(:admin)
     @event = events(:one)
   end
 

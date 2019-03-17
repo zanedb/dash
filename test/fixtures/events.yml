@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  id: 1
+  name: 'Hack the World'
   start_date: 2018-09-22 13:11:42
   end_date: 2018-09-22 13:11:42
-  city: MyText
+  city: 'World, Earth'
 
 two:
-  name: MyString
-  start_date: 2018-09-22 13:11:42
-  end_date: 2018-09-22 13:11:42
-  city: MyText
+  id: 2
+  name: 'BrickHack'
+  start_date: 2020-09-22 13:11:42
+  end_date: 2020-09-22 13:11:42
+  city: 'Brick, CA'
