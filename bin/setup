@@ -33,5 +33,4 @@ chdir APP_ROOT do
   system! 'bin/rails log:clear tmp:clear'
 
   puts "\n== Done! =="
-  puts "\n== Don't forget to click the link above! =="
 end

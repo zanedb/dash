@@ -15,7 +15,13 @@ $ cd dash
 $ bin/setup
 ```
 
-3. Start the development server.
+3. Create an admin user (optional).
+
+```sh
+$ bin/create-admin
+```
+
+4. Start the development server.
 
 ```sh
 # only run Rails
