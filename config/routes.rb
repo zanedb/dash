@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   scope '/embed' do
-    get '/:event_id', to: 'events#embed_js', as: :embed
+    get '/:event_id', to: 'events#embed', as: :embed
   end
 
   scope '/api/v1' do
@@ -40,6 +40,8 @@ Rails.application.routes.draw do
 
   resources :events, path: '/', except: %w[index create] do
     get '/team', to: 'events#team', as: :team
+    get '/registration_config', to: 'events#registration_config', as: :registration_config
+    post '/edit_registration_config', to: 'events#edit_registration_config', as: :edit_registration_config
 
     resources :attendees do
       collection do
