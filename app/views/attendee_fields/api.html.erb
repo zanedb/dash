@@ -38,7 +38,11 @@
 "created_at": "2018-11-11T21:57:32.352Z",
 "updated_at": "2018-11-11T21:57:32.352Z"
 }</pre>
-  <% if @event.fields.any? %>All custom fields (highlighted) are optional.<% else %>You can customize these fields via the <%= link_to 'form builder', event_attendee_fields_path(@event) %>, which are accepted in the API as well.<% end %>
+  <% if @event.fields.any? %>
+    All custom fields (highlighted) are optional.
+  <% else %>
+    You can customize these fields via the <%= link_to 'form builder', event_attendee_fields_path(@event) %>, which are accepted in the API as well.
+  <% end %>
   Additionally, if your request is invalid, errors will be sent back in a JSON <code>errors</code> object.
   <br/>Finally, ensure that all requests are sent from permitted domains, which can be configured below.
 </div>
