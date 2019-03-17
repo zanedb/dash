@@ -3,15 +3,7 @@
 one:
   vendor: MyString
   model: MyString
-  checked_out_to: MyString
-  checked_out_at: 2018-11-27 23:35:40
-  checked_out_by: 
-  barcode: MyString
 
 two:
   vendor: MyString
   model: MyString
-  checked_out_to: MyString
-  checked_out_at: 2018-11-27 23:35:40
-  checked_out_by: 
-  barcode: MyString

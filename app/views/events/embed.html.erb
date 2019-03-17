@@ -18,7 +18,7 @@
 
     <% @event.fields.each do |field| %>
       <div class="dash--field">
-        <%= content_tag :label, field.name, for: field.name %>
+        <%= content_tag :label, field.label, for: field.name %>
         <%= custom_field field, form, field.kind == 'multiselect' ? field.options : @values ? @values[field.name] : '' %>
       </div>
     <% end %>

@@ -2,10 +2,10 @@
 
 one:
   content: MyText
-  attendee_field: one
-  attendee: one
+  attendee_field_id: two.id
+  attendee: one.id
 
 two:
   content: MyText
-  attendee_field: two
-  attendee: two
+  attendee_field_id: two.id
+  attendee: two.id

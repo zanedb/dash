@@ -3,13 +3,13 @@
 one:
   checked_out_to: MyString
   checked_out_at: 2018-11-27 21:36:09
-  checked_out_by: MyString
+  checked_out_by_id: 1
   hardware: one
   barcode: MyString
 
 two:
   checked_out_to: MyString
   checked_out_at: 2018-11-27 21:36:09
-  checked_out_by: MyString
+  checked_out_by_id: 2
   hardware: two
   barcode: MyString

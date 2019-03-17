@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/Capitalytics/tracer_bullets.git
-  revision: 5b5f40d6d88e901c6cd123c1f39616a19fe7fd13
-  specs:
-    tracer_bullets (0.0.5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -350,7 +344,6 @@ DEPENDENCIES
   skylight
   spring
   spring-watcher-listen (~> 2.0.0)
-  tracer_bullets!
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)

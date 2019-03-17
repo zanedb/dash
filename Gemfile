@@ -43,7 +43,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'tracer_bullets', github: 'Capitalytics/tracer_bullets'
+  # gem 'tracer_bullets', github: 'Capitalytics/tracer_bullets'
   gem 'better_errors'
   gem 'foreman'
   gem 'binding_of_caller'

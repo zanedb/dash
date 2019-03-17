@@ -4,12 +4,10 @@ one:
   first_name: MyString
   last_name: MyString
   email: MyString
-  extras:
   event: one
 
 two:
   first_name: MyString
   last_name: MyString
   email: MyString
-  extras:
   event: two
