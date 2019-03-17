@@ -19,7 +19,7 @@ export default class Fields extends React.Component {
   }
 
   getFields() {
-    const { event } = this.props.props
+    const { event } = this.props
     axios.get(`/${event.slug}/registration.json`).then(res => {
       const fields = res.data
       let i = 1
@@ -118,7 +118,7 @@ export default class Fields extends React.Component {
 
   save = () => {
     const { hasChanged, fields } = this.state
-    const { event } = this.props.props
+    const { event } = this.props
     if (hasChanged) {
       // get old fields from endpoint, compare, update server-side data
       axios.get(`/${event.slug}/registration.json`).then(res => {

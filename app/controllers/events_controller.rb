@@ -3,8 +3,8 @@
 class EventsController < ApplicationController
   before_action :please_sign_in
   before_action :set_event, except: %i[index new create]
-  before_action lambda {  authorize @event }, except: %i[index new create embed_js]
-  protect_from_forgery except: :embed_js
+  before_action lambda {  authorize @event }, except: %i[index new create embed]
+  protect_from_forgery except: :embed
 
   # GET /events
   def index
@@ -67,17 +67,21 @@ class EventsController < ApplicationController
     @invite.event = @event
   end
 
-  def embed_js
+  def embed
     @attendee = @event.attendees.new
     render :embed, layout: false
   end
 
-  def configure
+  def registration_config
+    @registration_config = @event.registration_config
+    render json: @registration_config.as_json
+  end
+
+  def edit_registration_config
     if @event.registration_config.update(registration_config_params)
-      redirect_to request.referrer || event_path(@event)
-      flash[:success] = 'Registration configured.'
+      render json: @event.registration_config.as_json
     else
-      render :edit
+      render json: 'an error occurred', status: 400
     end
   end
 
@@ -92,5 +96,9 @@ class EventsController < ApplicationController
       :city,
       :permitted_domains
     )
+  end
+	
+  def registration_config_params
+    params.require(:registration_config).permit(:goal, :open_at)
   end
 end

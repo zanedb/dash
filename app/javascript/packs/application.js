@@ -14,6 +14,6 @@ import Turbolinks from 'turbolinks'
 Turbolinks.start()
 
 import WebpackerReact from 'webpacker-react'
-import Fields from '../pages/Fields'
+import Registration from '../pages/Registration'
 
-WebpackerReact.setup({ Fields })
+WebpackerReact.setup({ Registration })
