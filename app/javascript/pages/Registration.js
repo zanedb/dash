@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import axios from 'axios'
-import qs from 'qs'
 import Fields from './Fields'
 import { getAuthenticityToken } from 'utils'
 
@@ -52,9 +51,26 @@ export default class Registration extends React.Component {
           <p className="muted">Loading…</p>
         ) : (
           <Fragment>
-            Registration open:{' '}
-            <span onClick={this.handleOpenAtChange}>
-              {open_at ? '✅' : '❌'}
+            {open_at ? (
+              <p>
+                Registration is <strong>open</strong>. Attendees can sign up
+                through{' '}
+                <a href={`/${event.slug}/registration/api`}>
+                  your API endpoint
+                </a>
+                .
+              </p>
+            ) : (
+              <p>
+                Registration is <strong>closed</strong>. Attendees can only be{' '}
+                <a href={`/${event.slug}/attendees/new`}>created manually</a>.
+              </p>
+            )}
+            <span
+              onClick={this.handleOpenAtChange}
+              className={`btn ${open_at && 'btn--destroy'}`}
+            >
+              {open_at ? 'Close' : 'Open'} registration
             </span>
             {open_at && <Fields event={event} />}
           </Fragment>

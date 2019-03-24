@@ -36,6 +36,10 @@ class Event < ApplicationRecord
     registration_config.open?
   end
 
+  def registration_closed?
+    !registration_open?
+  end
+
   private
 
   friendly_id :slug_candidates, use: :slugged

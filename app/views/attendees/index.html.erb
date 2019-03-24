@@ -1,5 +1,5 @@
 <% title "Attendees on #{@event.name}" %>
-<%# @include_react = true %>
+<%= registration_status_banner @event %>
 <div class="breadcrumbs">
   <%= link_to @event.name, @event %>
 </div>

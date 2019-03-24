@@ -225,7 +225,7 @@ input[type='submit'],
 .container {
   width: 100%;
   max-width: 64rem;
-  margin: 1rem auto;
+  margin: 0 auto;
   padding: 0 0.5rem;
 
   @media (max-width: 32em) {
@@ -290,10 +290,29 @@ input[type='submit'],
   align-items: center;
 }
 
+.flash__full {
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flash__registration-closed {
+  background-color: #faffcb;
+  color: #794600;
+  font-weight: bold;
+}
+
+.full-width {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .breadcrumbs {
   text-align: center;
   font-size: 1.1rem;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   margin-bottom: 2rem;
 
   :nth-child(1) {
