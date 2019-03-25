@@ -163,50 +163,40 @@ select[id$='date_4i'] {
 
 input[type='submit'],
 .btn {
-  color: $primary;
-  background-color: #fff;
-  fill: currentColor;
-  border: 1px solid $primary;
-  border-radius: 8px;
-  font-size: 0.875rem;
+  border: 0;
+  color: $white;
+  background-color: $primary;
+  border-radius: 10px;
+  font-size: 1rem;
   font-weight: bold;
   font-family: inherit;
   -webkit-tap-highlight-color: transparent;
   appearance: none;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   line-height: 1.5;
   overflow: hidden;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.75rem;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
   transition: all 0.25s ease;
   cursor: pointer;
 
   &:hover {
-    background-color: $primary;
-    color: #fff;
+    box-shadow: 0 2px 8px $gray6;
+  }
+  &:active {
+    box-shadow: none;
   }
 }
 .btn.btn--destroy {
-  background-color: #fff !important;
-  color: $red5 !important;
-  border: 1px solid $red5;
-
-  &:hover {
-    background-color: $red5 !important;
-    color: #fff !important;
-  }
+  background-color: $red5 !important;
+  color: #fff !important;
 }
 .btn.btn--success {
-  background-color: #fff !important;
-  color: $teal6 !important;
-  border: 1px solid $teal6;
-
-  &:hover {
-    background-color: $teal6 !important;
-    color: #fff !important;
-  }
+  background-color: $teal6 !important;
+  color: #fff !important;
 }
 .btn.btn--icon {
   width: 2.25rem;
@@ -219,7 +209,7 @@ input[type='submit'],
   -webkit-tap-highlight-color: transparent;
 }
 .btn.btn--lg {
-  padding: 1rem 1.25rem;
+  padding: 0.5rem 1.25rem;
 }
 
 .container {
@@ -297,8 +287,8 @@ input[type='submit'],
   justify-content: center;
 }
 .flash__registration-closed {
-  background-color: #faffcb;
-  color: #794600;
+  background-color: $yellow1;
+  color: $orange9;
   font-weight: bold;
 }
 
