@@ -1,8 +1,8 @@
 <% if @waiver.signed? %>
   <% title 'View Signed Waiver', false %>
   <h1>You’ve signed the waiver!</h1>
-  <p class="slate">You’ve already uploaded a signed waiver — <%= link_to 'click here to view it', @waiver.file.service_url %>.</p>
-  <p class="slate">If you need to reupload a copy of the waiver, please email us.</p>
+  <p class="muted">You’ve already uploaded a signed waiver — <%= link_to 'click here to view it', @waiver.file.service_url %>.</p>
+  <p class="muted">If you need to reupload a copy of the waiver, please email us.</p>
 <% else %>
   <% title 'Upload signed waiver', false %>
   <h1>Upload signed waiver for <%= @waiver.attendee.name %></h1>

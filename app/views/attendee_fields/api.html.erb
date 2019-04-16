@@ -7,7 +7,7 @@
 
 <h1 class="heading">API documentation</h1>
 
-<div class="slate">
+<div class="muted">
   To add an attendee via API, send a POST request to <%= link_to api_new_attendee_url(@event), api_new_attendee_url(@event) %>, as either <code>application/json</code> or <code>application/x-www-form-urlencoded</code> with any (permitted) attributes you’d like.
   <br>Below are examples of each method:
   <details style="margin-top: 0.75rem;">
@@ -64,7 +64,7 @@
 
   <div class="field">
     <%= form.label :permitted_domains %>
-    <p class="slate no-margin">
+    <p class="muted no-margin">
       You can choose which domains are allowed to submit attendees. If you leave this field blank (default), requests from any domain are accepted. Separate multiple domains with commas and no space. Do not include trailing slashes.
     </p>
     <%= form.text_area :permitted_domains %>
