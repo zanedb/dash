@@ -28,10 +28,12 @@ class User < ApplicationRecord
 
   def make_admin!
     self.admin_at = Time.current
+    save(validate: false)
   end
 
   def remove_admin!
     self.admin_at = nil
+    save(validate: false)
   end
 
   def admin?

@@ -1,23 +1,13 @@
 <% title "#{@event.name}" %>
 
 <% cache [@event, 'header'] do %>
-  <div class="dropdown action-sheet">
-    <div class="dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
-      <div class="btn btn--icon"><%= inline_svg 'action-sheet.svg', { width: 24 } %></div>
-    </div>
-    <ul class="dropdown__content">
-      <li><%= link_to 'Event settings', edit_event_path(@event) %></li>
-      <li><%= link_to 'Team members', new_event_organizer_position_invite_path(@event) %></li>
-      <li><%= link_to 'Attendee fields', event_attendee_fields_path(@event) %></li>
-      <li><%= link_to 'Configure webhooks', event_webhooks_path(@event) %></li>
-      <% if current_user.admin? %>
-        <li><%= link_to 'Delete event', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'error' %></li>
-      <% end %>
-    </ul>
-  </div>
-
-  <h1 class="center mb0" style="font-weight: 900;"><%= @event.name %></h1>
-  <p class="slate center h3 my0 info">
+  <h1 class="center mb0" style="font-weight: 900;">
+    <%= @event.name %>
+    <%= link_to edit_event_path(@event), class: 'btn btn--icon', style: 'width:2.5rem;height:2.5rem;' do %>
+      <%= inline_svg 'edit.svg', { width: 18 } %>
+    <% end %>
+  </h1>
+  <p class="muted center h3 my0 info">
     <%= @event.city %> — <%= event_length(@event).html_safe %>
   </p>
 
@@ -26,18 +16,18 @@
       <% @invites.accepted[0 ... 5].each do |invite| %>
         <li>
           <div class="mr1" title=<%= invite.user.name %>>
-            <%= avatar_for invite.user, 40 %>
+            <%= avatar_for invite.user, 36 %>
           </div>
         </li>
       <% end %>
       <% if @invites.accepted.count > 5 %>
         <li>
-          <%= link_to "+#{@invites.accepted.count - 5}", new_event_organizer_position_invite_path(@event), class: 'btn btn--icon mr1', style: 'width: 40px;height:40px;' %>
+          <%= link_to "+#{@invites.accepted.count - 5}", event_team_path(@event), class: 'btn btn--icon mr1', style: 'width: 40px;height:40px;' %>
         </li>
       <% end %>
       <li>
-        <%= link_to new_event_organizer_position_invite_path(@event), class: 'btn btn--icon' do %>
-          <%= inline_svg 'edit.svg', { width: 16 } %>
+        <%= link_to event_team_path(@event), class: 'btn btn--icon' do %>
+          <%= inline_svg 'chevron-right.svg', { width: 20 } %>
         <% end %>
       </li>
     </ul>
@@ -76,9 +66,11 @@
       Hardware<span class="badge"><%= @event.hardwares.count %></span>
     </li>
   <% end %>
+  <!--
   <%= link_to event_waivers_path(@event) do %>
     <li class="flex items-center">
       <%= @event.waiver.enabled? ? 'Waiver' : 'Add a Waiver' %>
     </li>
   <% end %>
+  -->
 </ul>

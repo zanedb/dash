@@ -14,5 +14,6 @@ import Turbolinks from 'turbolinks'
 Turbolinks.start()
 
 import WebpackerReact from 'webpacker-react'
+import Registration from '../pages/Registration'
 
-WebpackerReact.setup({})
+WebpackerReact.setup({ Registration })

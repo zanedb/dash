@@ -8,7 +8,7 @@
     Waiver
     <%= link_to 'Configure', edit_event_waiver_path(@event, @waiver), class: 'btn' %>
   </h1>
-  <p class="slate">You’ve added a waiver. You can <%= link_to 'view it here', @waiver.file.service_url, target: '_blank' %>.</p>
+  <p class="muted">You’ve added a waiver. You can <%= link_to 'view it here', @waiver.file.service_url, target: '_blank' %>.</p>
 <% else %>
   <% title "Adding a Waiver on #{@event.name}" %>
   <h1>

@@ -1,10 +1,10 @@
 <% title "Invitation to manage #{@invite.event.name}" %>
+<% page_sm %>
 <h1>
   You’re invited to manage <%= @invite.event.name %><% unless @invite.sender.admin? %> by <%= @invite.sender.name %><% end %>.
 </h1>
-<p class="mb3">
-  Would you like to accept or decline?
-  <span class="slate">(this is intended for <%= @invite.email %>)</span>
+<p class="mb3 muted">
+  Would you like to accept or decline? (this is intended for <%= @invite.email %>)
 </p>
 
 <%= 

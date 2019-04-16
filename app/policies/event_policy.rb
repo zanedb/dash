@@ -13,6 +13,10 @@ class EventPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def team?
+    record.users.include?(user) || user.admin?
+  end
+
   def show?
     record.users.include?(user) || user.admin?
   end
@@ -22,6 +26,14 @@ class EventPolicy < ApplicationPolicy
   end
 
   def update?
+    record.users.include?(user) || user.admin?
+  end
+
+  def registration_config?
+    record.users.include?(user) || user.admin?
+  end
+
+  def edit_registration_config?
     record.users.include?(user) || user.admin?
   end
 end

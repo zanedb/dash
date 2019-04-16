@@ -5,7 +5,7 @@
 
 <h1 class="heading">
   <%= @attendee_field.label %>
-  <%= link_to 'Edit', edit_event_attendee_field_path(@event, @attendee_field), class: 'btn' %>
+  <%= link_to 'Edit', event_attendee_fields_path(@event), class: 'btn' %>
   <%= link_to 'Delete field', event_attendee_field_path(@event, @attendee_field), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
 </h1>
 

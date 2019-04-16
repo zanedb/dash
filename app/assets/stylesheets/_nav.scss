@@ -1,58 +1,48 @@
 .nav {
-  padding: 0.5rem 2rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 8px 0 rgba(#000, 0.125);
+  background-color: $gray0;
+  border-bottom: 1px solid $gray1;
   width: 100%;
-  box-sizing: border-box;
-  z-index: 999999;
+  z-index: 999;
   -webkit-user-select: none;
   -webkit-app-region: drag;
 
   a {
     text-decoration: none;
   }
+
   ul {
     list-style: none;
     padding: 0;
   }
-}
 
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-  .nav {
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
+  .container {
+    margin: 0.5rem auto;
   }
-}
 
-.nav__left {
-  float: left;
-}
-
-.nav__right {
-  float: right;
+  .dropdown {
+    line-height: 0;
+  }
 }
 
 .nav__tab {
   display: inline-flex;
   align-items: center;
-  color: $gray7;
+  color: $gray9;
 
   span {
-    text-transform: uppercase;
-    letter-spacing: 1px;
     font-weight: 400;
     margin-left: 1rem;
   }
 
   img {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
   }
 }
 
-@media (max-width: 32rem) {
+@media (max-width: 32em) {
   .nav {
-    padding: 0.5rem 0.75rem;
+    padding: 0 0;
   }
   .nav__tab span {
     margin-left: 0.5rem;

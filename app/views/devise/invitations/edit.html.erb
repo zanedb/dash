@@ -1,15 +1,16 @@
 <% title 'Welcome' %>
+<% page_sm %>
 <h1>Welcome to Dash!</h1>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :invitation_token, readonly: true %>
-  <p class="slate no-margin">
-    Nice to meet you. Dash is the hackathon management system <i>of your dreams</i>. 
+  <p class="muted no-margin">
+    Nice to meet you! I’m building Dash to be the hackathon management system of your dreams — I hope you love it.
     <br/>Please fill out the fields below to get started.
   </p>
 
-  <p><%= f.label 'Full Name' %>
+  <p><%= f.label 'Full name' %>
   <%= f.text_field :name, value: '' %></p>
 
   <% if f.object.class.require_password_on_accepting %>

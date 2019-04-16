@@ -1,5 +1,6 @@
-<% title 'My Account' %>
-<h1>My Account</h1>
+<% title 'Your account' %>
+<% page_sm %>
+<h1>Your account</h1>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -49,8 +50,8 @@
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
-<p class="slate">
+<h3>Cancel your account</h3>
+<p class="muted">
   If you experience any issues with Dash, please send us <%= mail_to 'dash@zane.sh', 'an email' %>.
   You may additionally delete your account below. <br/>However, beware that this action is permanent.
   You will lose access to all events you manage.

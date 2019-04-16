@@ -2,49 +2,44 @@
 
 ### Setup
 
-1. Install Docker on your machine.
+1. Clone & enter the repo.
 
-2. Build & configure the repo.
-```
-$ docker-compose build web
-$ docker-compose run web bundle && bundle exec rails db:create db:setup && yarn
-```
-3. Start the development server.
-```
-$ docker-compose run --service-ports web
+```sh
+$ git clone https://github.com/zanedb/dash.git
+$ cd dash
 ```
 
-# README
+2. Install dependencies, setup the db & add test data — make sure to respond to & read the prompts.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-- Ruby version
-
-- System dependencies
-
-- Configuration
-
-- Database creation
-
-- Database initialization
-
-- How to run the test suite
-
-- Services (job queues, cache servers, search engines, etc.)
-
-- Deployment instructions
-
-- ...
-
-todo: update config/environments/production.rb with this line:
-
-```
-config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+```sh
+$ bin/setup
 ```
 
-but with actual URL & stuff
+3. Create an admin user (optional).
 
-also todo: update config/initializers/devise.rb esp email
+```sh
+$ bin/create-admin
+```
+
+4. Start the development server.
+
+```sh
+# only run Rails
+$ bin/rails server
+# run Rails & Webpacker for React hot reload
+$ bin/server
+```
+
+### Testing
+
+```
+$ rails test
+```
+
+### Counting lines of code
+
+lol
+
+```
+$ [cloc](https://github.com/AlDanial/cloc) --exclude-dir=node_modules,tmp .
+```

@@ -1,19 +1,36 @@
-<% title 'All Events' %>
+<% title 'All events' %>
+<% page_md %>
 <div class="breadcrumbs">
   <%= link_to 'Grand Admin Station', root_url %>
 </div>
 
-<h1 class="heading">
-  All Events
-  <%= link_to 'New Event', new_event_path, class: 'btn' %>
+<h1 class="heading" style="border-bottom: none">
+  All events
+  <%= link_to 'New event', new_event_path, class: 'btn' %>
 </h2>
 
 <% if @events.empty? %>
   <p class="muted">There are no events.</p>
 <% else %>
   <ul class="list list--row">
+    <div class="filterbar flex flex-wrap items-center width-100">
+      <%= search_field_tag :search,
+        '',
+        autofocus: true,
+        data: { behavior: 'filterbar__search' },
+        aria: { label: 'Filter events' },
+        placeholder: "Search #{pluralize @events.count, 'event'}…",
+        class: 'filterbar__search flex-auto',
+        style: 'width: auto; max-width: none;'
+      %>
+      <div data-behavior="filterbar" role="tablist" class="filterbar__filters flex mt1 lg-mt0">
+        <%= filterbar_item 'All', :exists, true %>
+        <%= filterbar_item 'Past', :past %>
+        <%= filterbar_item 'Future', :future %>
+      </div>
+    </div>
     <% @events.each do |event| %>
-      <%= link_to event do %>
+      <%= link_to event, data: { behavior: 'filterbar__row', filter: event.filter_data.to_json, name: event.name } do %>
         <li>
           <div>
             <span class="bold block">

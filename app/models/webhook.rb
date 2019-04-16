@@ -18,8 +18,4 @@ class Webhook < ApplicationRecord
       %i[name request_type]
     ]
   end
-
-  def limit_request_type
-    # TODO: make sure only certain request types are accepted
-  end
 end

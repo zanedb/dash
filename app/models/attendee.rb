@@ -5,18 +5,13 @@ require 'prawn'
 require 'net/http'
 
 class Attendee < ApplicationRecord
-  include SearchCop
   extend FriendlyId
-
-  search_scope :search do
-    attributes %i[first_name last_name], :email
-    # attributes :fields
-  end
 
   default_scope { order(created_at: :desc) }
 
-  scope :checked_in, -> { where.not(checked_in_at: nil) }
-  scope :checked_in_and_out, -> { where.not(checked_in_at: nil, checked_out_at: nil) }
+  scope :checked_in, lambda {  where.not(checked_in_at: nil) }
+  scope :checked_in_and_out,
+        lambda {  where.not(checked_in_at: nil, checked_out_at: nil) }
 
   belongs_to :event, touch: true
 
@@ -36,25 +31,32 @@ class Attendee < ApplicationRecord
   after_create :handle_webhooks
 
   after_update :set_fields_update
-  
+
   friendly_id :slug_candidates, use: :scoped, scope: :event
   def slug_candidates
-    [
-      %i[first_name last_name]
-    ]
+    [%i[first_name last_name]]
   end
 
-  CORE_PARAMS = %i[first_name last_name email note created_at checked_in_at checked_out_at].freeze
+  CORE_PARAMS = %i[
+    first_name
+    last_name
+    email
+    created_at
+    checked_in_at
+    checked_out_at
+  ]
+    .freeze
 
   def set_attendee_params(attendee_params)
     @attendee_params = attendee_params
   end
 
   def generate_public_id
-    self.public_id = loop do
-      random_id = make_public_id
-      break random_id unless Attendee.exists?(public_id: random_id)
-    end
+    self.public_id =
+      loop do
+        random_id = make_public_id
+        break random_id unless Attendee.exists?(public_id: random_id)
+      end
   end
 
   def make_public_id
@@ -72,9 +74,7 @@ class Attendee < ApplicationRecord
 
   def field_values
     data = {}
-    values.each do |value|
-      data[value.field.name] = value.content
-    end
+    values.each { |value| data[value.field.name] = value.content }
     data
   end
 
@@ -125,7 +125,11 @@ class Attendee < ApplicationRecord
     info_pdf.text_box "ID: #{public_id}"
 
     attendee_info = CombinePDF.parse(info_pdf.render).pages[0]
-    pdf = CombinePDF.parse Net::HTTP.get_response(URI.parse(event.waiver.file.service_url)).body
+    pdf =
+      CombinePDF.parse Net::HTTP.get_response(
+                         URI.parse(event.waiver.file.service_url)
+                       )
+                         .body
     pdf.pages.each { |page| page << attendee_info }
     pdf.to_pdf
   end
@@ -150,6 +154,10 @@ class Attendee < ApplicationRecord
     checked_out? && checked_in?
   end
 
+  def filter_data
+    { exists: true, checked_in: checked_in?, checked_out: checked_out? }
+  end
+
   def self.checked_in_total
     all.checked_in.count
   end
@@ -164,9 +172,12 @@ class Attendee < ApplicationRecord
       csv << keys
       all.each do |item|
         fixed = item.attrs.values
-        # yes, these are separate lines for readability. a multiline block would look ugly.
-        fixed.each_with_index { |value, index| fixed[index] = "empty" if value.class == NilClass }
-        fixed.each_with_index { |value, index| fixed[index] = "empty" if value == "" || value == " " }
+        fixed.each_with_index do |value, index|
+          if value.class == NilClass || (value == '' || value == ' ')
+            fixed[index] = 'empty'
+            fixed[index] = 'empty'
+          end
+        end
         csv << fixed
       end
     end

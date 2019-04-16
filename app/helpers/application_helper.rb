@@ -1,26 +1,43 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def page_md
+    content_for(:container_class) { 'container--md' }
+  end
+
+  def page_sm
+    content_for(:container_class) { 'container--sm' }
+  end
+
+  def no_container
+    content_for(:container_class) { 'container--none' }
+  end
+
   def format_time(time)
     local_time(time, '%B %e, %Y %l:%M%P %Z')
   end
 
   def title(page_title, append_name = true)
     page_title ||= 'Dash'
-    page_title.concat('—Dash') if append_name
+    page_title.concat(' — Dash') if append_name
     content_for(:title) { page_title }
   end
 
-  def gravatar_url(email, name, size = 48)
+  def gravatar_url(email, name, id, size = 48)
     hex = Digest::MD5.hexdigest(email.downcase.strip)
-    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(name.present? ? get_initials(name) : '?')}/#{size}/97a0ad/fff/2/0.4/false/true"
+    "https://gravatar.com/avatar/#{hex}?s=#{size}&d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/#{URI.encode(name.present? ? get_initials(name) : '?')}/#{size}/#{id.present? ? user_color(id) : '97a0ad'}/fff/2/0.4/false/true"
+  end
+
+  def user_color(id)
+    colors = ['006aff','7a6fff','bf66ff','ff70f3','ff6daa','ff7467','ff9500','54cb00','00cb10','00bacb']
+    colors[id.to_i % colors.length] || colors.last
   end
 
   def avatar_for(user, size = 48, options = {})
     image = if user.class != Attendee && user&.avatar&.attached?
               user.avatar
             else
-              gravatar_url(user.email, user.name, size * 2)
+              gravatar_url(user.email, user.name, user.id, size * 2)
             end
     image_tag image, options.merge(title: user.name, alt: user.name, width: size, height: size, class: "profile-img #{options[:class]}")
   end
@@ -28,6 +45,12 @@ module ApplicationHelper
   def get_initials(name)
     separated = name.split(' ')
     separated.length == 2 ? "#{separated[0][0].upcase}#{separated[1][0].upcase}" : name
+  end
+
+  def filterbar_item(label, name, selected = false)
+    content_tag :a, label, class: 'filterbar__item',
+    tabindex: 0, role: 'tab', 'aria-selected': selected,
+    data: { name: name.to_s, behavior: 'filterbar__item' }
   end
 
   def user_mention(user)

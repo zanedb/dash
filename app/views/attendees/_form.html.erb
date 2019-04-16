@@ -26,17 +26,11 @@
     <%= form.text_field :email %>
   </div>
 
-  <div class="field">
-    <%= form.label :note %>
-    <%= form.text_area :note %>
-  </div>
-
   <% @event.fields.each do |field| %>
     <div class="a-lil-bottom-margin">
       <label class="field">
         <%= field.label %>
-        <% field.kind == 'multiselect' ? value = field.options : value = @values ? @values[field.name] : '' %>
-        <%= custom_field field, form, value %>
+        <%= custom_field field, form, field.kind == 'multiselect' ? field.options : @values ? @values[field.name] : '' %>
       </label>
     </div>
   <% end %>

@@ -3,11 +3,14 @@ class AttendeeFieldsController < ApplicationController
   before_action :set_event
   before_action :set_attendee_field, only: %i[show edit update destroy]
   before_action -> { authorize @attendee_field }, only: %i[show edit update destroy]
+  before_action :custom_authorization, only: %i[index api]
 
   def index
-    # manually authenticate index methods, Pundit doesn't
-    unless @event.users.include?(current_user) || current_user.admin?
-      raise Pundit::NotAuthorizedError, 'not allowed to view this action'
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @event.fields.as_json
+      end
     end
   end
 
@@ -28,7 +31,7 @@ class AttendeeFieldsController < ApplicationController
 
     if @attendee_field.save
       redirect_to event_attendee_fields_path(@event)
-      flash[:success] = 'Field was successfully created.'
+      flash[:success] = 'Field created.'
     else
       render :new
     end
@@ -37,7 +40,7 @@ class AttendeeFieldsController < ApplicationController
   def update
     if @attendee_field.update(attendee_field_params)
       redirect_to event_attendee_fields_path(@event)
-      flash[:success] = 'Field was successfully updated.'
+      flash[:success] = 'Field updated.'
     else
       render :edit
     end
@@ -46,10 +49,21 @@ class AttendeeFieldsController < ApplicationController
   def destroy
     @attendee_field.destroy
     redirect_to event_attendee_fields_path(@event)
-    flash[:success] = 'Field was successfully destroyed.'
+    flash[:success] = 'Field destroyed.'
+  end
+
+  def api
   end
 
   private
+
+  def custom_authorization
+    skip_authorization
+    # manually authenticate certain methods, Pundit can't
+    unless @event.users.include?(current_user) || current_user.admin?
+      raise Pundit::NotAuthorizedError, 'not allowed to view this action'
+    end
+  end
 
   def set_attendee_field
     @attendee_field = @event.fields.friendly.find_by_friendly_id(params[:id])

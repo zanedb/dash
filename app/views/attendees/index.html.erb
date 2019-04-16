@@ -1,83 +1,55 @@
 <% title "Attendees on #{@event.name}" %>
+<%= registration_status_banner @event %>
 <div class="breadcrumbs">
   <%= link_to @event.name, @event %>
 </div>
 
 <h1 class="heading">
   <div class="flex items-center">
-    Attendees <span class="badge"><%= @attendees.count %></span>
+    Attendees
   </div>
   <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn' %>
 </h1>
-<ul class="list">
-  <li><%= link_to 'Edit Fields', event_attendee_fields_path(@event) %></li>
+<ul class="list list--border-always">
+  <li><%= link_to 'Set up registration & form', event_attendee_fields_path(@event) %></li>
+  <li><%= link_to 'API documentation & setup', api_event_attendee_fields_path(@event) %></li>
 </ul>
+
 <details>
-  <summary id="api-access" style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">API Access</summary>
-  <div class="slate">
-    To add an attendee via API, send a POST request to <%= link_to api_new_attendee_url(@event), api_new_attendee_url(@event) %>, as either <code>application/json</code> or <code>application/x-www-form-urlencoded</code> with any (permitted) attributes you’d like.
-    <br>Below are examples of each method:
-    <details style="margin-top: 0.75rem;">
-      <summary><code>application/json</code></summary>
-      Sending a request in cURL:
-<pre>curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '{"attendee":{"first_name":"Example","last_name":"Name","email":"example@example.com"<% @event.fields.each do |field| %><%= ",\"#{field.name}\":\"Example\"" %><% end %>}}' \
-  <%= api_new_attendee_url(@event) %>
-</pre>
-    </details>
-    <details style="margin-bottom: 0.75rem;">
-      <summary><code>application/x-www-form-urlencoded</code></summary>
-      Sending a request in cURL:
-<pre>curl \
-  --data "attendee[first_name]=Example&attendee[last_name]=Name&attendee[email]=example@example.com<% @event.fields.each do |field| %><%= "&attendee[#{field.name}]=Example" %><% end %>" \
-  <%= api_new_attendee_url(@event) %>
-</pre>
-    </details>
-    The API will return a <code>200 OK</code> and the attendee object in JSON if successful, like so:
-<pre>{
-  "id": 1,
-  "first_name": "Example",
-  "last_name": "Name",
-  "email": "example@example.com",
-  "note": null,
-  <% @event.fields.each do |field| %>
-  <span class="highlight"><%= "\"#{field.name}\": \"Example\"," %></span>
-  <% end %>
-  "created_at": "2018-11-11T21:57:32.352Z",
-  "updated_at": "2018-11-11T21:57:32.352Z"
-}</pre>
-    The <strong>note</strong> field<% if @event.fields.any? %>, along with all custom fields (highlighted) are optional.<% else %> is optional. Remember that you can add <%= link_to 'custom fields', event_attendee_fields_path(@event) %>, which are accepted in the API as well.<% end %>
-    Additionally, if your request is invalid, errors will be sent back in a JSON <code>errors</code> object.
-    <br/>Finally, ensure that all requests are sent from permitted domains, which can be configured on the <%= link_to 'event management page', edit_event_path(@event) %>.
-  </div>
-</details>
-<details>
-  <summary style="font-size: 1.2rem; font-weight: bold;">Check-in Stats</summary>
+  <summary class="h3 my2 bold">Check-in stats</summary>
   <p class="muted no-margin">
     <%= pluralize @attendees.checked_in_total, 'attendee' %> checked in, <%= pluralize @attendees.checked_in_and_out_total, 'attendee' %> checked in and out.
   </p>
 </details>
 
 <h2 class="heading" style="border-bottom: 0;">
-  <% if params[:search] %>
-    Attendees for “<%= params[:search] %>”
-    <%= link_to 'X', event_attendees_path(@event), class: 'badge no-decoration' %>
-  <% else %>
-    All attendees
-  <% end %>
+  All attendees <span class="badge"><%= @attendees.count %></span>
   <%= link_to 'Import', import_event_attendees_path(@event), class: 'btn' %>
-  <%= link_to 'Export', event_attendees_path(format: :csv), class: 'btn' %>
+  <%= link_to 'Export', export_event_attendees_path(@event), class: 'btn' %>
 </h2>
+
 <% if @attendees.empty? %>
   <p class="muted">There are no attendees.</p>
 <% else %>
-  <%= form_tag(event_attendees_path(@event), method: 'get', id: 'search-form') do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search #{pluralize @attendees.count, 'attendee'}…", class: 'full-width' %>
-  <% end %>
+  <div class="filterbar flex flex-wrap items-center width-100">
+    <%= search_field_tag :search,
+      '',
+      autofocus: true,
+      data: { behavior: 'filterbar__search' },
+      aria: { label: 'Filter attendees' },
+      placeholder: "Search #{pluralize @attendees.count, 'attendee'}…",
+      class: 'filterbar__search flex-auto',
+      style: 'width: auto; max-width: none;'
+    %>
+    <div data-behavior="filterbar" role="tablist" class="filterbar__filters flex mt1 lg-mt0">
+      <%= filterbar_item 'All', :exists, true %>
+      <%= filterbar_item 'Checked-in', :checked_in %>
+      <%= filterbar_item 'Checked-out', :checked_out %>
+    </div>
+  </div>
   <%= content_tag :ul, class: "list list--row list--border-always #{@attendees.count == 1 ? '' : 'list--dual'}" do %>
     <% @attendees.each do |attendee| %>
-      <%= link_to event_attendee_path(@event, attendee) do %>
+      <%= link_to event_attendee_path(@event, attendee), data: { behavior: 'filterbar__row', filter: attendee.filter_data.to_json, name: attendee.name } do %>
         <li>
           <%= avatar_for attendee, 48 %>
           <div class="ml2">
@@ -100,3 +72,4 @@
     <% end %>
   <% end %>
 <% end %>
+<%# react_component 'Attendees', props: { attendees: @attendees.json, path: event_attendees_path(@event) } %>

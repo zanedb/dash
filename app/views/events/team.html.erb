@@ -1,0 +1,79 @@
+<% title "Team members on #{@event.name}" %>
+<% page_sm %>
+<div class="breadcrumbs">
+  <%= link_to @event.name, @event %>
+</div>
+
+<h1>Team members</h1>
+<% if @event.organizer_position_invites.empty? %>
+  <p class="muted">There are no team members.</p>
+<% end %>
+<% if @event.organizer_position_invites&.accepted %>
+  <ul class="list list--unlinked list--row">
+    <% @event.organizer_positions.each do |invite| %>
+      <% if current_user.admin? %>
+        <%= link_to user_path(invite.user) do %>
+          <li>
+            <%= avatar_for(invite.user, 48) %>
+            <div class="ml2">
+              <span class="bold block">
+                <%= invite.user.name %>
+              </span>
+              <span class="muted">
+                <%= invite.user.email %> (added <%= local_time_ago invite.created_at %>)
+              </span>
+            </div>
+          </li>
+        <% end %>
+      <% else %>
+        <li>
+          <%= avatar_for(invite.user, 48) %>
+          <div class="ml2">
+            <span class="bold block">
+              <%= invite.user.name %>
+            </span>
+            <span class="muted">
+              <%= invite.user.email %> (added <%= local_time_ago invite.created_at %>)
+            </span>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2>Invite another member</h2>
+<p class="muted">This person will have full access to your entire event.</p>
+<%= form_with(model: @invite, local: true, url: event_organizer_position_invites_path) do |form| %>
+  <% if @invite.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invite.errors.count, "error") %> occurred:</h2>
+
+      <ul>
+      <% @invite.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Send invitation' %>
+  </div>
+<% end %>
+
+<% if @event.organizer_position_invites.pending.any? %>
+  <h2>Pending invitations</h2>
+  <ul class="list list--row list--unlinked">
+    <% @event.organizer_position_invites.pending.each do |invite| %>
+      <li>
+        <%= mail_to invite.email %><% if current_user.admin? %>—<%= link_to  'Destroy', event_organizer_position_invite_path(@event, invite), method: :delete, data: { confirm: 'Are you sure?' }  %>/<%= link_to  'View', event_organizer_position_invite_path(@event, invite)  %><% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

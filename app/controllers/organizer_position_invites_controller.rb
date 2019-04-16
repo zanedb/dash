@@ -2,12 +2,6 @@ class OrganizerPositionInvitesController < ApplicationController
   before_action :please_sign_in
   before_action :set_event
 
-  def new
-    @invite = OrganizerPositionInvite.new
-    @invite.event = @event
-    authorize @invite
-  end
-
   def create
     @invite = OrganizerPositionInvite.new(invite_params)
     @invite.event = @event
@@ -28,10 +22,10 @@ class OrganizerPositionInvitesController < ApplicationController
     end
 
     if @invite.save
-      flash[:success] = 'Invite successfully sent'
+      flash[:success] = 'Invite sent.'
       redirect_to @invite.event
     else
-      render :new
+      render 'events/team'
     end
   end
 
@@ -46,7 +40,7 @@ class OrganizerPositionInvitesController < ApplicationController
 
     @invite.destroy
     redirect_to @invite.event
-    flash[:success] = 'Invite was successfully destroyed.'
+    flash[:success] = 'Invite destroyed.'
   end
 
   def accept

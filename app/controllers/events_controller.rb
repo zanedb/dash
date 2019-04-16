@@ -2,8 +2,9 @@
 
 class EventsController < ApplicationController
   before_action :please_sign_in
-  before_action :set_event, only: %i[show edit update destroy]
-  before_action -> { authorize @event }, only: %i[show edit update destroy]
+  before_action :set_event, except: %i[index new create]
+  before_action lambda {  authorize @event }, except: %i[index new create embed]
+  protect_from_forgery except: :embed
 
   # GET /events
   def index
@@ -18,7 +19,8 @@ class EventsController < ApplicationController
   def show
     @invites = @event.organizer_position_invites
     @attendees = @event.attendees
-    @attendees_new_week_count = @attendees.where('created_at > ?', 1.week.ago).count
+    @attendees_new_week_count =
+      @attendees.where('created_at > ?', 1.week.ago).count
   end
 
   # GET /events/new
@@ -28,17 +30,16 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /events
   def create
     authorize Event
-    @event = Event.new(event_params.merge(user_id: current_user_id))
+    @event = Event.new(event_params)
 
     if @event.save
       redirect_to @event
-      flash[:success] = 'Event was successfully created.'
+      flash[:success] = 'Event created.'
     else
       render :new
     end
@@ -48,7 +49,7 @@ class EventsController < ApplicationController
   def update
     if @event.update(event_params)
       redirect_to @event
-      flash[:success] = 'Event was successfully updated.'
+      flash[:success] = 'Event settings updated.'
     else
       render :edit
     end
@@ -58,13 +59,46 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     redirect_to events_url
-    flash[:success] = 'Event was successfully destroyed.'
+    flash[:success] = 'Event destroyed.'
+  end
+  
+  def team
+    @invite = OrganizerPositionInvite.new
+    @invite.event = @event
+  end
+
+  def embed
+    @attendee = @event.attendees.new
+    render :embed, layout: false
+  end
+
+  def registration_config
+    @registration_config = @event.registration_config
+    render json: @registration_config.as_json
+  end
+
+  def edit_registration_config
+    if @event.registration_config.update(registration_config_params)
+      render json: @event.registration_config.as_json
+    else
+      render json: 'an error occurred', status: 400
+    end
   end
 
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:name, :start_date, :end_date, :city, :permitted_domains)
+    params.require(:event).permit(
+      :name,
+      :start_date,
+      :end_date,
+      :city,
+      :permitted_domains
+    )
+  end
+	
+  def registration_config_params
+    params.require(:registration_config).permit(:goal, :open_at)
   end
 end

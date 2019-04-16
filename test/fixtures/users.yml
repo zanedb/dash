@@ -9,3 +9,16 @@ one: {}
 #
 two: {}
 # column: value
+
+admin:
+  id: 1
+  name: 'Admin'
+  email: 'admin@dash.sh'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  admin_at: 2018-09-22 13:11:42
+
+other:
+  id: 2
+  name: 'Other'
+  email: 'other@dash.com'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>

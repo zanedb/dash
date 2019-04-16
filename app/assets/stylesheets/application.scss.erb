@@ -1,7 +1,7 @@
 @import 'colors';
-@import 'fonts';
 @import 'nav';
 @import 'basscss';
+@import 'space';
 
 * {
   box-sizing: border-box;
@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   font-size: 1rem;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family: 'ProximaNova', system-ui, -apple-system, Roboto, sans-serif;
   position: relative;
   -webkit-font-smoothing: antialiased;
   color: $black;
@@ -41,6 +41,7 @@ textarea {
 }
 
 input[type='text'],
+input[type='search'],
 input[type='url'],
 input[type='email'],
 input[type='file'],
@@ -53,6 +54,7 @@ textarea {
   display: block;
   max-width: 32rem;
   min-height: 36px;
+  margin: 0;
   line-height: inherit;
   font-family: inherit;
   font-size: 1rem;
@@ -71,6 +73,9 @@ textarea {
     outline: none;
     border-color: $gray3;
   }
+  &::placeholder {
+    color: $gray5;
+  }
 }
 
 .field_with_errors {
@@ -83,17 +88,24 @@ textarea {
   }
 }
 
+pre,
+code {
+  background-color: $gray1;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+}
 pre {
-  background-color: $gray0;
   padding: 12px;
-  font-size: 0.75rem;
+}
+code {
+  padding: 0 0.375rem;
 }
 
 a {
-  color: $gray8;
+  color: $primary;
 
   &:hover &:focus {
-    color: $gray9;
+    color: darken($primary, 10%);
   }
 }
 
@@ -139,10 +151,10 @@ select[name$='i)]'] {
 }
 // rails month & hour inputs should be wider
 select[id$='date_2i'] {
-  width: 8rem;
+  width: 6.5rem;
 }
 select[id$='date_4i'] {
-  width: 6rem;
+  width: 5rem;
 }
 
 .input--short {
@@ -151,54 +163,44 @@ select[id$='date_4i'] {
 
 input[type='submit'],
 .btn {
-  color: $primary;
-  background-color: #fff;
-  fill: currentColor;
-  border: 1px solid $primary;
-  border-radius: 8px;
-  font-size: 0.875rem;
+  border: 0;
+  color: $white;
+  background-color: $primary;
+  border-radius: 10px;
+  font-size: 1rem;
   font-weight: bold;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family: inherit;
   -webkit-tap-highlight-color: transparent;
   appearance: none;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   line-height: 1.5;
   overflow: hidden;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.75rem;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
   transition: all 0.25s ease;
   cursor: pointer;
 
   &:hover {
-    background-color: $primary;
-    color: #fff;
+    box-shadow: 0 2px 6px $gray5;
+  }
+  &:active {
+    box-shadow: none;
   }
 }
 .btn.btn--destroy {
-  background-color: #fff !important;
-  color: $red5 !important;
-  border: 1px solid $red5;
-
-  &:hover {
-    background-color: $red5 !important;
-    color: #fff !important;
-  }
+  background-color: $red5 !important;
+  color: #fff !important;
 }
 .btn.btn--success {
-  background-color: #fff !important;
-  color: $teal6 !important;
-  border: 1px solid $teal6;
-
-  &:hover {
-    background-color: $teal6 !important;
-    color: #fff !important;
-  }
+  background-color: $teal6 !important;
+  color: #fff !important;
 }
 .btn.btn--icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
   align-items: center;
   justify-content: center;
   display: inline-flex;
@@ -207,14 +209,33 @@ input[type='submit'],
   -webkit-tap-highlight-color: transparent;
 }
 .btn.btn--lg {
-  padding: 1rem 1.25rem;
+  padding: 0.5rem 1.25rem;
 }
 
 .container {
   width: 100%;
   max-width: 64rem;
-  margin: 1rem auto;
+  margin: 0 auto;
   padding: 0 0.5rem;
+
+  @media (max-width: 32em) {
+    padding: 0 1rem;
+  }
+}
+.container--md {
+  max-width: 48rem;
+}
+.container--sm {
+  max-width: 32rem;
+}
+.container--none {
+  padding: 0 !important;
+  margin: 0;
+  max-width: none;
+}
+
+.turbolinks-progress-bar {
+  background-color: $primary;
 }
 
 .flash {
@@ -223,20 +244,20 @@ input[type='submit'],
   color: $white;
   background-color: $base;
   font-size: 0.875rem;
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  max-width: 32rem;
-  width: 100%;
+  border-radius: 9999px;
+  padding: 0.25rem 1rem;
+  max-width: 24em;
+  min-height: 2.25rem;
   line-height: 1.5;
   position: absolute;
   right: 0;
   left: 0;
-  top: 4rem;
+  top: 1rem;
   animation: scale-fade-in 0.2s linear;
-  z-index: 10;
+  z-index: 99999;
 
   @media (max-width: 32em) {
-    max-width: 31em;
+    max-width: 16em;
   }
 }
 
@@ -254,12 +275,35 @@ input[type='submit'],
 }
 
 .flash__content {
-  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flash__full {
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flash__registration-closed {
+  background-color: $yellow1;
+  color: $orange9;
+  font-weight: bold;
+}
+
+.full-width {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .breadcrumbs {
   text-align: center;
   font-size: 1.1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
 
   :nth-child(1) {
     font-weight: 700;
@@ -369,16 +413,35 @@ tr {
 }
 
 .badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
+  color: $gray9;
+  background-color: $gray1;
   border-radius: 999px;
-  color: $white;
-  background-color: $gray6;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 1.25;
+  min-width: 16px;
+  padding: 0.125rem 0.5rem;
+
+  &.bg-success {
+    color: $teal9;
+    background-color: $teal1;
+  }
+  &.bg-info {
+    color: $blue9;
+    background-color: $blue1;
+  }
+  &.bg-error {
+    color: $red9;
+    background-color: $red1;
+  }
+}
+label .badge {
+  height: 16px;
+  line-height: 1;
+  padding: 0.125rem 0.5rem;
 }
 .heading .badge {
-  font-size: 1rem;
   margin-left: 1rem;
 }
 li .badge {
@@ -451,18 +514,22 @@ li .badge {
   right: 0;
   background-color: #fff;
   min-width: 12rem;
-  border-radius: 4px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.25);
   z-index: 1;
 
   a {
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
     text-decoration: none;
     display: block;
+    color: $gray8;
     transition: all 0.25s ease;
 
     &:hover {
-      background-color: $gray1;
+      background-color: $blue0;
+      color: $primary;
     }
   }
   li:not(:last-child) a {
@@ -472,10 +539,11 @@ li .badge {
 
 .action-sheet {
   position: absolute;
-  right: 0;
+  right: 1rem;
 
   @media (max-width: 32em) {
     margin-right: 1rem;
+    right: 0.25rem;
     width: 2rem;
     height: 2rem;
   }
@@ -487,6 +555,71 @@ li .badge {
   a {
     padding: 0.5rem 1rem;
   }
+}
+
+.title {
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 900;
+  color: #0069ff;
+}
+
+@media (min-width: 32em) {
+  .two-column {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+  }
+  .two-column > .left-column {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .two-column > .left-column > .left--inside {
+    align-self: center;
+    min-width: 24rem;
+  }
+  .two-column > .right-column {
+    width: 50%;
+  }
+}
+@media (max-width: 32em) {
+  .two-column {
+    padding: 1rem;
+  }
+}
+
+.pattern {
+  background-image: url('https://hackclub.com/pattern.svg');
+  background-color: $primary;
+}
+
+.filterbar {
+  padding: 0 0 1rem;
+  width: 100%;
+}
+.filterbar__search {
+  @media screen and (min-width: 32em), all {
+    margin-right: 1rem !important;
+  }
+}
+.filterbar__item {
+  border-radius: 1rem;
+  cursor: pointer;
+  display: inline-block;
+  flex-shrink: 0;
+  font-weight: 500;
+  line-height: 1.75;
+  outline: 0;
+  padding: 0.125rem 0.75rem;
+  text-decoration: none;
+}
+.filterbar__item[aria-selected='true'] {
+  background-color: $primary;
+  color: #fff;
 }
 
 @import 'lists';

@@ -1,13 +1,14 @@
 class ApiController < ApplicationController
   before_action :set_event
   before_action :block_unpermitted_requests
+  before_action :is_open
   skip_before_action :verify_authenticity_token
 
-  CORE_PARAMS = %i[first_name last_name email note]
+  CORE_PARAMS = %i[first_name last_name email]
 
   def new_attendee
     @attendee = @event.attendees.new(attendee_core_params)
-	  @attendee.set_attendee_params(attendee_params)
+    @attendee.set_attendee_params(attendee_params)
     
     if @attendee.save
       render json: @attendee.attrs.as_json, status: status
@@ -30,6 +31,12 @@ class ApiController < ApplicationController
         }, status: 400
         return
       end
+    end
+  end
+
+  def is_open
+    unless @event.registration_open?
+      render json: { errors: { registration: ['is not open'] } }, status: 400
     end
   end
 

@@ -1,0 +1,23 @@
+.dash--form {
+  font-family: inherit; /*, system-ui, -apple-system, BlinkMacSystemFont,
+    'Helvetica', Roboto, 'Segoe UI', sans-serif;*/
+}
+.dash--form input[type='text'],
+.dash--form input[type='email'],
+.dash--form input[type='checkbox'],
+.dash--form select {
+  max-width: 32rem;
+  min-height: 32px;
+  margin: 0;
+  line-height: inherit;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  width: 100%;
+}
+.dash--field {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: flex;
+  flex-direction: column;
+}
