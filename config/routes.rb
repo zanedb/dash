@@ -37,8 +37,9 @@ Rails.application.routes.draw do
 
   get '/events', to: 'events#index', as: :events
   post '/events', to: 'events#create'
+  get '/events/new', to: 'events#new', as: :new_event
 
-  resources :events, path: '/', except: %w[index create] do
+  resources :events, path: '/', except: %w[index create new] do
     get '/team', to: 'events#team', as: :team
     get '/registration_config', to: 'events#registration_config', as: :registration_config
     post '/edit_registration_config', to: 'events#edit_registration_config', as: :edit_registration_config
