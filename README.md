@@ -41,5 +41,5 @@ $ rails test
 lol
 
 ```
-[cloc](https://github.com/AlDanial/cloc) --exclude-dir=node_modules,tmp .
+$ [cloc](https://github.com/AlDanial/cloc) --exclude-dir=node_modules,tmp .
 ```
