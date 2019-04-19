@@ -215,7 +215,7 @@ const FieldInput = ({ name, kind, options }) => {
           <Fragment>
             {options ? (
               <Fragment>
-                <option value="" disabled>
+                <option value="" default>
                   Select an option
                 </option>
                 {options.map(option => (
