@@ -3081,6 +3081,11 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+highcharts@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-7.1.1.tgz#8c4433e39d5e7dbdc064685d9548181a35e12c19"
+  integrity sha512-BQtWDQmH4AweQNFLGJCHBQwv9tj9kyp35bp2FFpmNBm7LOecCQdLjvZNgUKvCsKzBzJJIywcwWu4QEcAkPGCjg==
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"

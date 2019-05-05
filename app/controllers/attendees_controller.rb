@@ -89,10 +89,10 @@ class AttendeesController < ApplicationController
       checked_out_at: nil,
       checked_out_by_id: nil
     )
-      flash[:success] = 'Attendee checked-in.'
+      flash[:success] = 'Attendee checked in.'
       redirect_to request.referrer || event_attendees_path(@event)
     else
-      flash[:error] = 'Failed to check-in attendee.'
+      flash[:error] = 'Failed to check in attendee.'
       redirect_to request.referrer || event_attendee_path(@event, @attendee)
     end
   end
@@ -101,10 +101,10 @@ class AttendeesController < ApplicationController
     return false if @attendee.checked_out?
 
     if @attendee.update(checked_out_at: Time.current, checked_out_by_id: current_user_id)
-      flash[:success] = 'Attendee checked-out.'
+      flash[:success] = 'Attendee checked out.'
       redirect_to request.referrer || event_attendees_path(@event)
     else
-      flash[:error] = 'Failed to check-out attendee.'
+      flash[:error] = 'Failed to check out attendee.'
       redirect_to request.referrer || event_attendee_path(@event, @attendee)
     end
   end

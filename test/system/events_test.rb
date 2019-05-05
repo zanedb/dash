@@ -18,7 +18,7 @@ class EventsTest < ApplicationSystemTestCase
     fill_in "City", with: @event.city
     fill_in "Name", with: @event.name
     fill_in "Start Date", with: @event.start_date
-    click_on "Create Event"
+    click_on "Create event"
 
     assert_text "Event was successfully created"
     click_on "Back"

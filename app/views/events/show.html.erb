@@ -38,7 +38,11 @@
 <div class="flex attendee-stats-container">
   <div class="sm-col-6">
     <% cache [@event, 'attendees_chart'] do %>
-      <%= line_chart @attendees.unscope(:order).group_by_week(:created_at).count, height: '14rem' %>
+      <%= 
+        line_chart @attendees.unscope(:order).group_by_week(:created_at).count,
+        height: '14rem',
+        library: { chart: { colors: ['#0069ff'] } } 
+      %>
     <% end %>
   </div>
   <div class="sm-col-6 ml2 attendee-stats">

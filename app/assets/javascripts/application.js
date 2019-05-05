@@ -4,8 +4,17 @@
 //= require_tree .
 //= require local-time
 //= require jquery3
-//= require Chart.bundle
+//= require highcharts
 //= require chartkick
+
+Highcharts.setOptions({
+  chart: {
+    style: {
+      fontFamily: `'ProximaNova', system-ui, -apple-system, Roboto, sans-serif`
+    }
+  },
+  colors: ['#0069ff']
+})
 
 // selectByBehavior('some_behavior') is a shortcut for selecting elements by data-behavior
 const selectByBehavior = (selector, filter = '') =>
