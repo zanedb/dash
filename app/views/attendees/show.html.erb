@@ -32,7 +32,7 @@
     <%= mail_to @attendee.email %>
   </p>
   <p>
-    <strong>Registered at</strong>
+    <strong>Registered</strong>
     <%= format_time(@attendee.created_at) %>
   </p>
   <% if @attendee.checked_in? %>
