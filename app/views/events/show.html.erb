@@ -1,4 +1,5 @@
 <% title "#{@event.name}" %>
+<%= registration_status_banner @event %>
 
 <% cache [@event, 'header'] do %>
   <h1 class="center mb0" style="font-weight: 900;">
