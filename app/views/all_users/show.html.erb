@@ -20,8 +20,8 @@
   <%= link_to 'Impersonate', impersonate_user_path(@user), class: 'btn', method: :post %>
 </div>
 
-<h2 class="m0 mt3"><%= @user.name %>’s Events</h2>
 <% if @user.events.any? %>
+  <h2 class="m0 mt3"><%= name_or_email @user %>’s Events</h2>
   <ul class="list">
     <% @user.events.each do |event| %>
       <%= link_to event do %>
@@ -38,6 +38,24 @@
       <% end %>
     <% end %>
   </ul>
+<% elsif @user.organizer_position_invites.pending.any? %>
+  <h2 class="m0 mt3"><%= name_or_email @user %>’s Invites</h2>
+  <ul class="list">
+    <% @user.organizer_position_invites.pending.each do |invite| %>
+      <%= link_to invite.event do %>
+        <li>
+          <div>
+            <span class="bold block">
+              <%= invite.event.name %>
+            </span>
+            <span class="muted">
+              <%= invite.event.city %> — <%= event_length(invite.event).html_safe %>
+            </span>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
 <% else %>
-  <p class="muted"><%= @user.name %> does not manage any events.</p>
+  <p class="muted"><%= name_or_email @user %> does not manage any events and has no active invites.</p>
 <% end %>
