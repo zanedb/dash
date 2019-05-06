@@ -8,7 +8,7 @@
   <div class="flex items-center">
     Attendees
   </div>
-  <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn' %>
+  <%= link_to 'Add an attendee', new_event_attendee_path, class: 'btn bg-success' %>
 </h1>
 <ul class="list list--border-always">
   <li><%= link_to 'Set up registration & form', event_attendee_fields_path(@event) %></li>
@@ -22,7 +22,7 @@
   </p>
 </details>
 
-<h2 class="heading" style="border-bottom: 0;">
+<h2 class="heading pb1">
   All attendees <span class="badge"><%= @attendees.count %></span>
   <%= link_to 'Import', import_event_attendees_path(@event), class: 'btn' %>
   <%= link_to 'Export', export_event_attendees_path(@event), class: 'btn' %>
@@ -55,13 +55,9 @@
           <div class="ml2">
             <span class="bold block">
               <%= attendee.name %>
-              <% if attendee.checked_in? %>
-                <%= 
-                  content_tag :span,
-                  "Checked in#{attendee.both? ? ' & out' : ''}",
-                  class: attendee.both? ? 'badge bg-success' : 'badge bg-info' 
-                %>
-              <% end %>
+              <%= content_tag :span,
+                "Checked in#{attendee.both? ? ' & out' : ''}",
+                class: attendee.both? ? 'badge bg-success' : 'badge bg-info' if attendee.checked_in? %>
             </span>
             <span class="muted">
               <%= attendee.email %>
@@ -72,4 +68,5 @@
     <% end %>
   <% end %>
 <% end %>
-<%# react_component 'Attendees', props: { attendees: @attendees.json, path: event_attendees_path(@event) } %>
+
+<%# react_component 'Attendees', props: { attendees: @attendees.as_json, path: event_attendees_path(@event) } %>

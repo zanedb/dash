@@ -1,12 +1,11 @@
 <% title 'Home' %>
 <% page_sm %>
-<div class="center">
-  <% if current_user != true_user %>
-    <p class="center muted h4">You are currently impersonating <%= current_user.name %>. <%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %>.</p>
-  <% end %>
-  <h1 class="title heading">Dash</h1>
-  <p class="muted">(<u>Dash</u> is in no way the final name. <strong><%= link_to 'Name suggestions welcome', 'https://goo.gl/forms/Rcq48KDHpexpZyyF2', target: '_blank' %></strong>.)</p>
-</div>
+
+<% if current_user != true_user %>
+  <p class="center muted h4">You are currently impersonating <%= current_user.name %>. <%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %>.</p>
+<% end %>
+<h1 class="title">Dash</h1>
+<p class="muted">(<u>Dash</u> is in no way the final name. <strong><%= link_to 'Name suggestions welcome', 'https://goo.gl/forms/Rcq48KDHpexpZyyF2', target: '_blank' %></strong>.)</p>
 
 <% if @invites.any? %>
   <h2>
@@ -43,8 +42,8 @@
 <% if current_user.admin? %>
   <h2>Grand Admin Station</h2>
   <ul class="list">
-    <li class="h3"><%= link_to 'All events', events_path %></li>
-    <li class="h3"><%= link_to 'New event', new_event_path %></li>
-    <li class="h3"><%= link_to 'All users', all_users_path %></li>
+    <li><%= link_to 'All events', events_path %></li>
+    <li><%= link_to 'New event', new_event_path %></li>
+    <li><%= link_to 'All users', all_users_path %></li>
   </ul>
 <% end %>
