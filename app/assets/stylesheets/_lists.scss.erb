@@ -58,8 +58,8 @@ $chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
     background: $gray0;
   }
 }
-.list--border-top {
-  border-top: 1px solid $gray2;
+.list--border-bottom {
+  border-bottom: 1px solid $gray1;
 }
 @media (min-width: 32em) {
   .list--dual {
@@ -73,18 +73,20 @@ $chevron: "url(<%= asset_url 'chevron.svg' %>) right 12px center no-repeat";
   }
 }
 h1 + .list,
+h2 + .list,
+h3 + .list,
 h1 + .details {
-  margin-top: -1rem;
+  border-top: 1px solid $gray1 !important;
 }
 h3 + .list {
-  border-top: 1px solid $gray2;
+  border-bottom: 1px solid $gray1;
 }
 
 .details {
   > p,
   > div {
     display: grid;
-    border-bottom: 1px solid $gray2;
+    border-bottom: 1px solid $gray1;
     padding-top: 1rem;
     padding-bottom: 1rem;
     margin: 0;
