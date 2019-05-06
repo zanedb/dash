@@ -78,6 +78,10 @@ textarea {
   }
 }
 
+input[type='search']::-webkit-search-decoration {
+  display: none;
+}
+
 .field_with_errors {
   label {
     font-weight: bold;
@@ -291,6 +295,12 @@ input[type='submit'],
   background-color: $yellow1;
   color: $orange9;
   font-weight: bold;
+
+  @media (max-width: 32em) {
+    text-align: center;
+    padding: 1rem;
+    height: 4rem;
+  }
 }
 
 .full-width {
@@ -325,9 +335,6 @@ input[type='submit'],
 h2.heading,
 h3.heading {
   margin-bottom: 0;
-  .btn {
-    font-size: 0.875rem;
-  }
 }
 @media (min-width: 32em) {
   .container {
@@ -356,7 +363,6 @@ h4 {
 }
 h1 {
   font-size: 2.5rem;
-  padding-bottom: 8px;
   margin-bottom: 1rem;
 
   @media (max-width: 32em) {
@@ -365,12 +371,7 @@ h1 {
 }
 h2 {
   font-size: 1.75rem;
-  padding-bottom: 4px;
   margin-bottom: 0.5rem;
-}
-h1.heading,
-h2.heading {
-  border-bottom: 1px solid $gray3;
 }
 h3 {
   font-size: 1.5rem;
@@ -462,7 +463,7 @@ li .badge {
 .stat-label {
   color: $gray6;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.05em;
   font-size: 1rem;
 }
 
@@ -594,8 +595,8 @@ li .badge {
 }
 
 .pattern {
-  background-image: url('https://hackclub.com/pattern.svg');
   background-color: $primary;
+  background-image: url('https://hackclub.com/pattern.svg');
 }
 
 .filterbar {
