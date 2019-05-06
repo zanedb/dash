@@ -13,17 +13,12 @@
   </p>
 
   <div class="flex justify-center">
-    <ul class="flex flex-wrap list-reset">
-      <% @invites.accepted[0 ... 5].each do |invite| %>
+    <ul class="flex flex-wrap justify-center list-reset">
+      <% @invites.accepted.each do |invite| %>
         <li>
           <div class="mr1" title=<%= invite.user.name %>>
             <%= avatar_for invite.user, 36 %>
           </div>
-        </li>
-      <% end %>
-      <% if @invites.accepted.count > 5 %>
-        <li>
-          <%= link_to "+#{@invites.accepted.count - 5}", event_team_path(@event), class: 'btn btn--icon mr1', style: 'width: 40px;height:40px;' %>
         </li>
       <% end %>
       <li>
