@@ -84,4 +84,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def name_or_email user
+    user.name.present? ? user.name : user.email
+  end
 end
