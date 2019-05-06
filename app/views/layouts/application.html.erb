@@ -15,6 +15,7 @@
   </head>
 
   <body>
+    <%= impersonation_banner current_user, true_user %>
     <%= render 'layouts/nav' %>
     <main class="container <%= content_for :container_class %>">
       <%= yield %>

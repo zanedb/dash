@@ -72,4 +72,16 @@ module ApplicationHelper
     options.each { |key, value| svg[key.to_s] = value }
     doc.to_html.html_safe
   end
+
+  def impersonation_banner current_user, true_user
+    if current_user != true_user
+      content_tag :div, class: 'flash__full flash__registration-closed' do
+        content_tag :p do
+          content_tag(:span, "You are currently impersonating #{current_user.name}. ") +
+          link_to('Stop impersonating', stop_impersonating_user_path, method: :post) +
+          content_tag(:span, '.')
+        end
+      end
+    end
+  end
 end

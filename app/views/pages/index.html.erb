@@ -1,9 +1,6 @@
 <% title 'Home' %>
 <% page_sm %>
 
-<% if current_user != true_user %>
-  <p class="center muted h4">You are currently impersonating <%= current_user.name %>. <%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %>.</p>
-<% end %>
 <h1 class="title">Dash</h1>
 <p class="muted">(<u>Dash</u> is in no way the final name. <strong><%= link_to 'Name suggestions welcome', 'https://goo.gl/forms/Rcq48KDHpexpZyyF2', target: '_blank' %></strong>.)</p>
 
