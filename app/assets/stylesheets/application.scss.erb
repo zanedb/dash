@@ -11,7 +11,8 @@
 }
 html,
 body {
-  min-height: 100%;
+  min-height: 100vh;
+  background: #fff;
 }
 body {
   display: flex;
@@ -622,6 +623,14 @@ li .badge {
 .filterbar__item[aria-selected='true'] {
   background-color: $primary;
   color: #fff;
+}
+
+html.dark {
+  filter: invert(1) hue-rotate(180deg);
+
+  img {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }
 
 @import 'lists';

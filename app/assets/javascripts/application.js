@@ -144,4 +144,12 @@ $(document).on('turbolinks:load', () => {
     selectByBehavior('remember_email')
       .find('input[type=email]')
       .val(loginEmail)
+
+  $(document).on('dblclick', '[data-behavior~=nav]', () => {
+    if ($('html').hasClass('dark')) {
+      $('html').removeClass('dark')
+    } else {
+      $('html').addClass('dark')
+    }
+  })
 })
