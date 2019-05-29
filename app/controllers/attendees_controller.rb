@@ -16,7 +16,7 @@ class AttendeesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: @attendees.json
+        render json: @attendees.map(&:attrs).as_json
       end
       format.csv do
         if @attendees.present?
