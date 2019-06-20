@@ -44,7 +44,7 @@
   <div class="sm-col-6 ml2 attendee-stats">
     <div>
       <%= content_tag :p, @attendees.count, class: 'stat-value primary m0' %>
-      <%= content_tag :p, 'Total attendees', class: 'stat-label m0'%>
+      <%= content_tag :p, "Total attendee#{@attendees.count == 1 ? "" : "s"}", class: 'stat-label m0'%>
     </div>
     <div>
       <%=
