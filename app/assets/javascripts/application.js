@@ -31,7 +31,27 @@ const deselectElement = (selector, filter = '[aria-selected=true]') =>
 const selectElement = (selector, filter) =>
   selectByBehavior(selector, filter).attr('aria-selected', true)
 
+const setDark = () => {
+  if ($('html').hasClass('dark')) {
+    $('html').removeClass('dark')
+    $('.dark-mode-on').hide()
+    $('.dark-mode-off').show()
+  } else {
+    $('html').addClass('dark')
+    $('.dark-mode-off').hide()
+    $('.dark-mode-on').show()
+  }
+}
 $(document).ready(function() {
+  // show dark mode button
+  if ($('html').hasClass('dark')) {
+    $('.dark-mode-on').show()
+    $('.dark-mode-off').hide()
+  } else {
+    $('.dark-mode-off').show()
+    $('.dark-mode-on').hide()
+  }
+
   // open & then close flash message a bit later
   if ($('.flash').length) {
     $('.flash')
@@ -145,11 +165,7 @@ $(document).on('turbolinks:load', () => {
       .find('input[type=email]')
       .val(loginEmail)
 
-  $(document).on('dblclick', '[data-behavior~=nav]', () => {
-    if ($('html').hasClass('dark')) {
-      $('html').removeClass('dark')
-    } else {
-      $('html').addClass('dark')
-    }
+  $(document).on('click', '[data-behavior~=dark-mode-toggle]', e => {
+    setDark()
   })
 })
