@@ -63,17 +63,6 @@ const updateLS = () =>
   )
 
 $(document).ready(function() {
-  // load appearance
-  if (localStorage.getItem('appearance')) {
-    setAppearance(localStorage.getItem('appearance'))
-  } else if (mqlDark.matches === true) {
-    setAppearance('dark')
-  } else if (mqlLight.matches === true) {
-    setAppearance('light')
-  } else {
-    setAppearance('light')
-  }
-
   // open & then close flash message a bit later
   if ($('.flash').length) {
     $('.flash')
@@ -127,6 +116,17 @@ $(document).ready(function() {
 })
 
 $(document).on('turbolinks:load', () => {
+  // load appearance
+  if (localStorage.getItem('appearance')) {
+    setAppearance(localStorage.getItem('appearance'))
+  } else if (mqlDark.matches === true) {
+    setAppearance('dark')
+  } else if (mqlLight.matches === true) {
+    setAppearance('light')
+  } else {
+    setAppearance('light')
+  }
+
   // filter/search helpers & code
   const currentFilter = () =>
     selectByBehavior('filterbar__item', '[aria-selected=true]').data('name')
