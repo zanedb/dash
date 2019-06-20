@@ -170,15 +170,8 @@ class Attendee < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       keys = CORE_PARAMS.map(&:to_s) + all.first.field_values.keys
       csv << keys
-      all.each do |item|
-        fixed = item.attrs.values
-        fixed.each_with_index do |value, index|
-          if value.class == NilClass || (value == '' || value == ' ')
-            fixed[index] = 'empty'
-            fixed[index] = 'empty'
-          end
-        end
-        csv << fixed
+      all.each do |a|
+        csv << a.attrs.values_at(*keys)
       end
     end
   end

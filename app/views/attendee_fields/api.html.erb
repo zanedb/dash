@@ -7,9 +7,8 @@
 
 <h1 class="heading">API documentation</h1>
 
-<div class="muted">
-  To add an attendee via API, send a POST request to <%= link_to api_new_attendee_url(@event), api_new_attendee_url(@event) %>, as either <code>application/json</code> or <code>application/x-www-form-urlencoded</code> with any (permitted) attributes you’d like.
-  <br>Below are examples of each method:
+<div>
+  To add an attendee via API, send a POST request to <%= link_to api_new_attendee_url(@event), api_new_attendee_url(@event) %>, as either <code>application/json</code> or <code>application/x-www-form-urlencoded</code> with any (permitted) attributes you’d like. See examples of each method:
   <details style="margin-top: 0.75rem;">
     <summary><code>application/json</code></summary>
     Sending a request in cURL:
@@ -29,15 +28,15 @@
   </details>
   The API will return a <code>200 OK</code> and the attendee object in JSON if successful, like so:
 <pre>{
-"id": 1,
-"first_name": "Example",
-"last_name": "Name",
-"email": "example@example.com",
-<% @event.fields.each do |field| %>
-<span class="highlight"><%= "\"#{field.name}\": \"Example\"," %></span>
-<% end %>
-"created_at": "2018-11-11T21:57:32.352Z",
-"updated_at": "2018-11-11T21:57:32.352Z"
+  "id": 1,
+  "first_name": "Example",
+  "last_name": "Name",
+  "email": "example@example.com",
+  <% @event.fields.each do |field| %>
+  <span class="highlight"><%= "\"#{field.name}\": \"Example\"," %></span>
+  <% end %>
+  "created_at": "2018-11-11T21:57:32.352Z",
+  "updated_at": "2018-11-11T21:57:32.352Z"
 }</pre>
   <% if @event.fields.any? %>
     All custom fields (highlighted) are optional.
