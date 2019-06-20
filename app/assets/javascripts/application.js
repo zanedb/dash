@@ -31,6 +31,7 @@ const deselectElement = (selector, filter = '[aria-selected=true]') =>
 const selectElement = (selector, filter) =>
   selectByBehavior(selector, filter).attr('aria-selected', true)
 
+const mql = window.matchMedia('(prefers-color-scheme: dark)')
 const setDark = () => {
   if ($('html').hasClass('dark')) {
     $('html').removeClass('dark')
@@ -42,7 +43,12 @@ const setDark = () => {
     $('.dark-mode-on').show()
   }
 }
+mql.addListener(setDark)
+
 $(document).ready(function() {
+  // set dark mode on/off automatically on Apple devices
+  setDark(mql)
+
   // show dark mode button
   if ($('html').hasClass('dark')) {
     $('.dark-mode-on').show()
