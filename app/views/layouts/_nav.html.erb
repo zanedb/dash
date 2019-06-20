@@ -9,18 +9,24 @@
         <img src="/logo.png">
         <span>Dash</span>
       <% end %>
-      <div class="dropdown">
-        <div class="nav__tab dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
-          <%= avatar_for current_user, 36 %>
+      <div class="flex items-center">
+        <div class="dark-mode-toggle" data-behavior="dark-mode-toggle">
+          <%= inline_svg 'moon.svg', { width: '24', class: 'dark-mode-off', style: 'display: none;' } %>
+          <%= inline_svg 'moon-fill.svg', { width: '24', class: 'dark-mode-on', style: 'display: none;' } %>
         </div>
-        <ul class="dropdown__content">
-          <li><%= link_to 'Your account', edit_user_registration_path %></li>
-          <% if current_user == true_user %>
-            <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
-          <% else %>
-            <li><%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %></li>
-          <% end %>
-        </ul>
+        <div class="dropdown">
+          <div class="nav__tab dropdown__btn" data-behavior="dropdown_trigger" aria-expanded="false">
+            <%= avatar_for current_user, 36 %>
+          </div>
+          <ul class="dropdown__content">
+            <li><%= link_to 'Your account', edit_user_registration_path %></li>
+            <% if current_user == true_user %>
+              <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to 'Stop impersonating', stop_impersonating_user_path, method: :post %></li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>

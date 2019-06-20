@@ -626,6 +626,13 @@ li .badge {
   color: #fff;
 }
 
+.dark-mode-toggle {
+  cursor: pointer;
+  margin-right: 0.5rem;
+  fill: $gray7;
+  line-height: 0;
+}
+
 html.dark {
   filter: invert(1) hue-rotate(180deg);
 
@@ -682,7 +689,8 @@ html.dark {
   input[type='number'],
   input[type='password'],
   select,
-  textarea {
+  textarea,
+  .flash__content {
     filter: invert(1) hue-rotate(180deg);
   }
 }
