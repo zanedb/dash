@@ -6,7 +6,7 @@
 <h1 class="heading">
   <%= @webhook.name %>
   <%= link_to 'Edit', edit_event_webhook_path(@event, @webhook), class: 'btn' %>
-  <%= link_to 'Delete', event_webhook_path(@event, @webhook), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
+  <%= link_to 'Delete', event_webhook_path(@event, @webhook), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn bg-destroy' %>
 </h1>
 
 <article class="details">

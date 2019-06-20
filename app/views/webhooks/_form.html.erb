@@ -27,6 +27,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit webhook.new_record? ? 'Create webhook' : 'Save changes' %>
   </div>
 <% end %>

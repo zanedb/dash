@@ -36,6 +36,6 @@
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit attendee.new_record? ? 'Create attendee' : 'Save changes' %>
   </div>
 <% end %>
