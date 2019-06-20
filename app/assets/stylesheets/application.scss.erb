@@ -190,19 +190,20 @@ input[type='submit'],
 
   &:focus,
   &:hover {
-    box-shadow: 0 2px 6px $gray3;
+    background-color: $blue7;
   }
-  &:active {
-    box-shadow: none;
   }
+.btn.bg-destroy {
+  &:focus,
+  &:hover {
+    background-color: $red7;
 }
-.btn.btn--destroy {
-  background-color: $red5 !important;
-  color: #fff !important;
 }
-.btn.btn--success {
-  background-color: $teal6 !important;
-  color: #fff !important;
+.btn.bg-success {
+  &:focus,
+  &:hover {
+    background-color: $teal8;
+}
 }
 .btn.btn--icon {
   width: 2.25rem;

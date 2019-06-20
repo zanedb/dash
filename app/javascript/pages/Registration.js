@@ -68,7 +68,7 @@ export default class Registration extends React.Component {
             )}
             <span
               onClick={this.handleOpenAtChange}
-              className={`btn ${open_at && 'btn--destroy'}`}
+              className={`btn ${open_at && 'bg-destroy'}`}
             >
               {open_at ? 'Close' : 'Open'} registration
             </span>
