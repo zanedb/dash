@@ -27,6 +27,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit hardware.new_record? ? 'Create hardware item' : 'Save changes' %>
   </div>
 <% end %>

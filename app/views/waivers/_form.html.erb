@@ -17,6 +17,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit waiver.new_record? ? 'Create waiver' : 'Save changes'%>
   </div>
 <% end %>

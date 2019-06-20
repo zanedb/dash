@@ -11,7 +11,8 @@
 }
 html,
 body {
-  min-height: 100%;
+  min-height: 100vh;
+  background: #fff;
 }
 body {
   display: flex;
@@ -189,19 +190,20 @@ input[type='submit'],
 
   &:focus,
   &:hover {
-    box-shadow: 0 2px 6px $gray3;
-  }
-  &:active {
-    box-shadow: none;
+    background-color: $blue7;
   }
 }
-.btn.btn--destroy {
-  background-color: $red5 !important;
-  color: #fff !important;
+.btn.bg-destroy {
+  &:focus,
+  &:hover {
+    background-color: $red7;
+  }
 }
-.btn.btn--success {
-  background-color: $teal6 !important;
-  color: #fff !important;
+.btn.bg-success {
+  &:focus,
+  &:hover {
+    background-color: $teal8;
+  }
 }
 .btn.btn--icon {
   width: 2.25rem;
@@ -622,6 +624,76 @@ li .badge {
 .filterbar__item[aria-selected='true'] {
   background-color: $primary;
   color: #fff;
+}
+
+.dark-mode-toggle {
+  cursor: pointer;
+  margin-right: 0.5rem;
+  fill: $gray7;
+  line-height: 0;
+}
+
+html.dark {
+  filter: invert(1) hue-rotate(180deg);
+
+  .dropdown__content {
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  input[type='submit'],
+  .btn {
+    background-color: $blue7;
+    &:focus,
+    &:hover {
+      background-color: $primary;
+    }
+  }
+  .btn.bg-destroy {
+    background-color: $red7;
+    &:focus,
+    &:hover {
+      background-color: $red5;
+    }
+  }
+  .btn.bg-success {
+    background-color: $teal9;
+    &:focus,
+    &:hover {
+      background-color: $teal7;
+    }
+  }
+  input[type='text'],
+  input[type='search'],
+  input[type='url'],
+  input[type='email'],
+  input[type='file'],
+  input[type='number'],
+  input[type='password'],
+  select,
+  textarea {
+    background-color: #252429;
+    border-color: #252429;
+    color: #fff;
+  }
+
+  .primary,
+  .error,
+  input[type='submit'],
+  .btn,
+  img,
+  input[type='text'],
+  input[type='search'],
+  input[type='url'],
+  input[type='email'],
+  input[type='file'],
+  input[type='number'],
+  input[type='password'],
+  select,
+  textarea,
+  .flash__content,
+  .pattern {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }
 
 @import 'lists';

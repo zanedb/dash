@@ -6,7 +6,7 @@
 <h1 class="heading">
   <%= @hardware.description %>
   <%= link_to 'Edit', edit_event_hardware_path(@event, @hardware), class: 'btn' %>
-  <%= link_to 'Delete', event_hardware_path(@event, @hardware), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
+  <%= link_to 'Delete', event_hardware_path(@event, @hardware), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn bg-destroy' %>
 </h1>
 
 <article class="details">

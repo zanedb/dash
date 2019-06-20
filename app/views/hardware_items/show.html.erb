@@ -13,7 +13,7 @@
     %>
   <% end %>
   <%= link_to 'Edit barcode', edit_event_hardware_hardware_item_path(@event, @hardware, @hardware_item), class: 'btn' %>
-  <%= link_to 'Delete', event_hardware_hardware_item_path(@event, @hardware, @hardware_item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn--destroy' %>
+  <%= link_to 'Delete', event_hardware_hardware_item_path(@event, @hardware, @hardware_item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn bg-destroy' %>
 </h1>
 
 <div class="md-float-right">
