@@ -31,31 +31,47 @@ const deselectElement = (selector, filter = '[aria-selected=true]') =>
 const selectElement = (selector, filter) =>
   selectByBehavior(selector, filter).attr('aria-selected', true)
 
-const mql = window.matchMedia('(prefers-color-scheme: dark)')
-const setDark = () => {
-  if ($('html').hasClass('dark')) {
+const setAppearance = status => {
+  if (status === 'dark') {
     $('html').removeClass('dark')
-    $('.dark-mode-on').hide()
-    $('.dark-mode-off').show()
-  } else {
     $('html').addClass('dark')
     $('.dark-mode-off').hide()
     $('.dark-mode-on').show()
+  } else if (status === 'light') {
+    $('html').removeClass('dark')
+    $('.dark-mode-on').hide()
+    $('.dark-mode-off').show()
   }
+  updateLS()
 }
-mql.addListener(setDark)
+// listen for OS dark mode toggled (on Apple devices)
+const mqlDark = window.matchMedia('(prefers-color-scheme: dark)')
+const mqlLight = window.matchMedia('(prefers-color-scheme: light)')
+mqlDark.addListener(e => setAppearance(e.matches ? 'dark' : 'light'))
+// toggle appearance between light and dark
+const toggleAppearance = () => {
+  $('html').toggleClass('dark')
+  $('.dark-mode-off').toggle()
+  $('.dark-mode-on').toggle()
+  updateLS()
+}
+// update local storage value
+const updateLS = () =>
+  localStorage.setItem(
+    'appearance',
+    $('html').hasClass('dark') ? 'dark' : 'light'
+  )
 
 $(document).ready(function() {
-  // set dark mode on/off automatically on Apple devices
-  setDark(mql)
-
-  // show dark mode button
-  if ($('html').hasClass('dark')) {
-    $('.dark-mode-on').show()
-    $('.dark-mode-off').hide()
+  // load appearance
+  if (localStorage.getItem('appearance')) {
+    setAppearance(localStorage.getItem('appearance'))
+  } else if (mqlDark.matches === true) {
+    setAppearance('dark')
+  } else if (mqlLight.matches === true) {
+    setAppearance('light')
   } else {
-    $('.dark-mode-off').show()
-    $('.dark-mode-on').hide()
+    setAppearance('light')
   }
 
   // open & then close flash message a bit later
@@ -171,7 +187,7 @@ $(document).on('turbolinks:load', () => {
       .find('input[type=email]')
       .val(loginEmail)
 
-  $(document).on('click', '[data-behavior~=dark-mode-toggle]', e => {
-    setDark()
+  $(document).on('click', '[data-behavior~=dark-mode-toggle]', () => {
+    toggleAppearance()
   })
 })
