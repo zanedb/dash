@@ -192,18 +192,18 @@ input[type='submit'],
   &:hover {
     background-color: $blue7;
   }
-  }
+}
 .btn.bg-destroy {
   &:focus,
   &:hover {
     background-color: $red7;
-}
+  }
 }
 .btn.bg-success {
   &:focus,
   &:hover {
     background-color: $teal8;
-}
+  }
 }
 .btn.btn--icon {
   width: 2.25rem;
@@ -629,7 +629,60 @@ li .badge {
 html.dark {
   filter: invert(1) hue-rotate(180deg);
 
-  img {
+  .dropdown__content {
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  input[type='submit'],
+  .btn {
+    background-color: $blue6;
+    &:focus,
+    &:hover {
+      background-color: $primary;
+    }
+  }
+  .btn.bg-destroy {
+    background-color: $red6;
+    &:focus,
+    &:hover {
+      background-color: $red5;
+    }
+  }
+  .btn.bg-success {
+    background-color: $teal8;
+    &:focus,
+    &:hover {
+      background-color: $teal7;
+    }
+  }
+  input[type='text'],
+  input[type='search'],
+  input[type='url'],
+  input[type='email'],
+  input[type='file'],
+  input[type='number'],
+  input[type='password'],
+  select,
+  textarea {
+    background-color: #252429;
+    border-color: #252429;
+    color: #fff;
+  }
+
+  .primary,
+  .error,
+  input[type='submit'],
+  .btn,
+  img,
+  input[type='text'],
+  input[type='search'],
+  input[type='url'],
+  input[type='email'],
+  input[type='file'],
+  input[type='number'],
+  input[type='password'],
+  select,
+  textarea {
     filter: invert(1) hue-rotate(180deg);
   }
 }
