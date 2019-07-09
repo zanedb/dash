@@ -142,6 +142,10 @@ class Attendee < ApplicationRecord
     checked_in_at.present?
   end
 
+  def checked_in_but_not_checked_out?
+    checked_in_at.present? && checked_out_at.nil?
+  end
+
   def checked_out_by
     User.find(checked_out_by_id)
   end
@@ -155,7 +159,7 @@ class Attendee < ApplicationRecord
   end
 
   def filter_data
-    { exists: true, checked_in: checked_in?, checked_out: checked_out? }
+    { exists: true, checked_in: checked_in_but_not_checked_out?, checked_out: checked_out? }
   end
 
   def self.checked_in_total
