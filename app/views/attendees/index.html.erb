@@ -18,7 +18,7 @@
 <details>
   <summary class="h3 my2 bold">Check-in stats</summary>
   <p class="muted no-margin">
-    <%= pluralize @attendees.checked_in_total, 'attendee' %> checked in, <%= pluralize @attendees.checked_in_and_out_total, 'attendee' %> checked in and out.
+  <%= pluralize @attendees.checked_in_only_total, 'attendee' %> only checked in, <%= pluralize @attendees.checked_in_and_out_total, 'attendee' %> checked in and out.
   </p>
 </details>
 

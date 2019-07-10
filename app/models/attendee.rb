@@ -162,6 +162,10 @@ class Attendee < ApplicationRecord
     { exists: true, checked_in: checked_in_but_not_checked_out?, checked_out: checked_out? }
   end
 
+  def self.checked_in_only_total
+    (all.checked_in.count - all.checked_in_and_out.count)
+  end
+
   def self.checked_in_total
     all.checked_in.count
   end
