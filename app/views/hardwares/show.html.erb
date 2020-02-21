@@ -1,7 +1,5 @@
 <% title "Hardware item #{@hardware.description} on #{@event.name}" %>
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %>
-</div>
+<% page_md %>
 
 <h1 class="heading">
   <%= @hardware.description %>

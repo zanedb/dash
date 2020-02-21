@@ -1,7 +1,5 @@
 <% title "Editing webhook #{@webhook.name} on #{@event.name}" %>
-<div class="breadcrumbs">
- <%= link_to @event.name, @event %> › <%= link_to 'Settings', edit_event_path(@event) %> › <%= link_to 'Webhooks', event_webhooks_path(@event) %> › <%= link_to @webhook.name, event_webhook_path(@event, @webhook) %>
-</div>
+<% page_sm %>
 
 <h1 class="heading">
   Edit webhook

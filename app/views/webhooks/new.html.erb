@@ -1,7 +1,5 @@
 <% title "New webhook on #{@event.name}" %>
-<div class="breadcrumbs">
- <%= link_to @event.name, @event %> › <%= link_to 'Settings', edit_event_path(@event) %> › <%= link_to 'Webhooks', event_webhooks_path(@event) %>
-</div>
+<% page_sm %>
 
 <h1>
   Add a webhook

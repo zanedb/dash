@@ -1,7 +1,5 @@
 <% title "Webhooks on #{@event.name}" %>
-<div class="breadcrumbs">
- <%= link_to @event.name, @event %> › <%= link_to 'Settings', edit_event_path(@event) %>
-</div>
+<% page_md %>
 
 <h1 class="heading">
   Webhooks
@@ -14,7 +12,7 @@
 <% else %>
   <ul class="list">
     <% @webhooks.each do |webhook| %>
-      <%= link_to event_webhook_path(@event, webhook) do %>
+      <%= link_to edit_event_webhook_path(@event, webhook) do %>
         <li>
           <span class="bold block">
             <%= webhook.name %>

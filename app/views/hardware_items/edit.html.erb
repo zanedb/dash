@@ -1,10 +1,8 @@
 <% title "Editing #{@hardware_item.description} on #{@event.name}" %>
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %> › <%= link_to 'Hardware', event_hardwares_path %> › <%= link_to @hardware.description, event_hardware_path(@event, @hardware) %> › <%= link_to @hardware_item.barcode, event_hardware_hardware_item_path(@event, @hardware, @hardware_item) %>
-</div>
+<% page_sm %>
 
 <h1>
-  <%= @hardware_item.description %>
+  Edit barcode
 </h1>
 
 <%= render 'form', hardware_item: @hardware_item, url: event_hardware_hardware_item_path(@event, @hardware, @hardware_item) %>
