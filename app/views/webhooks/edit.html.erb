@@ -3,6 +3,9 @@
  <%= link_to @event.name, @event %> › <%= link_to 'Settings', edit_event_path(@event) %> › <%= link_to 'Webhooks', event_webhooks_path(@event) %> › <%= link_to @webhook.name, event_webhook_path(@event, @webhook) %>
 </div>
 
-<h1>Editing Webhook</h1>
+<h1 class="heading">
+  Edit webhook
+  <%= link_to 'Delete', event_webhook_path(@event, @webhook), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn bg-destroy' %>
+</h1>
 
 <%= render 'form', url: event_webhook_path(@event, @webhook), webhook: @webhook %>

@@ -19,8 +19,6 @@ class WebhooksController < ApplicationController
     @webhook = @event.webhooks.new
     authorize @webhook
   end
-
-  def show; end
   
   def edit; end
 

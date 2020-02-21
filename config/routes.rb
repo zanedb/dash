@@ -74,6 +74,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :webhooks
+    resources :webhooks, except: %w[show]
   end
 end
