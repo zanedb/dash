@@ -10,7 +10,7 @@ class PagesController < ApplicationController
         redirect_to current_user.events.first
       end
     else
-      redirect_to new_user_session_path
+      render 'static'
     end
   end
 end
