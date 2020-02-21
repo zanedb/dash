@@ -8,9 +8,12 @@
   Export attendees
 </h1>
 
-<h2>Export a CSV file</h2>
 <p class="muted my2">
-  This will export your attendees as a CSV (comma-separated values) file,
-  which you can use in Numbers, Google Sheets, Excel, and more.
+  Export attendees to CSV (comma-separated values),
+  usable in Numbers, Google Sheets, Excel, and more, or JSON, often used by developers.
 </p>
-<%= link_to 'Export', event_attendees_path(format: :csv), class: 'btn' %>
+<% if @event.attendees.count > 0 %>
+  <%= link_to "Export #{pluralize(@event.attendees.count,'attendee')}", event_attendees_path(format: :csv), class: 'btn export-attendees-btn' %>
+<% else %>
+  <p class="error">There are no attendees to export. <%= link_to 'Create one?', new_event_attendee_path(@event) %></p>
+<% end %>
