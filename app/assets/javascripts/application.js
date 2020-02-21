@@ -190,4 +190,14 @@ $(document).on('turbolinks:load', () => {
   $(document).on('click', '[data-behavior~=dark-mode-toggle]', () => {
     toggleAppearance()
   })
+
+  // change file format from <select> on /:event/attendees/export
+  $('.file-format-select').on('change', function() {
+    $('.export-attendees-btn').attr(
+      'href',
+      $('.export-attendees-btn')
+        .attr('href')
+        .replace(/\.[^/.]+$/, '') + $('.file-format-select').val()
+    )
+  })
 })

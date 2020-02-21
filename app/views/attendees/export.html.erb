@@ -13,6 +13,8 @@
   usable in Numbers, Google Sheets, Excel, and more, or JSON, often used by developers.
 </p>
 <% if @event.attendees.count > 0 %>
+  <%= label_tag :format, 'File format' %>
+  <%= select_tag 'format', options_for_select(['.csv', '.json']), style: 'max-width: 8rem;', class: 'mb2 file-format-select' %>
   <%= link_to "Export #{pluralize(@event.attendees.count,'attendee')}", event_attendees_path(format: :csv), class: 'btn export-attendees-btn' %>
 <% else %>
   <p class="error">There are no attendees to export. <%= link_to 'Create one?', new_event_attendee_path(@event) %></p>
