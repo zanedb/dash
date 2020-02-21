@@ -16,6 +16,24 @@ export default class Fields extends React.Component {
 
   componentDidMount() {
     this.getFields()
+    window.addEventListener(
+      'beforeunload',
+      this.handleWindowBeforeUnload.bind(this)
+    )
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      'beforeunload',
+      this.handleWindowBeforeUnload.bind(this)
+    )
+  }
+
+  handleWindowBeforeUnload(e) {
+    if (this.state.hasChanged) {
+      e.preventDefault()
+      e.returnValue = true
+    }
   }
 
   getFields() {
@@ -198,11 +216,6 @@ export default class Fields extends React.Component {
 
   render() {
     const { fields, focusedField, hasChanged } = this.state
-    /*if (hasChanged) {
-      window.addEventListener('beforeunload', event => {
-        event.returnValue = 'Your changes haven’t yet been saved!'
-      })
-    }*/
     return (
       <Fragment>
         <IdleTimer
