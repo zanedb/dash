@@ -2,9 +2,7 @@
 <% @include_react = true %>
 <% page_sm %>
 
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %>
-</div>
+<%= render 'events/nav', event: @event, active: 'registration' %>
 
 <h1>Set up registration</h1>
 <%= react_component 'Registration', props: { event: @event.as_json } %>

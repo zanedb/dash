@@ -1,8 +1,8 @@
 <% title "Editing #{@event.name}" %>
 <% page_sm %>
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %>
-</div>
+
+<%= render 'events/nav', event: @event, active: 'settings' %>
+
 <h1>Edit event settings</h1>
 
 <%= render 'form', event: @event %>

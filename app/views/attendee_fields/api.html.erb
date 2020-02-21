@@ -1,9 +1,8 @@
 <% title "API documentation on #{@event.name}" %>
 <% page_md %>
 <%= registration_status_banner @event %>
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %> › <%= link_to 'Registration', event_attendee_fields_path %>
-</div>
+
+<%= render 'events/nav', event: @event, active: 'registration' %>
 
 <h1 class="heading">API documentation</h1>
 

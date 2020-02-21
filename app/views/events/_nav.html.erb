@@ -1,0 +1,21 @@
+<% unless active == 'overview' %>
+  <div class="breadcrumbs-lg">
+    <%= link_to @event.name, event_path(event) %>
+  </div>
+<% end %>
+<div class="dock-wrapper">
+  <div class="dock full-width">
+    <%= link_to event_path(event), class: 'card dock__card' do %>
+      <span>Overview</span>
+    <% end %>
+    <%= link_to event_attendees_path(event), class: 'card dock__card' do %>
+      <span>Attendees</span>
+    <% end %>
+    <%= link_to event_hardwares_path(event), class: 'card dock__card' do %>
+      <span>Hardware</span>
+    <% end %>
+    <%= link_to edit_event_path(event), class: 'card dock__card' do %>
+      <span>Settings</span>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 <% title "Hardware on #{@event.name}" %>
 <% page_md %>
 
+<%= render 'events/nav', event: @event, active: 'hardware' %>
+
 <h1 class="heading">
   Hardware items<span class="badge"><%= @hardwares.count %></span>
   <%= link_to 'Add a hardware item', new_event_hardware_path(@event), class: 'btn' %>

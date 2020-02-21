@@ -1,6 +1,8 @@
 <% title "Editing #{@hardware_item.description} on #{@event.name}" %>
 <% page_sm %>
 
+<%= render 'events/nav', event: @event, active: 'hardware' %>
+
 <h1>
   Edit barcode
 </h1>

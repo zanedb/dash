@@ -30,7 +30,9 @@
   </div>
 <% end %>
 
-<h2 class="m0">Attendees</h2>
+<%= render 'events/nav', event: @event, active: 'overview' %>
+
+<h2 class="m0">Overview</h2>
 <div class="flex attendee-stats-container">
   <div class="sm-col-6">
     <% cache [@event, 'attendees_chart'] do %>
@@ -59,18 +61,3 @@
     </div>
   </div>
 </div>
-
-<ul class="list list--row">
-  <%= link_to event_hardwares_path(@event) do %>
-    <li class="flex items-center mt2">
-      Hardware<span class="badge"><%= @event.hardwares.count %></span>
-    </li>
-  <% end %>
-  <!--
-  <%= link_to event_waivers_path(@event) do %>
-    <li class="flex items-center">
-      <%= @event.waiver.enabled? ? 'Waiver' : 'Add a Waiver' %>
-    </li>
-  <% end %>
-  -->
-</ul>

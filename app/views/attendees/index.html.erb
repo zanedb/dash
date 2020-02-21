@@ -1,8 +1,7 @@
 <% title "Attendees on #{@event.name}" %>
 <%= registration_status_banner @event %>
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %>
-</div>
+
+<%= render 'events/nav', event: @event, active: 'attendees' %>
 
 <h1 class="heading">
   <div class="flex items-center">

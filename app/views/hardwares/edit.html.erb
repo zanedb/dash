@@ -1,6 +1,8 @@
 <% title "Editing hardware item #{@hardware.description} on #{@event.name}" %>
 <% page_sm %>
 
+<%= render 'events/nav', event: @event, active: 'hardware' %>
+
 <h1>Edit hardware item</h1>
 
 <%= render 'form', url: event_hardware_path(@event, @hardware), hardware: @hardware %>

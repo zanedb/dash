@@ -1,6 +1,8 @@
 <% title "Hardware item #{@hardware.description} on #{@event.name}" %>
 <% page_md %>
 
+<%= render 'events/nav', event: @event, active: 'hardware' %>
+
 <h1 class="heading">
   <%= @hardware.description %>
   <%= link_to 'Edit', edit_event_hardware_path(@event, @hardware), class: 'btn' %>

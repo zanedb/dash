@@ -1,8 +1,7 @@
 <% title "Export attendees on #{@event.name}" %>
 <% page_sm %>
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path(@event) %>
-</div>
+
+<%= render 'events/nav', event: @event, active: 'attendees' %>
 
 <h1 class="heading">
   Export attendees

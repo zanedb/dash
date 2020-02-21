@@ -305,7 +305,7 @@ input[type='submit'],
 }
 
 .full-width {
-  width: 100vw;
+  width: 100vw !important;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -320,6 +320,13 @@ input[type='submit'],
   :nth-child(1) {
     font-weight: 700;
   }
+}
+
+.breadcrumbs-lg {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  font-weight: 700;
 }
 
 .heading {
@@ -625,6 +632,54 @@ li .badge {
   color: #fff;
 }
 
+.dock {
+  width: 100%;
+  max-width: 48rem;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+
+  @media (max-width: 40em) {
+    text-align: center;
+    padding: 1rem;
+    width: 100vw !important;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.dock-wrapper {
+  margin: 0.5rem auto 2rem auto;
+}
+
+.dock__card {
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  transform: none;
+  transition: 0.125s transform ease-in-out;
+}
+
+.card {
+  background-color: #fff;
+  box-shadow: 0 0 2px 0 $gray1, 0 4px 8px 0 $gray2;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: 0 0 2px 0 $gray1, 0 4px 12px 0 $gray3;
+    transition: 0.125s box-shadow ease-in-out;
+  }
+}
+
 .dark-mode-toggle {
   cursor: pointer;
   margin-right: 0.5rem;
@@ -675,6 +730,16 @@ html.dark {
     color: #fff;
   }
 
+  .card {
+    background-color: #252429;
+    color: #fff;
+    box-shadow: none;
+
+    &:hover {
+      background-color: #313037;
+    }
+  }
+
   .primary,
   .error,
   input[type='submit'],
@@ -690,7 +755,8 @@ html.dark {
   select,
   textarea,
   .flash__content,
-  .pattern {
+  .pattern,
+  .card {
     filter: invert(1) hue-rotate(180deg);
   }
 }

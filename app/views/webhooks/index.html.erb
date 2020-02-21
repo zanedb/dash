@@ -1,6 +1,8 @@
 <% title "Webhooks on #{@event.name}" %>
 <% page_md %>
 
+<%= render 'events/nav', event: @event, active: 'settings' %>
+
 <h1 class="heading">
   Webhooks
   <%= link_to 'Add webhook', new_event_webhook_path(@event), class: 'btn' %>

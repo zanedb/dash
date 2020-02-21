@@ -1,6 +1,8 @@
 <% title "Editing webhook #{@webhook.name} on #{@event.name}" %>
 <% page_sm %>
 
+<%= render 'events/nav', event: @event, active: 'settings' %>
+
 <h1 class="heading">
   Edit webhook
   <%= link_to 'Delete', event_webhook_path(@event, @webhook), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn bg-destroy' %>

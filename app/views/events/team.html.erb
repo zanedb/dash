@@ -1,8 +1,7 @@
 <% title "Team members on #{@event.name}" %>
 <% page_sm %>
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %>
-</div>
+
+<%= render 'events/nav', event: @event, active: 'settings' %>
 
 <h1>Team members</h1>
 <% if @event.organizer_position_invites.empty? %>

@@ -1,8 +1,7 @@
 <% title "Editing attendee #{@attendee.name} on #{@event.name}" %>
 <% page_sm %>
-<div class="breadcrumbs">
-  <%= link_to @event.name, @event %> › <%= link_to 'Attendees', event_attendees_path %> › <%= link_to "#{@attendee.first_name} #{@attendee.last_name}", event_attendee_path(@event, @attendee) %>
-</div>
+
+<%= render 'events/nav', event: @event, active: 'attendees' %>
 
 <h1 class="heading">
   Edit attendee
