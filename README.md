@@ -1,5 +1,9 @@
 # Dash
 
+> ⚠️ This repo is years old & serving only as an archive. Dash was the world’s best hackathon management platform while it lasted!
+>
+> ✨ For a full retrospective, check out [my site](https://zanedb.com/portfolio/dash).
+
 ### Setup
 
 1. Clone & enter the repo.
@@ -34,12 +38,4 @@ $ bin/server
 
 ```
 $ rails test
-```
-
-### Counting lines of code
-
-lol
-
-```
-$ [cloc](https://github.com/AlDanial/cloc) --exclude-dir=node_modules,tmp .
 ```
